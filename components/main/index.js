@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import { Nav, NavItem, NavDropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink, TabPane, TabContent } from 'reactstrap'
-import { Link } from 'react-router'
 import classnames from 'classnames';
 
 import AddPage from '../add/index.js'
@@ -53,7 +52,7 @@ class MainPage extends Component {
                 >Add Workshop Item</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="#">Current Workshop Items</NavLink>
+              <NavLink href="#">Workshop Files Monitoring</NavLink>
             </NavItem>
             <NavItem>
               <NavLink id="settingsLink" href="#"

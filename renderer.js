@@ -4,7 +4,6 @@
 
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, IndexRoute, hashHistory } from "react-router"
 
 require("!style!css!bootstrap/dist/css/bootstrap.css")
 require('./static/styles.css')
