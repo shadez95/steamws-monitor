@@ -5,10 +5,10 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-import MainPage from './components/main/index.js'
-
 require("!style!css!bootstrap/dist/css/bootstrap.css")
 require('./static/styles.css')
+
+import MainPage from './components/main/index.js'
 
 class App extends Component {
   render () {

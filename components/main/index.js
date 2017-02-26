@@ -3,6 +3,21 @@ import ReactDOM from 'react-dom'
 
 import { Nav, NavItem, NavDropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
 
+// Nav Dropdown example below
+
+// <NavDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+//   <DropdownToggle nav caret>
+//     Dropdown
+//   </DropdownToggle>
+//   <DropdownMenu>
+//     <DropdownItem header>Header</DropdownItem>
+//     <DropdownItem disabled>Action</DropdownItem>
+//     <DropdownItem>Another Action</DropdownItem>
+//     <DropdownItem divider />
+//     <DropdownItem>Another Action</DropdownItem>
+//   </DropdownMenu>
+// </NavDropdown>
+
 class NavBarComponent extends Component {
   constructor(props) {
     super(props);
@@ -29,18 +44,9 @@ class NavBarComponent extends Component {
           <NavItem>
             <NavLink href="#">Current Workshop Items</NavLink>
           </NavItem>
-          <NavDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-            <DropdownToggle nav caret>
-              Dropdown
-            </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem header>Header</DropdownItem>
-              <DropdownItem disabled>Action</DropdownItem>
-              <DropdownItem>Another Action</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>Another Action</DropdownItem>
-            </DropdownMenu>
-          </NavDropdown>
+          <NavItem>
+            <NavLink href="#">Settings</NavLink>
+          </NavItem>
         </Nav>
       </div>
     );
@@ -51,7 +57,8 @@ class MainPage extends Component {
   render () {
     return (
       <div>
-        <h1>Steam Workshop Monitor</h1>
+        <h1 style={{"textAlign": "center"}}>Steam Workshop Monitor</h1>
+        <br />
         <NavBarComponent />
       </div>
     )

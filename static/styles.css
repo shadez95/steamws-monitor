@@ -3,3 +3,7 @@ body {
   color: #fff;
   font-family: Helvetica;
 }
+
+.nav-tabs {
+  justify-content: center;
+}
