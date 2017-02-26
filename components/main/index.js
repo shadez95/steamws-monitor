@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 
 import { Nav, NavItem, NavDropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
+
+import AddForm from '../add/index.js'
 
 // Nav Dropdown example below
 
@@ -60,6 +61,7 @@ class MainPage extends Component {
         <h1 style={{"textAlign": "center"}}>Steam Workshop Monitor</h1>
         <br />
         <NavBarComponent />
+        <AddForm />
       </div>
     )
   }
