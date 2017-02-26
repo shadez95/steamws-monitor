@@ -2,13 +2,20 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-class App extends React.Component {
+import MainPage from './components/main/index.js'
+
+require("!style!css!bootstrap/dist/css/bootstrap.css")
+require('./static/styles.css')
+
+class App extends Component {
   render () {
     return (
-      <h1>Minimalistic Electron React Boilerplate Code :)</h1>
+      <div className="container">
+        <MainPage />
+      </div>
     )
   }
 }
