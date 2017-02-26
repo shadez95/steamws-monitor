@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 
-import { Nav, NavItem, NavDropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
-import Link from 'react-router'
+import { Nav, NavItem, NavDropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink, TabPane, TabContent } from 'reactstrap'
+import { Link } from 'react-router'
+import classnames from 'classnames';
+
+import AddPage from '../add/index.js'
+import SettingsPage from '../settings/index.js'
 
 // Nav Dropdown example below
 
@@ -18,48 +22,54 @@ import Link from 'react-router'
 //   </DropdownMenu>
 // </NavDropdown>
 
-class NavBarComponent extends Component {
+class MainPage extends Component {
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      dropdownOpen: false
+      activeTab: '1'
     };
   }
 
-  toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
   }
 
-  render() {
-    return (
-      <div>
-        <Nav tabs>
-          <NavItem>
-            <NavLink tag={Link} to="/somewhere" active>Add Workshop Item</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="#">Current Workshop Items</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="#">Settings</NavLink>
-          </NavItem>
-        </Nav>
-      </div>
-    );
-  }
-}
-
-class MainPage extends Component {
   render () {
     return (
       <div>
         <h1 style={{"textAlign": "center"}}>Steam Workshop Monitor</h1>
         <br />
-        <NavBarComponent />
+          <Nav tabs>
+            <NavItem>
+              <NavLink id="addLink" href="#"
+                className={classnames({ active: this.state.activeTab === '1' })}
+                onClick={() => { this.toggle('1'); }}
+                >Add Workshop Item</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="#">Current Workshop Items</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink id="settingsLink" href="#"
+                className={classnames({ active: this.state.activeTab === '2' })}
+                onClick={() => { this.toggle('2'); }}
+                >Settings</NavLink>
+            </NavItem>
+          </Nav>
+        <TabContent activeTab={this.state.activeTab}>
+          <TabPane tabId="1">
+            <AddPage />
+          </TabPane>
+          <TabPane tabId="2">
+            <SettingsPage />
+          </TabPane>
+        </TabContent>
       </div>
     )
   }

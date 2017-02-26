@@ -4,7 +4,7 @@ import { Button, Form, FormGroup, Label, Input, FormText, Col } from 'reactstrap
 class AddPage extends Component {
   render() {
     return (
-      <div>
+      <div id="AddPage">
         <br />
         <Form>
           <FormGroup row>

@@ -11,6 +11,7 @@ require('./static/styles.css')
 
 import MainPage from './components/main/index.js'
 import AddPage from './components/add/index.js'
+import SettingsPage from './components/settings/index.js'
 
 class App extends Component {
   render () {
@@ -24,10 +25,6 @@ class App extends Component {
 }
 
 ReactDOM.render(
-  <Router history={hashHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={AddPage}></IndexRoute>
-    </Route>
-  </Router>,
+  <App />,
   document.getElementById('app')
 )
