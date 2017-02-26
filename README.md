@@ -1,6 +1,8 @@
 # steamws-monitor
 An application that monitors steam workshop files for updates
 
+**This project is still in early development and not functional yet**
+
 ## Requirements
 [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com))
 
