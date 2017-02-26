@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 
 import { Nav, NavItem, NavDropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
-
-import AddForm from '../add/index.js'
+import Link from 'react-router'
 
 // Nav Dropdown example below
 
@@ -40,7 +39,7 @@ class NavBarComponent extends Component {
       <div>
         <Nav tabs>
           <NavItem>
-            <NavLink href="#" active>Add Workshop Item</NavLink>
+            <NavLink tag={Link} to="/somewhere" active>Add Workshop Item</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="#">Current Workshop Items</NavLink>
@@ -61,7 +60,6 @@ class MainPage extends Component {
         <h1 style={{"textAlign": "center"}}>Steam Workshop Monitor</h1>
         <br />
         <NavBarComponent />
-        <AddForm />
       </div>
     )
   }

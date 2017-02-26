@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col } from 'reactstrap';
 
-class AddForm extends Component {
+class AddPage extends Component {
   render() {
     return (
       <div>
@@ -19,4 +19,4 @@ class AddForm extends Component {
   }
 }
 
-export default AddForm
+export default AddPage
