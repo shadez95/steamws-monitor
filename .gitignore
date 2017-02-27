@@ -1,2 +1,4 @@
 node_modules
 renderer-bundle.js
+dist
+*.log
