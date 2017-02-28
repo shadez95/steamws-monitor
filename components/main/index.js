@@ -42,6 +42,7 @@ class MainPage extends Component {
   render () {
     return (
       <div>
+        <br />
         <h1 style={{"textAlign": "center"}}>Steam Workshop Monitor</h1>
         <br />
           <Nav tabs>
