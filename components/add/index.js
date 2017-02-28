@@ -8,15 +8,15 @@ class AddPage extends Component {
         <Form>
           <br />
           <FormGroup row className="container">
-            <Label for="workshopURLID" sm={3}>Steam Workshop URL:</Label>
-            <Col sm={8}>
+            <Label for="workshopURLID">Steam Workshop URL:</Label>
+            <Col>
               <Input type="url" name="workshopURLitem" id="workshopURLID" placeholder="https://steamcommunity.com/sharedfiles/filedetails/?id=450814997" />
             </Col>
           </FormGroup>
           <br />
           <FormGroup row className="container">
-            <Label for="localLocationID" sm={3}>Local Install Location:</Label>
-            <Col sm={8}>
+            <Label for="localLocationID">Local Install Location:</Label>
+            <Col>
               <Input type="text" name="localLocation" id="localLocationID" placeholder="C:\where\you\want\workshop\file\folder" />
             </Col>
           </FormGroup>
