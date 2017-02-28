@@ -18,7 +18,7 @@ npm run dev
 npm start
 ```
 
-## Other Important Stuff
+## Important Development Info
 **After making changes to renderer.js hit Ctrl+R in app window to reload manually**
 
 There is no hot reloading.
