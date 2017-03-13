@@ -5,12 +5,12 @@ class AddPage extends Component {
   render() {
     return (
       <div id="AddPage">
+        <br />
         <Form>
-          <br />
           <FormGroup row className="container">
-            <Label for="workshopURLID">Steam Workshop URL:</Label>
+            <Label for="workshopID">Steam Workshop ID:</Label>
             <Col>
-              <Input type="url" name="workshopURLitem" id="workshopURLID" placeholder="https://steamcommunity.com/sharedfiles/filedetails/?id=450814997" />
+              <Input type="text" name="workshopIDitem" id="workshopID" placeholder="450814997" />
             </Col>
           </FormGroup>
           <br />

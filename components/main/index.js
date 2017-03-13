@@ -5,6 +5,7 @@ import classnames from 'classnames';
 
 import AddPage from '../add/index.js'
 import SettingsPage from '../settings/index.js'
+import MonitorPage from '../monitor/index.js'
 
 // Nav Dropdown example below
 
@@ -53,7 +54,10 @@ class MainPage extends Component {
                 >Add Workshop Item</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="#">Workshop Files Monitoring</NavLink>
+              <NavLink id="monitorLink" href="#"
+                className={classnames({ active: this.state.activeTab === '3' })}
+                onClick={() => { this.toggle('3'); }}
+                >Workshop Files Monitoring</NavLink>
             </NavItem>
             <NavItem>
               <NavLink id="settingsLink" href="#"
@@ -68,6 +72,9 @@ class MainPage extends Component {
           </TabPane>
           <TabPane tabId="2">
             <SettingsPage />
+          </TabPane>
+          <TabPane tabId="3">
+            <MonitorPage />
           </TabPane>
         </TabContent>
       </div>
