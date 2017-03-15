@@ -1,14 +1,9 @@
 {
   "name": "steamws-monitor",
-  "version": "0.0.1",
+  "author": "Dixon Begay aka dixon13",
   "description": "An application that monitors a steam workshop item for updates",
-  "main": "main.js",
-  "scripts": {
-    "dev": "webpack --watch",
-    "start": "electron .",
-    "build-local": "electron-packager . SteamwsMonitor --out ./dist --overwrite --ignore=./node_modules --ignore=./dist --ignore=./renderer-bundle.js",
-    "build-all": "electron-packager . SteamwsMonitor --all --out ./dist --overwrite"
-  },
+  "version": "0.0.1",
+  "license": "MIT",
   "repository": "https://github.com/dixon13/steamws-monitor",
   "keywords": [
     "steam",
@@ -17,29 +12,25 @@
     "files",
     "item"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-core": "^6.18.2",
-    "babel-loader": "^6.2.7",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
-    "classnames": "^2.2.5",
-    "css-loader": "^0.26.2",
-    "electron": "^1.4.15",
-    "fs": "0.0.1-security",
-    "remote": "^0.2.6",
-    "style-loader": "^0.13.2",
-    "webpack": "^1.13.3"
-  },
+  "main": "src/app.js",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
-    "electron": "^1.4.15",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
     "react-addons-transition-group": "^15.4.2",
     "react-dom": "^15.4.2",
-    "reactstrap": "^4.2.0"
+    "react-hot-loader": "^3.0.0-beta.6",
+    "reactstrap": "^4.3.0"
+  },
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "build-local": "electron-packager . SteamwsMonitor --out ./dist --overwrite --ignore=./node_modules --ignore=./dist --ignore=./renderer-bundle.js",
+    "build-all": "electron-packager . SteamwsMonitor --all --out ./dist --overwrite"
+  },
+  "devDependencies": {
+    "babel-preset-es2016-node5": "^1.1.2",
+    "babel-preset-react": "^6.5.0",
+    "electron-prebuilt-compile": "^1.1.3"
   }
 }

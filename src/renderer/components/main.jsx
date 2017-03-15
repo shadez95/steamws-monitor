@@ -1,28 +1,14 @@
-import React, { Component } from 'react'
-
+import React from 'react';
 import { Nav, NavItem, NavDropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink, TabPane, TabContent } from 'reactstrap'
 import classnames from 'classnames';
 
-import AddPage from '../add/index.js'
-import SettingsPage from '../settings/index.js'
-import MonitorPage from '../monitor/index.js'
+import AddPage from './add'
+import SettingsPage from './settings'
+import MonitorPage from './monitor'
 
-// Nav Dropdown example below
+const TITLEBAR_HEIGHT = 30;
 
-// <NavDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-//   <DropdownToggle nav caret>
-//     Dropdown
-//   </DropdownToggle>
-//   <DropdownMenu>
-//     <DropdownItem header>Header</DropdownItem>
-//     <DropdownItem disabled>Action</DropdownItem>
-//     <DropdownItem>Another Action</DropdownItem>
-//     <DropdownItem divider />
-//     <DropdownItem>Another Action</DropdownItem>
-//   </DropdownMenu>
-// </NavDropdown>
-
-class MainPage extends Component {
+export default class Main extends React.Component {
   constructor(props) {
     super(props);
 
@@ -66,7 +52,7 @@ class MainPage extends Component {
                 >Settings</NavLink>
             </NavItem>
           </Nav>
-        <TabContent activeTab={this.state.activeTab}>
+        <TabContent activeTab={this.state.activeTab} className="container">
           <TabPane tabId="1">
             <AddPage />
           </TabPane>
@@ -81,5 +67,3 @@ class MainPage extends Component {
     )
   }
 }
-
-export default MainPage
