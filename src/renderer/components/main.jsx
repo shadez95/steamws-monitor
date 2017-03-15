@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 import { Nav, NavItem, NavDropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink, TabPane, TabContent } from 'reactstrap'
-import classnames from 'classnames';
+import classnames from 'classnames'
 
 import AddPage from './add'
 import SettingsPage from './settings'
