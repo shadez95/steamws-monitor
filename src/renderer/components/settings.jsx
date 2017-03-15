@@ -8,16 +8,9 @@ class SettingsPage extends Component {
         <br />
         <Form>
           <FormGroup row className="container">
-            <Label for="workshopLocation">Folder Input:</Label>
-            <Col>
-              <Input type="text" name="workshopLocalLocation" id="workshopLocation" placeholder="C:/game/workshopfolder" />
-            </Col>
-          </FormGroup>
-          <br />
-          <FormGroup row className="container">
             <Label for="steamcmdLocation">SteamCMD Location:</Label>
             <Col>
-              <Input type="text" name="steamcmdLocalLocation" id="steamcmdLocation" placeholder="C:/SteamCMD/steamcmd.exe" />
+              <Input type="text" name="steamcmdLocalLocation" id="steamcmdLocation" placeholder="C:\SteamCMD\steamcmd.exe" />
             </Col>
           </FormGroup>
           <Button color="success" type="submit" value="Submit">Save</Button>
