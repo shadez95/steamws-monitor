@@ -13,13 +13,6 @@ class AddPage extends Component {
               <Input type="text" name="workshopIDitem" id="workshopID" placeholder="450814997" />
             </Col>
           </FormGroup>
-          <br />
-          <FormGroup row className="container">
-            <Label for="localLocationID">Local Install Location:</Label>
-            <Col>
-              <Input type="text" name="localLocation" id="localLocationID" placeholder="C:\where\you\want\workshop\file\folder" />
-            </Col>
-          </FormGroup>
           <Button color="success" type="submit" value="Submit">Add</Button>
         </Form>
       </div>
