@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col } from 'reactstrap'
 
-class MonitorPage extends Component {
+export default class MonitorPage extends Component {
   render() {
     return (
       <div id="MonitorPage">
@@ -19,5 +19,3 @@ class MonitorPage extends Component {
     )
   }
 }
-
-export default MonitorPage

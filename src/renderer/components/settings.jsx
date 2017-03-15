@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col } from 'reactstrap'
 
-class SettingsPage extends Component {
+export default class SettingsPage extends Component {
   render() {
     return (
       <div id="SettingsPage">
@@ -19,5 +19,3 @@ class SettingsPage extends Component {
     )
   }
 }
-
-export default SettingsPage
