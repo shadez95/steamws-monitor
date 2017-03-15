@@ -12,7 +12,6 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 700,
     height: 760,
-    titleBarStyle: 'hidden-inset',
     backgroundColor: '#1b2028'
   });
 
