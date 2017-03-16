@@ -6,7 +6,7 @@ export default class AddPage extends Component {
     return (
       <div id="AddPage">
         <br />
-        <Form>
+
           <FormGroup row className="container">
             <Label for="workshopID">Steam Workshop ID:</Label>
             <Col>
@@ -14,7 +14,7 @@ export default class AddPage extends Component {
             </Col>
           </FormGroup>
           <Button color="success" type="submit" value="Submit">Add</Button>
-        </Form>
+        
       </div>
     )
   }
