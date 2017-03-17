@@ -1,7 +1,17 @@
 const electron = require('electron')
 const dialog = electron.dialog
-import {app, BrowserWindow} from 'electron';
+import {app, BrowserWindow, Menu} from 'electron';
 import {enableLiveReload} from 'electron-compile';
+
+// need to setup config information
+const Config = require('electron-config')
+// Settings config
+const cSettings = new Config({name: 'settings'})
+global.settings = {configSettings: cSettings}
+
+// Workshop config
+const workshopStore = new Config({name: 'workshopStore'})
+global.wsStore = {steamwsStore: workshopStore}
 
 let mainWindow = null;
 
@@ -21,22 +31,4 @@ app.on('ready', () => {
 
 enableLiveReload({strategy: 'react-hmr'});
 
-console.log(app.getPath('userData'))
-
-function selectDirectory() {
-  dialog.showOpenDialog(mainWindow, {
-    properties: ['openFile']
-  })
-}
-
-global.fncSelectDirectory = {fnc: selectDirectory}
-
-// need to setup config information
-const Config = require('electron-config')
-// Settings config
-const cSettings = new Config({name: 'settings'})
-global.settings = {configSettings: cSettings}
-
-// Workshop config
-const workshopStore = new Config({name: 'workshopStore'})
-global.wsStore = {steamwsStore: workshopStore}
+console.log("Config Path: ", app.getPath('userData'))
