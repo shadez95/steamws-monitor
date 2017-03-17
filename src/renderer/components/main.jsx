@@ -6,39 +6,6 @@ import AddPage from './add'
 import SettingsPage from './settings'
 import MonitorPage from './monitor'
 
-class Holder extends Component {
-  constructor(props) {
-    super(props);
-
-    this.onDropHandler = this.onDropHandler.bind(this)
-  }
-  componentDidMount() {
-    console.log(this)
-  }
-  onDropHandler(e) {
-    console.log(e)
-    e.preventDefault()
-    e.stopPropagation()
-    e.nativeEvent.stopImmediatePropagation()
-    for (let f of e.dataTransfer.files) {
-      console.log("Files you dragged here: ", f.path)
-    }
-    return false
-  }
-  render() {
-    return (
-      <div id="holder" onDragOver={(e) => {e.preventDefault()}}
-        onDragEnd={(e) => {e.preventDefault()}}
-        onDragLeave={(e) => {e.preventDefault()}}
-        onDrop={this.onDropHandler}>
-        <br />
-        <br />
-        Drag your file here
-      </div>
-    )
-  }
-}
-
 export default class Main extends Component {
   constructor(props) {
     super(props);
@@ -94,7 +61,6 @@ export default class Main extends Component {
             <MonitorPage />
           </TabPane>
         </TabContent>
-        <Holder />
       </div>
     )
   }
