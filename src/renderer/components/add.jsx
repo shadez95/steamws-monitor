@@ -45,14 +45,14 @@ export default class AddPage extends Component {
             <Label for="appID">App ID:</Label>
             <Col>
               <Input type="text" name="appIDItem" onChange={this.handleInputAppIDItem}
-               id="appID" onKeyPress={this.isNumber} placeholder="123456" title="Enter numbers only."/>
+               id="appID" onKeyPress={this.isNumber} placeholder="Steam App ID" title="Enter numbers only."/>
             </Col>
           </FormGroup>
           <FormGroup row className="container">
             <Label for="workshopID">Steam Workshop ID:</Label>
             <Col>
               <Input type="text" name="workshopIDitem" onChange={this.handleInputWSID}
-               id="workshopID" onKeyPress={this.isNumber} placeholder="123456789" title="Enter numbers only."/>
+               id="workshopID" onKeyPress={this.isNumber} placeholder="Steam Workshop ID" title="Enter numbers only."/>
             </Col>
           </FormGroup>
           <Button color="success" type="submit" onClick={this.handleSubmit} value="Submit">Add</Button>
