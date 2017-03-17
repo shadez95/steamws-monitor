@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col } from 'reactstrap'
 
-import {Config} from 'electron-config'
-import {ipcRenderer} from 'electron'
-
 class SteamCMD extends Component {
   render() {
     if (this.props.steamcmdExists) {
