@@ -23,9 +23,31 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 700,
     height: 760,
-    backgroundColor: '#1b2028'
+    backgroundColor: '#1b2028',
+    autoHideMenuBar: false,
+    // devTools: false // Will uncomment for production
   });
 
+  // Create Menu
+  const template = [
+    {
+      label: 'Edit',
+      submenu: [
+        {role: 'undo'},
+        {role: 'redo'},
+        {type: 'separator'},
+        {role: 'cut'},
+        {role: 'copy'},
+        {role: 'paste'},
+        {role: 'delete'},
+        {role: 'selectall'}
+      ]
+    }
+  ]
+
+  // const menu = Menu.buildFromTemplate(template)
+  // Menu.setApplicationMenu(menu)
+  // mainWindow.webContents.openDevTools()
   mainWindow.loadURL(`file://${__dirname}/renderer/index.html`);
 });
 
