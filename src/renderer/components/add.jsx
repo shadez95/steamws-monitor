@@ -13,29 +13,16 @@ export default class AddPage extends Component {
     this.isNumber = this.isNumber.bind(this)
   }
   isNumber(evt) {
-    evt.persist()
-    evt = (evt) ? evt : window.event
-    console.log(evt)
     var charCode = (evt.which) ? evt.which : evt.keyCode
-    console.log(charCode)
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      console.log("returning false")
-      var nonNumericRegex = /[^a-z]+g/
-      evt.target.value.replace(nonNumericRegex, "")
-      return false
+      evt.preventDefault()
     }
-    console.log("returning true")
-    return true
   }
 
   handleInputAppIDItem(e) {
-    console.log(e.target.value)
-    console.log("isNan", e.target.value.isNan)
     this.setState({appInput: e.target.value})
   }
   handleInputWSID(e) {
-    console.log(e.target.value)
-    console.log("isNan", e.target.value.isNan)
     this.setState({workshopInput: e.target.value})
   }
   handleSubmit() {
