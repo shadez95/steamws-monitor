@@ -4,56 +4,81 @@ import { Button, Form, FormGroup, Label, Input, FormText, Col } from 'reactstrap
 import {Config} from 'electron-config'
 import {ipcRenderer} from 'electron'
 
-
-// In renderer process (web page).
-// console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
-//
-// ipcRenderer.on('asynchronous-reply', (event, arg) => {
-//   console.log(arg) // prints "pong"
-// })
-// ipcRenderer.send('asynchronous-message', 'ping')
-
-
+class SteamCMD extends Component {
+  render() {
+    if (this.props.steamcmdExists) {
+      return(
+        <div>
+          <Input name="steamcmdLocalLocation" id="steamcmdLocalLocation"
+            value={this.props.steamcmdLocation} readOnly></Input>
+          <br />
+          <Button onClick={this.props.handleButtonClick}>Change SteamCMD location</Button>
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          <Input name="steamcmdLocalLocation" id="steamcmdLocalLocation"
+            value="No steamcmd location" readOnly></Input>
+          <br />
+          <Button onClick={this.props.handleButtonClick}>Browse for steamcmd</Button>
+        </div>
+      )
+    }
+  }
+}
 
 export default class SettingsPage extends Component {
   constructor(props) {
     super(props)
-    this.state = {input: '', inputObj: ''}
-    this.handleChange = this.handleChange.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.handleClick_Browse = this.handleClick_Browse.bind(this)
+
+    const remote = require('electron').remote
+    const cSettings = remote.getGlobal('settings').configSettings
+    let exists
+    let steamcmdLoc
+    if (cSettings.get('steamcmdLoc', '') === undefined) {
+      exists = false
+      steamcmdLoc = ''
+    } else {
+      exists = true
+      steamcmdLoc = cSettings.get('steamcmdLoc')
+    }
+    this.state = {steamcmdPath: steamcmdLoc, steamcmdLocExists: exists}
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleButtonClick = this.handleButtonClick.bind(this)
+    this.handleFileInput = this.handleFileInput.bind(this)
   }
-  handleChange(e) {
+  componentWillUpdate(nextProps, nextState) {
+
+  }
+  handleSubmit() {
+    // Saving steamcmd location to config
+    const remote = require('electron').remote
+    const cSettings = remote.getGlobal('settings').configSettings
+    // console.log(cSettings)
+    cSettings.set('steamcmdLoc', this.state.steamcmdPath)
+    console.log("Saving steamcmdLoc: ", cSettings.get('steamcmdLoc', ''))
+    alert("Settings saved...")
+  }
+
+  handleButtonClick(e) {
+    this.fileUpload.click()
+  }
+
+  handleFileInput(e) {
     e.persist()
-    this.setState({ input: e.target.value, inputObj: e })
-  }
-  handleClick() {
-    console.log(this.state.input);
+    var fileObj = this.fileUpload.files[0]
     const remote = require('electron').remote
     const fs = remote.require('fs')
-    console.log(fs.existsSync(this.state.input))
+    console.log(fileObj)
 
-    if (fs.existsSync(this.state.input)) {
-      // Saving steamcmd location to config
-      const configSettings = new Config({name: 'settings'})
-      configSettings.set('steamcmdLoc', this.state.input)
-
-      console.log(configSettings.get('steamcmdLoc'))
+    if (fs.existsSync(fileObj.path)) {
+      this.setState({steamcmdPath: fileObj.path})
     } else {
-      alert("steamcmd.exe cannot be found")
-      console.log("steamcmd.exe cannot be found")
-      this.state.inputObj.target.value = ''
-      this.setState({input: '', inputObj: ''})
+      this.fileUpload.files = []
+      alert("steamcmd.exe or steamcmd source cannot be found")
+      console.log("steamcmd.exe or steamcmd source cannot be found")
     }
-  }
-
-  handleClick_Browse(e) {
-
-    const remote = require('electron').remote
-    const mainProcess = remote.require('../../app.js')
-    mainProcess.selectDirectory()
-    // var browseDir = ipcRenderer.send('selectDirectory')
-    // console.log(browseDir)
   }
 
   render() {
@@ -62,16 +87,16 @@ export default class SettingsPage extends Component {
         <br />
 
           <FormGroup row className="container">
-            <Label for="steamcmdLocation">SteamCMD Location:</Label>
+            <Label for="steamcmdLocalLocation">SteamCMD Location:</Label>
             <Col>
-              <Input onChange={this.handleChange} type="text" name="steamcmdLocalLocation" id="steamcmdLocation" placeholder="C:\SteamCMD\steamcmd.exe" />
-              <br />
-              <br />
-                <button id="buttonSelectFile" onClick={this.handleClick_Browse}>Browse</button>
-                <input id="fileInputID" type="file" style={{display: 'none'}} />
+              <SteamCMD steamcmdExists={this.state.steamcmdLocExists}
+                steamcmdLocation={this.state.steamcmdPath}
+                handleButtonClick={this.handleButtonClick} />
+              <input id="fileInputID" type="file" ref={(ref) => this.fileUpload = ref}
+                onChange={this.handleFileInput} style={{display: 'none'}}/>
             </Col>
           </FormGroup>
-          <Button color="success" type="submit" onClick={this.handleClick} value="Submit">Save</Button>
+          <Button color="success" type="submit" onClick={this.handleSubmit} value="Submit">Save</Button>
 
       </div>
     )
