@@ -9,7 +9,7 @@ class SteamCMD extends Component {
           <Input name="steamcmdLocalLocation" id="steamcmdLocalLocation"
             value={this.props.steamcmdLocation} readOnly></Input>
           <br />
-          <Button onClick={this.props.handleButtonClick}>Change SteamCMD location</Button>
+          <Button color="primary" onClick={this.props.handleButtonClick}>Change SteamCMD location</Button>
         </div>
       )
     } else {
@@ -18,7 +18,7 @@ class SteamCMD extends Component {
           <Input name="steamcmdLocalLocation" id="steamcmdLocalLocation"
             value="No steamcmd location" readOnly></Input>
           <br />
-          <Button onClick={this.props.handleButtonClick}>Browse for steamcmd</Button>
+          <Button color="primary" onClick={this.props.handleButtonClick}>Browse for steamcmd</Button>
         </div>
       )
     }
