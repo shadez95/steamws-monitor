@@ -34,24 +34,3 @@ global.fncSelectDirectory = {fnc: selectDirectory}
 const Config = require('electron-config')
 const cSettings = new Config({name: 'settings'})
 global.settings = {configSettings: cSettings}
-
-// const {ipcMain} = require('electron')
-// ipcMain.on('selectDirectory', (evt, arg) => {
-//   console.log('evt: ', evt)
-//   console.log('arg: ', arg)
-//   dialog.showOpenDialog(mainWindow, {
-//     properties: ['openDirectory']
-//   })
-//   event.returnValue = true
-// })
-//
-//
-// ipcMain.on('asynchronous-message', (event, arg) => {
-//   console.log(arg)  // prints "ping"
-//   event.sender.send('asynchronous-reply', 'pong')
-// })
-//
-// ipcMain.on('synchronous-message', (event, arg) => {
-//   console.log(arg)  // prints "ping"
-//   event.returnValue = 'pong'
-// })
