@@ -31,6 +31,12 @@ function selectDirectory() {
 
 global.fncSelectDirectory = {fnc: selectDirectory}
 
+// need to setup config information
 const Config = require('electron-config')
+// Settings config
 const cSettings = new Config({name: 'settings'})
 global.settings = {configSettings: cSettings}
+
+// Workshop config
+const workshopStore = new Config({name: 'workshopStore'})
+global.wsStore = {steamwsStore: workshopStore}
