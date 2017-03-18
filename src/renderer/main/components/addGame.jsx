@@ -31,7 +31,7 @@ export default class AddGame extends Component {
              id="appID" onKeyPress={this.isNumber} placeholder="Steam App ID" title="Enter numbers only."/>
           </Col>
         </FormGroup>
-        <Button color="success" onClick={this.handleSaveAppID}>Save</Button>
+        <Button color="success" onClick={this.handleSaveAppID}>Add</Button>
         <hr />
       </div>
     )
