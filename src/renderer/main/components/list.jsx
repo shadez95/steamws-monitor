@@ -20,7 +20,7 @@ export default class List extends Component {
     this.getList = this.getList.bind(this)
   }
   componentWillUpdate() {
-    getList()
+    this.getList()
   }
   getList() {
     const remote = require('electron').remote

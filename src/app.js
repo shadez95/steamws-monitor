@@ -1,4 +1,4 @@
-const {electron, net} = require('electron')
+const electron = require('electron')
 const dialog = electron.dialog
 import {app, BrowserWindow, Menu} from 'electron';
 import {enableLiveReload} from 'electron-compile';
@@ -11,11 +11,13 @@ const cSettings = new Config({name: 'settings'})
 const workshopStore = new Config({name: 'workshopStore'})
 // GET request function
 const getRequest = (url) => {
+  const net = require('electron')
   var request = net.request(url)
   return request
 }
 const getAppData = (appID) => {
   url = "http://store.steampowered.com/api/appdetails?appids=" + appID
+  const http = require('http')
   var req = http.request(url, (res) => {
     console.log(`STATUS: ${res.statusCode}`);
     console.log(`HEADERS: ${JSON.stringify(res.headers)}`);

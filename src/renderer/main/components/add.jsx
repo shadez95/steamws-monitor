@@ -18,7 +18,8 @@ export default class Add extends Component {
     this.state = {
       workshopInput: '',
       slider: 'slider closed',
-      addGameBtnTxt: 'fa fa-plus'
+      addGameBtnTxt: 'fa fa-plus',
+      appInput: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInputWSID = this.handleInputWSID.bind(this)
@@ -60,7 +61,7 @@ export default class Add extends Component {
           <Button color="primary" type="submit"
             onClick={this.addGameSliderHandler}>Add Steam Game &nbsp;<PlusMinus sign={this.state.addGameBtnTxt} /></Button>
         </FormGroup>
-        <AddGame slider={this.state.slider}/>
+        <AddGame slider={this.state.slider} />
         <FormGroup row className="container">
           <Label for="workshopID">Steam Workshop ID:</Label>
           <Col>
