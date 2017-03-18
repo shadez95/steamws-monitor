@@ -10,7 +10,6 @@ export default class AddGame extends Component {
     this.handleSaveAppID = this.handleSaveAppID.bind(this)
     this.isNumber = this.isNumber.bind(this)
   }
-  componentDidMount() {}
   handleInputAppIDItem(e) {
     this.setState({appInput: e.target.value})
   }
