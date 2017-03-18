@@ -7,13 +7,28 @@ import {enableLiveReload} from 'electron-compile';
 const Config = require('electron-config')
 // Settings config
 const cSettings = new Config({name: 'settings'})
-global.settings = {configSettings: cSettings}
-
 // Workshop config
 const workshopStore = new Config({name: 'workshopStore'})
-global.wsStore = {steamwsStore: workshopStore}
+
+// Global var that stores global wide
+// objects, functions, or variables
+global.lib = {
+  configSettings: cSettings,
+  steamwsStore: workshopStore
+}
 
 let mainWindow = null;
+
+const openSettingsWindow = () => {
+  var settingsWindow = new BrowserWindow({
+    width: 350,
+    height: 350,
+    backgroundColor: '#1b2028',
+    autoHideMenuBar: true
+    // devTools: false // Will uncomment for production
+  })
+  settingsWindow.loadURL(`file://${__dirname}/renderer/settings/index.html`);
+}
 
 app.on('window-all-closed', () => {
   app.quit();
@@ -31,6 +46,12 @@ app.on('ready', () => {
   // Create Menu
   const template = [
     {
+      label: 'File',
+      submenu: [
+        {role: 'quit'}
+      ]
+    },
+    {
       label: 'Edit',
       submenu: [
         {role: 'undo'},
@@ -42,13 +63,52 @@ app.on('ready', () => {
         {role: 'delete'},
         {role: 'selectall'}
       ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        {role: 'reload'},
+        {role: 'forcereload'},
+        // {role: 'toggledevtools'},
+        {role: 'separator'},
+        {role: 'resetzoom'},
+        {role: 'zoomin'},
+        {role: 'zoomout'},
+        {role: 'separator'},
+        {role: 'togglefullscreen'}
+      ]
+    },
+    {
+      role: 'window',
+      submenu: [
+        {role: 'minimize'},
+        {role: 'close'},
+      ]
+    },
+    {
+      role: 'help',
+      submenu: [
+        {
+          label: 'GitHub',
+          click() {require('electron').shell.openExternal('https://github.com/dixon13/steamws-monitor')}
+        }
+      ]
+    },
+    {
+      label: 'Preferences',
+      submenu: [
+        {
+          label: 'Settings',
+          click() {openSettingsWindow()}
+        }
+      ]
     }
   ]
 
-  // const menu = Menu.buildFromTemplate(template)
-  // Menu.setApplicationMenu(menu)
-  // mainWindow.webContents.openDevTools()
-  mainWindow.loadURL(`file://${__dirname}/renderer/index.html`);
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
+  mainWindow.webContents.openDevTools()
+  mainWindow.loadURL(`file://${__dirname}/renderer/main/index.html`);
 });
 
 enableLiveReload({strategy: 'react-hmr'});
