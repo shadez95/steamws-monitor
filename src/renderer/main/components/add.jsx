@@ -4,13 +4,21 @@ import { Button, Form, FormGroup, Label, Input, FormText, Col } from 'reactstrap
 import AddGame from './addGame'
 // CBA workshop ID: 450814997
 
+class PlusMinus extends Component {
+  render() {
+    return (
+      <i className={this.props.sign} aria-hidden="true"></i>
+    )
+  }
+}
+
 export default class Add extends Component {
   constructor(props) {
     super(props)
     this.state = {
       workshopInput: '',
       slider: 'slider closed',
-      addGameBtnTxt: '+'
+      addGameBtnTxt: 'fa fa-plus'
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInputWSID = this.handleInputWSID.bind(this)
@@ -26,9 +34,9 @@ export default class Add extends Component {
   }
   addGameSliderHandler(e) {
     if (this.state.slider === 'slider') {
-      this.setState({slider: 'slider closed', addGameBtnTxt: '+'})
+      this.setState({slider: 'slider closed', addGameBtnTxt: 'fa fa-plus'})
     } else {
-      this.setState({slider: 'slider', addGameBtnTxt: '-'})
+      this.setState({slider: 'slider', addGameBtnTxt: 'fa fa-minus'})
     }
   }
   handleInputWSID(e) {
@@ -50,7 +58,7 @@ export default class Add extends Component {
       <div id="AddContent">
         <FormGroup row className="container">
           <Button color="primary" type="submit"
-            onClick={this.addGameSliderHandler}>Add Steam Game {this.state.addGameBtnTxt}</Button>
+            onClick={this.addGameSliderHandler}>Add Steam Game &nbsp;<PlusMinus sign={this.state.addGameBtnTxt} /></Button>
         </FormGroup>
         <AddGame slider={this.state.slider}/>
         <FormGroup row className="container">
