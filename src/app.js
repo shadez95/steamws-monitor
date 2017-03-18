@@ -1,4 +1,4 @@
-const electron = require('electron')
+const {electron, net} = require('electron')
 const dialog = electron.dialog
 import {app, BrowserWindow, Menu} from 'electron';
 import {enableLiveReload} from 'electron-compile';
@@ -9,6 +9,59 @@ const Config = require('electron-config')
 const cSettings = new Config({name: 'settings'})
 // Workshop config
 const workshopStore = new Config({name: 'workshopStore'})
+// GET request function
+const getRequest = (url) => {
+  var request = net.request(url)
+  return request
+}
+const getAppData = (appID) => {
+  url = "http://store.steampowered.com/api/appdetails?appids=" + appID
+  var req = http.request(url, (res) => {
+    console.log(`STATUS: ${res.statusCode}`);
+    console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+    res.setEncoding('utf8');
+    res.on('data', (chunk) => {
+      console.log(`BODY: ${chunk}`);
+    });
+    res.on('end', () => {
+      console.log('No more data in response.')
+    })
+  })
+  req.on('error', (e) => {
+    console.log(`problem with request: ${e.message}`);
+  });
+  // write data to request body
+  req.write(postData);
+  req.end();
+  return true
+}
+// POST request function
+const postRequest = (host_name, path_input, post_data, callback) => {
+  // host_name = host url e.g. 'www.google.com'
+  // path_input = path to send post request e.g. '/path/path1'
+  // post_data = postdata in JSON format e.g. {'msg' : 'Hello World!'}
+  const http = require('http')
+  const querystring = require('querystring')
+
+  var postData = querystring.stringify(post_data);
+  var options = {
+    hostname: host_name,
+    path: path_input,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': Buffer.byteLength(postData)
+    }
+  };
+
+  var req = http.request(options, callback)
+  req.on('error', (e) => {
+    alert(`problem with request: ${e.message}`);
+  });
+  req.write(postData);
+  req.end();
+  return req
+}
 
 // Global var that stores global wide
 // objects, functions, or variables
@@ -21,8 +74,8 @@ let mainWindow = null;
 
 const openSettingsWindow = () => {
   var settingsWindow = new BrowserWindow({
-    width: 350,
-    height: 350,
+    width: 400,
+    height: 400,
     backgroundColor: '#1b2028',
     autoHideMenuBar: true
     // devTools: false // Will uncomment for production

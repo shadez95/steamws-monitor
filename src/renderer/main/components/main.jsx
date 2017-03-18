@@ -3,6 +3,7 @@ import { FormGroup, Label, Col, Input } from 'reactstrap'
 import classnames from 'classnames'
 
 import Add from './add'
+import List from './list'
 // import Monitor from './monitor'
 
 // <FormGroup row className="container">
@@ -14,7 +15,7 @@ import Add from './add'
 
 export default class Main extends Component {
   constructor(props) {
-    super(props);
+    super(props)
   }
   render() {
     return (
@@ -24,6 +25,7 @@ export default class Main extends Component {
         <br />
         <Add />
         <br />
+        <List />
       </div>
     )
   }

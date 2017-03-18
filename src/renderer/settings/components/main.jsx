@@ -87,6 +87,7 @@ export default class SettingsPage extends Component {
   render() {
     return (
       <div>
+        <br />
         <h1 style={{"textAlign": "center"}}>Settings</h1>
         <div id="SettingsPage" className="container">
           <br />

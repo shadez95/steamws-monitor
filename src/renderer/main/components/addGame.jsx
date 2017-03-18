@@ -13,13 +13,14 @@ export default class AddGame extends Component {
   handleSaveAppID(e) {
     const remote = require('electron').remote
     const workshopStore = remote.getGlobal('lib').steamwsStore
-    if (workshopStore.get(this.state.appInput) === undefined) {
-      // workshopStore.set('apps', this.state.appInput)
-      workshopStore.set(this.state.appInput, )
-    } else {
-      let arr = workshopStore.get(this.state.appInput).push(this.state.workshopInput)
-      workshopStore.set(this.state.appInput, arr)
+
+    let listArray = workshopStore.get('list')
+    if (listArray === undefined) {
+      listArray = []
     }
+    listArray.push(this.state.appInput)
+    workshopStore.set('list', listArray)
+
   }
   render() {
     return (
