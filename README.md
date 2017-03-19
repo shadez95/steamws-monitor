@@ -19,10 +19,10 @@ npm start
 ```
 
 ## Important Development Info
-**After making changes to renderer.js hit Ctrl+R in app window to reload manually**
+**After making changes in renderer windows hit Ctrl+R in app window to reload manually**
 
-There is no hot reloading.
+There is hot reloading but requires you to hit CTRL+R in app window to reload manually.
 
-`**IMPORTANT** Everytime you change something (in any js file) you have to change something in render.js( type something then comment it out) and hit Ctrl+ R to recompile everything `
+If you make changes in the main process, you need to restart the app.
 
 Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
