@@ -1,28 +1,6 @@
 import React, { Component } from 'react'
 import { FormGroup, Label, Col, Input, Button } from 'reactstrap'
 
-// workshopStore.get('list')[0][""]
-//
-// {
-//   list: [
-//     {
-//       appID:"107410",
-// 		  "name": "Arma 3",
-// 		  "workshopIDs": []
-//     },
-//   	{
-//       "107410": {
-// 		    "name": "Arma 3",
-// 		    "workshopIDs": []
-//   	  }
-//     },
-//   	"244850": {
-//   		"name": "Space Engineers",
-//   		"workshopIDs": []
-//   	}
-//   ]
-// }
-
 export default class AddGame extends Component {
   constructor(props) {
     super(props);
@@ -47,23 +25,26 @@ export default class AddGame extends Component {
   handleSaveAppID(e) {
     const remote = require('electron').remote
     const workshopStore = remote.getCurrentWindow().mainLib.workshopStore
-    console.log("this.state: ", this.state)
+    console.log("[addGame.jsx] this.state: ", this.state)
     let temp_appInput = this.state.appInput
     this.clearInputAppID(e)
     var SteamApi = require('steam-api');
     var app = new SteamApi.App('0691601DDFE7900A2E2DA7D770D55F0F');
+    const props = this.props
+    var mainList = props.list
+    console.log('[addGame.jsx] handleSaveAppID - mainList: ', mainList)
     app.appDetails(temp_appInput).done(function(result){
-      let mainList = workshopStore.get('list')
       mainList.push({appID: temp_appInput, name: result.name, workshopIDs: []})
-      console.log('mainList: ', mainList)
+      console.log('[addGame.jsx] mainList: ', mainList)
       workshopStore.set('list', mainList)
+      props.update()
     });
   }
   render() {
     return (
       <div className={this.props.slider}>
         <FormGroup row className="container">
-          <Label for="appID">App ID:</Label>
+          <Label for="appID">Steam App ID:</Label>
           <Col>
             <Input type="text"
               name="appIDItem" onChange={this.handleInputAppIDItem} value={this.state.appInput}

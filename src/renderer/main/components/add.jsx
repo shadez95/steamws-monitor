@@ -44,9 +44,7 @@ export default class Add extends Component {
     this.setState({workshopInput: e.target.value})
   }
   handleSubmit() {
-    // console.log(this.state.workshopInput)
     const remote = require('electron').remote
-    // const workshopStore = remote.getGlobal('lib').steamwsStore
     const workshopStore = remote.getCurrentWindow().mainLib.workshopStore
     if (workshopStore.get(this.state.appInput) === undefined) {
       workshopStore.set(this.state.appInput, [this.state.workshopInput])
@@ -62,15 +60,8 @@ export default class Add extends Component {
           <Button color="primary" type="submit"
             onClick={this.addGameSliderHandler}>Add Steam Game &nbsp;<PlusMinus sign={this.state.addGameBtnTxt} /></Button>
         </FormGroup>
-        <AddGame slider={this.state.slider} />
-        <FormGroup row className="container">
-          <Label for="workshopID">Steam Workshop ID:</Label>
-          <Col>
-            <Input type="text" name="workshopIDitem" onChange={this.handleInputWSID}
-             id="workshopID" onKeyPress={this.isNumber} placeholder="Steam Workshop ID" title="Enter numbers only."/>
-          </Col>
-        </FormGroup>
-        <Button color="success" type="submit" onClick={this.handleSubmit} value="Submit">Add</Button>
+        <AddGame update={this.props.update} list={this.props.list} slider={this.state.slider} />
+        
       </div>
     )
   }
