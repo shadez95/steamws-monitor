@@ -1,6 +1,28 @@
 import React, { Component } from 'react'
 import { FormGroup, Label, Col, Input, Button } from 'reactstrap'
 
+// workshopStore.get('list')[0][""]
+//
+// {
+//   list: [
+//     {
+//       appID:"107410",
+// 		  "name": "Arma 3",
+// 		  "workshopIDs": []
+//     },
+//   	{
+//       "107410": {
+// 		    "name": "Arma 3",
+// 		    "workshopIDs": []
+//   	  }
+//     },
+//   	"244850": {
+//   		"name": "Space Engineers",
+//   		"workshopIDs": []
+//   	}
+//   ]
+// }
+
 export default class AddGame extends Component {
   constructor(props) {
     super(props);
@@ -24,17 +46,18 @@ export default class AddGame extends Component {
   }
   handleSaveAppID(e) {
     const remote = require('electron').remote
-    const workshopStore = remote.getGlobal('lib').steamwsStore
+    const workshopStore = remote.getCurrentWindow().mainLib.workshopStore
     console.log("this.state: ", this.state)
-    let listArray = workshopStore.get('list')
-    if (listArray === undefined) {
-      listArray = []
-    }
-    console.log('listArray: ', listArray)
-    listArray.push(this.state.appInput)
-    workshopStore.set('list', listArray)
-    console.log("workshopStore - list: ", workshopStore.get('list'))
+    let temp_appInput = this.state.appInput
     this.clearInputAppID(e)
+    var SteamApi = require('steam-api');
+    var app = new SteamApi.App('0691601DDFE7900A2E2DA7D770D55F0F');
+    app.appDetails(temp_appInput).done(function(result){
+      let mainList = workshopStore.get('list')
+      mainList.push({appID: temp_appInput, name: result.name, workshopIDs: []})
+      console.log('mainList: ', mainList)
+      workshopStore.set('list', mainList)
+    });
   }
   render() {
     return (

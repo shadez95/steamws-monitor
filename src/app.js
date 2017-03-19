@@ -8,69 +8,18 @@ const Config = require('electron-config')
 // Settings config
 const cSettings = new Config({name: 'settings'})
 // Workshop config
-const workshopStore = new Config({name: 'workshopStore'})
-// GET request function
-const getRequest = (url) => {
-  const net = require('electron')
-  var request = net.request(url)
-  return request
-}
-const getAppData = (appID) => {
-  url = "http://store.steampowered.com/api/appdetails?appids=" + appID
-  const http = require('http')
-  var req = http.request(url, (res) => {
-    console.log(`STATUS: ${res.statusCode}`);
-    console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
-    res.setEncoding('utf8');
-    res.on('data', (chunk) => {
-      console.log(`BODY: ${chunk}`);
-    });
-    res.on('end', () => {
-      console.log('No more data in response.')
-    })
-  })
-  req.on('error', (e) => {
-    console.log(`problem with request: ${e.message}`);
-  });
-  // write data to request body
-  req.write(postData);
-  req.end();
-  return true
-}
-// POST request function
-const postRequest = (host_name, path_input, post_data, callback) => {
-  // host_name = host url e.g. 'www.google.com'
-  // path_input = path to send post request e.g. '/path/path1'
-  // post_data = postdata in JSON format e.g. {'msg' : 'Hello World!'}
-  const http = require('http')
-  const querystring = require('querystring')
-
-  var postData = querystring.stringify(post_data);
-  var options = {
-    hostname: host_name,
-    path: path_input,
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Length': Buffer.byteLength(postData)
-    }
-  };
-
-  var req = http.request(options, callback)
-  req.on('error', (e) => {
-    alert(`problem with request: ${e.message}`);
-  });
-  req.write(postData);
-  req.end();
-  return req
+const steamwsStore = new Config({name: 'workshopStore'})
+let array = []
+if (steamwsStore.get('list') === undefined) {
+  steamwsStore.set('list', array)
 }
 
-// Global var that stores global wide
-// objects, functions, or variables
-global.lib = {
+const lib = {
   configSettings: cSettings,
-  steamwsStore: workshopStore
+  workshopStore: steamwsStore,
 }
+
+// ----------------------------------------------
 
 let mainWindow = null;
 
@@ -82,7 +31,9 @@ const openSettingsWindow = () => {
     autoHideMenuBar: true
     // devTools: false // Will uncomment for production
   })
-  settingsWindow.loadURL(`file://${__dirname}/renderer/settings/index.html`);
+  settingsWindow.loadURL(`file://${__dirname}/renderer/settings/index.html`)
+  settingsWindow.webContents.openDevTools()
+  settingsWindow.mainLib = lib
 }
 
 app.on('window-all-closed', () => {
@@ -163,7 +114,10 @@ app.on('ready', () => {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
   mainWindow.webContents.openDevTools()
-  mainWindow.loadURL(`file://${__dirname}/renderer/main/index.html`);
+  mainWindow.loadURL(`file://${__dirname}/renderer/main/index.html`)
+
+  // main window library
+  mainWindow.mainLib = lib
 });
 
 enableLiveReload({strategy: 'react-hmr'});

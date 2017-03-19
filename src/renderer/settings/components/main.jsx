@@ -30,7 +30,8 @@ export default class SettingsPage extends Component {
     super(props)
 
     const remote = require('electron').remote
-    const cSettings = remote.getGlobal('lib').configSettings
+    // const cSettings = remote.getGlobal('lib').configSettings
+    const cSettings = remote.getCurrentWindow().mainLib.configSettings
     let exists
     let steamcmdLoc
     if (cSettings.get('steamcmdLoc', '') === undefined) {
@@ -52,7 +53,8 @@ export default class SettingsPage extends Component {
   handleSubmit() {
     // Saving steamcmd location to config
     const remote = require('electron').remote
-    const cSettings = remote.getGlobal('lib').configSettings
+    // const cSettings = remote.getGlobal('lib').configSettings
+    const cSettings = remote.getCurrentWindow().mainLib.configSettings
     // console.log(cSettings)
     cSettings.set('steamcmdLoc', this.state.steamcmdPath)
     console.log("Saving steamcmdLoc: ", cSettings.get('steamcmdLoc', ''))

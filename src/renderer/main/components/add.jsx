@@ -46,7 +46,8 @@ export default class Add extends Component {
   handleSubmit() {
     // console.log(this.state.workshopInput)
     const remote = require('electron').remote
-    const workshopStore = remote.getGlobal('lib').steamwsStore
+    // const workshopStore = remote.getGlobal('lib').steamwsStore
+    const workshopStore = remote.getCurrentWindow().mainLib.workshopStore
     if (workshopStore.get(this.state.appInput) === undefined) {
       workshopStore.set(this.state.appInput, [this.state.workshopInput])
     } else {
