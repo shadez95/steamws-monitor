@@ -4,6 +4,7 @@ import classnames from 'classnames'
 
 import Add from './add'
 import List from './list'
+import PlusMinus from './plus-minus'
 
 // {
 // 	"list": [
@@ -35,10 +36,24 @@ import List from './list'
 // </FormGroup>
 
 class GameData extends Component {
+  constructor(props) {
+    super(props)
+    this.onBtnClick = this.onBtnClick.bind(this)
+    this.state = {plus_minus: 'fa fa-plus'}
+  }
+  onBtnClick(e) {
+    if (this.state.plus_minus === 'fa fa-minus') {
+      this.setState({plus_minus: 'fa fa-plus'})
+    } else {
+      this.setState({plus_minus: 'fa fa-minus'})
+    }
+  }
   render(){
     return(
       <div>
-        <Button color="secondary"style={{ marginBottom: '1rem' }}>{this.props.GameName}</Button>
+        <Button onClick={this.onBtnClick} color="secondary"style={{ marginBottom: '1rem' }}>
+          {this.props.GameName} &nbsp;<PlusMinus sign={this.state.plus_minus} />
+        </Button>
       </div>
     )
   }
@@ -99,8 +114,7 @@ export default class Main extends Component {
         <br />
         <h1 style={{"textAlign": "center"}}>Steam Workshop Monitor</h1>
         <br />
-        <Add arrayComponents={this.state.listArrayComponents}
-          list={this.state.mainList} update={this.updateList} />
+        <Add list={this.state.mainList} update={this.updateList} />
         <br />
         <List arrayComponents={this.state.listArrayComponents} />
       </div>
