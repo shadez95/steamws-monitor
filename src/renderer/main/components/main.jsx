@@ -11,7 +11,16 @@ import PlusMinus from './plus-minus'
 // 		{
 // 			"appID": "107410",
 // 			"name": "Arma 3",
-// 			"workshopIDs": []
+// 			"workshopItems": [
+//         {
+//           "publishedfileid":"450814997",
+//           "title": "CBA_A3",
+//           "file_size": 1723806,
+//           "preview_url":"http://images.akamai.steamusercontent.com/ugc/96103700535480868/060D6AFCEF7F2740FDA8737A86B439F4383721F2/",
+//           "time_created":1432827434,
+//           "time_updated":1488215378,
+//         }
+//       ]
 // 		},
 // 		{
 // 			"appID": "244850",
@@ -26,7 +35,7 @@ import PlusMinus from './plus-minus'
 // 	]
 // }
 
-class WorkshopItem extends Component{
+class AddWorkshopItem extends Component {
   constructor(props) {
     super(props)
     this.isNumber = this.isNumber.bind(this)
@@ -45,7 +54,6 @@ class WorkshopItem extends Component{
   render() {
     return(
       <div>
-        {this.props.children}
         <FormGroup row className="container">
           <Label for="workshopID">Steam Workshop ID:</Label>
           <Col>
@@ -56,7 +64,21 @@ class WorkshopItem extends Component{
           </Col>
         </FormGroup>
         <Button color="success" type="submit" onClick={this.handleSubmit} value="Submit">Add</Button>
+        <br /><br />
+      {this.props.children}
       </div>
+    )
+  }
+}
+
+class WorkshopItemDetail extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {workshopItems: this.props.workshopItems}
+  }
+  render() {
+    return(
+      <div>Workshop Item Detail</div>
     )
   }
 }
@@ -65,7 +87,8 @@ class GameData extends Component {
   constructor(props) {
     super(props)
     this.onBtnClick = this.onBtnClick.bind(this)
-    this.state = {plus_minus: 'fa fa-plus', slider: 'slider closed'}
+    this.getWorkshopItems = this.getWorkshopItems.bind(this)
+    this.state = {plus_minus: 'fa fa-plus', slider: 'slider closed', workshopItems: []}
   }
   onBtnClick(e) {
     if (this.state.plus_minus === 'fa fa-minus') {
@@ -74,6 +97,11 @@ class GameData extends Component {
       this.setState({slider: 'slider', plus_minus: 'fa fa-minus'})
     }
   }
+  getWorkshopItems() {
+    const remote = require('electron').remote
+    const workshopStore = remote.getCurrentWindow().mainLib.workshopStore
+    temp_workshopInput
+  }
   render() {
     return(
       <div>
@@ -81,7 +109,9 @@ class GameData extends Component {
           {this.props.GameName} &nbsp;<PlusMinus sign={this.state.plus_minus} />
         </Button>
         <div className={this.state.slider}>
-          <WorkshopItem>workshop items</WorkshopItem>
+          <AddWorkshopItem>
+            {this.state.workshopItems}
+          </AddWorkshopItem>
           <hr />
         </div>
       </div>

@@ -5,8 +5,6 @@ import AddGame from './addGame'
 import PlusMinus from './plus-minus'
 // CBA workshop ID: 450814997
 
-
-
 export default class Add extends Component {
   constructor(props) {
     super(props)
@@ -48,7 +46,8 @@ export default class Add extends Component {
       <div id="AddContent">
         <FormGroup row className="container">
           <Button color="primary" type="submit"
-            onClick={this.addGameSliderHandler}>Add Steam Game &nbsp;<PlusMinus sign={this.state.plus_minus} /></Button>
+            onClick={this.addGameSliderHandler}>Add Steam Game &nbsp;
+            <PlusMinus sign={this.state.plus_minus} /></Button>
         </FormGroup>
         <AddGame update={this.props.update} list={this.props.list} slider={this.state.slider} />
       </div>

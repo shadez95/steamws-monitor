@@ -2,24 +2,10 @@ import React, { Component } from 'react'
 import { Button, Form, FormGroup, Label, Input, FormText, Col } from 'reactstrap'
 
 export default class List extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.addedGame = this.addedGame.bind(this)
-  //   this.getList = this.getList.bind(this)
-  //   const remote = require('electron').remote
-  //   let list = this.getList()
-  //   console.log("constructor - list: ", list)
-  //
-  //   let arrayComponents = []
-  //   for (let i = 0; i < list.length; i++) {
-  //     console.log("[list.jsx] constructor - i: ", i)
-  //     console.log("[list.jsx] constructor - adding game: ", list[i].name)
-  //     let name = list[i].name
-  //     arrayComponents.push(<GameData key={i} GameName={name} />)
-  //   }
-  //   console.log("[list.jsx] constructor - arrayComponents: ", arrayComponents)
-  //   this.state = {listKeys: Object.keys(list), listArrayComponents: arrayComponents}
-  // }
+  constructor(props) {
+    super(props)
+    console.log("[list.jsx] constructor - props.arrayComponents: ", this.props.arrayComponents)
+  }
   // componentWillUpdate() {
   //   let list = this.getList()
   //   console.log("[list.jsx] componentWillUpdate - list: ", list)

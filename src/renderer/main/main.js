@@ -7,6 +7,10 @@ import Main from './components/main';
 // import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 
 // import '../assets/bootstrap.scss';
+function myFunc() {
+  console.log("yaaa!!! It works!!!")
+  return true
+}
 
 const render = () => {
   // NB: We have to re-require MyApp every time or else this won't work
