@@ -5,14 +5,7 @@ import AddGame from './addGame'
 import PlusMinus from './plus-minus'
 // CBA workshop ID: 450814997
 
-// <FormGroup row className="container">
-//   <Label for="workshopID">Steam Workshop ID:</Label>
-//   <Col>
-//     <Input type="text" name="workshopIDitem" onChange={this.handleInputWSID}
-//      id="workshopID" onKeyPress={this.isNumber} placeholder="Steam Workshop ID" title="Enter numbers only."/>
-//   </Col>
-// </FormGroup>
-// <Button color="success" type="submit" onClick={this.handleSubmit} value="Submit">Add</Button>
+
 
 export default class Add extends Component {
   constructor(props) {
@@ -24,9 +17,7 @@ export default class Add extends Component {
       appInput: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleInputWSID = this.handleInputWSID.bind(this)
     this.isNumber = this.isNumber.bind(this)
-
     this.addGameSliderHandler = this.addGameSliderHandler.bind(this)
   }
   isNumber(evt) {
@@ -41,9 +32,6 @@ export default class Add extends Component {
     } else {
       this.setState({slider: 'slider', plus_minus: 'fa fa-minus'})
     }
-  }
-  handleInputWSID(e) {
-    this.setState({workshopInput: e.target.value})
   }
   handleSubmit() {
     const remote = require('electron').remote

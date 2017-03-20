@@ -26,34 +26,64 @@ import PlusMinus from './plus-minus'
 // 	]
 // }
 
-// import Monitor from './monitor'
-
-// <FormGroup row className="container">
-//   <Label for="localLocationID">Local Install Location:</Label>
-//   <Col>
-//     <Input type="text" name="localLocation" id="localLocationID" placeholder="C:\location\to\workshop\file\folder" />
-//   </Col>
-// </FormGroup>
+class WorkshopItem extends Component{
+  constructor(props) {
+    super(props)
+    this.isNumber = this.isNumber.bind(this)
+    this.handleInputWSID = this.handleInputWSID.bind(this)
+    this.state = {workshopInput: ''}
+  }
+  isNumber(evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      evt.preventDefault()
+    }
+  }
+  handleInputWSID(e) {
+    this.setState({workshopInput: e.target.value})
+  }
+  render() {
+    return(
+      <div>
+        {this.props.children}
+        <FormGroup row className="container">
+          <Label for="workshopID">Steam Workshop ID:</Label>
+          <Col>
+            <Input type="text" name="workshopIDitem" onChange={this.handleInputWSID}
+              value={this.state.workshopInput}
+              id="workshopID" onKeyPress={this.isNumber}
+              placeholder="Steam Workshop ID" title="Enter numbers only."/>
+          </Col>
+        </FormGroup>
+        <Button color="success" type="submit" onClick={this.handleSubmit} value="Submit">Add</Button>
+      </div>
+    )
+  }
+}
 
 class GameData extends Component {
   constructor(props) {
     super(props)
     this.onBtnClick = this.onBtnClick.bind(this)
-    this.state = {plus_minus: 'fa fa-plus'}
+    this.state = {plus_minus: 'fa fa-plus', slider: 'slider closed'}
   }
   onBtnClick(e) {
     if (this.state.plus_minus === 'fa fa-minus') {
-      this.setState({plus_minus: 'fa fa-plus'})
+      this.setState({slider: 'slider closed', plus_minus: 'fa fa-plus'})
     } else {
-      this.setState({plus_minus: 'fa fa-minus'})
+      this.setState({slider: 'slider', plus_minus: 'fa fa-minus'})
     }
   }
-  render(){
+  render() {
     return(
       <div>
         <Button onClick={this.onBtnClick} color="secondary"style={{ marginBottom: '1rem' }}>
           {this.props.GameName} &nbsp;<PlusMinus sign={this.state.plus_minus} />
         </Button>
+        <div className={this.state.slider}>
+          <WorkshopItem>workshop items</WorkshopItem>
+          <hr />
+        </div>
       </div>
     )
   }
