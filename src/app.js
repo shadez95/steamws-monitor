@@ -148,6 +148,8 @@ app.on('ready', () => {
     title: 'Test Title Balloon',
     content: 'This is content in balloon. It works!!!'
   })
+
+  startMonitoring()
 });
 
 enableLiveReload({strategy: 'react-hmr'});
