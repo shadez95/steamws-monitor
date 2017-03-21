@@ -141,6 +141,11 @@ app.on('ready', () => {
   ])
   tray.setToolTip('Steam Workshop Monitor')
   tray.setContextMenu(contextMenu)
+  tray.displayBalloon({
+    icon: `${__dirname}/assets/images/logos/favicon-32x32.png`,
+    title: 'Test Title Balloon',
+    content: 'This is content in balloon. It works!!!'
+  })
 });
 
 enableLiveReload({strategy: 'react-hmr'});
