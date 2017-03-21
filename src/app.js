@@ -1,6 +1,7 @@
 const electron = require('electron')
 const dialog = electron.dialog
-import {app, BrowserWindow, Menu} from 'electron';
+const nativeImage = electron.nativeImage
+import {app, BrowserWindow, Menu, Tray} from 'electron';
 import {enableLiveReload} from 'electron-compile';
 
 // need to setup config information
@@ -21,14 +22,18 @@ const lib = {
 
 // ----------------------------------------------
 
-let mainWindow = null;
+let mainWindow = null
+let tray = null
+const image_icon = nativeImage.createFromPath(`file://${__dirname}/assets/images/favicon-32x32.png`)
+const image_icon_path = `${__dirname}/assets/images/logos/favicon-32x32.png`
 
 const openSettingsWindow = () => {
   var settingsWindow = new BrowserWindow({
     width: 400,
     height: 400,
     backgroundColor: '#1b2028',
-    autoHideMenuBar: true
+    autoHideMenuBar: true,
+    icon: image_icon_path
     // devTools: false // Will uncomment for production
   })
   settingsWindow.loadURL(`file://${__dirname}/renderer/settings/index.html`)
@@ -46,6 +51,7 @@ app.on('ready', () => {
     height: 760,
     backgroundColor: '#1b2028',
     autoHideMenuBar: false,
+    icon: image_icon_path
     // devTools: false // Will uncomment for production
   });
 
@@ -115,6 +121,16 @@ app.on('ready', () => {
   Menu.setApplicationMenu(menu)
   mainWindow.webContents.openDevTools()
   mainWindow.loadURL(`file://${__dirname}/renderer/main/index.html`)
+
+  tray = new Tray(`${__dirname}/assets/images/logos/favicon-32x32.png`)
+  const contextMenu = Menu.buildFromTemplate([
+    {label: 'Item1', type: 'radio'},
+    {label: 'Item2', type: 'radio'},
+    {label: 'Item3', type: 'radio', checked: true},
+    {label: 'Item4', type: 'radio'}
+  ])
+  tray.setToolTip('This is my application.')
+  tray.setContextMenu(contextMenu)
 
   // main window library
   mainWindow.mainLib = lib
