@@ -141,6 +141,8 @@ app.on('ready', () => {
   ])
   tray.setToolTip('Steam Workshop Monitor')
   tray.setContextMenu(contextMenu)
+
+  // Below will be removed after done testing in windows
   tray.displayBalloon({
     icon: `${__dirname}/assets/images/logos/favicon-32x32.png`,
     title: 'Test Title Balloon',
