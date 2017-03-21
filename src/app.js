@@ -149,7 +149,8 @@ app.on('ready', () => {
     content: 'This is content in balloon. It works!!!'
   })
 
-  startMonitoring()
+  // const startMonitoring = require('./steamWSmonitor.js')
+  // startMonitoring()
 });
 
 enableLiveReload({strategy: 'react-hmr'});
