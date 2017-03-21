@@ -15,10 +15,12 @@ class SteamCMD extends Component {
     } else {
       return(
         <div>
-          <Input name="steamcmdLocalLocation" id="steamcmdLocalLocation"
-            value="No steamcmd location" readOnly></Input>
-          <br />
-          <Button color="primary" onClick={this.props.handleButtonClick}>Browse for steamcmd</Button>
+          <FormGroup>
+            <Input name="steamcmdLocalLocation" id="steamcmdLocalLocation"
+              value="No steamcmd location" readOnly></Input>
+            <br />
+            <Button color="primary" onClick={this.props.handleButtonClick}>Browse for steamcmd</Button>
+          </FormGroup>
         </div>
       )
     }
@@ -41,9 +43,16 @@ export default class SettingsPage extends Component {
       exists = true
       steamcmdLoc = cSettings.get('steamcmdLoc')
     }
-    this.state = {steamcmdPath: steamcmdLoc, steamcmdLocExists: exists}
+    let steam_key = cSettings.get('steamAPIkey')
+    console.log("steam_key: ", steam_key)
+    this.state = {
+      steamcmdPath: steamcmdLoc,
+      steamcmdLocExists: exists,
+      steamKey: steam_key,
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleExit = this.handleExit.bind(this)
+    this.onChangeSteamKey = this.onChangeSteamKey.bind(this)
     this.handleButtonClick = this.handleButtonClick.bind(this)
     this.handleFileInput = this.handleFileInput.bind(this)
   }
@@ -58,12 +67,17 @@ export default class SettingsPage extends Component {
     // console.log(cSettings)
     cSettings.set('steamcmdLoc', this.state.steamcmdPath)
     console.log("Saving steamcmdLoc: ", cSettings.get('steamcmdLoc', ''))
+    cSettings.set('steamAPIkey', this.state.steamKey)
+    console.log("Saving steamAPIkey: ", cSettings.get('steamAPIkey', ''))
     alert("Settings saved...")
   }
   handleExit() {
     const remote = require('electron').remote
     var window = remote.getCurrentWindow()
     window.close()
+  }
+  onChangeSteamKey(e) {
+    this.setState({steamKey: e.target.value})
   }
 
   handleButtonClick(e) {
@@ -102,6 +116,16 @@ export default class SettingsPage extends Component {
                   handleButtonClick={this.handleButtonClick} />
                 <input id="fileInputID" type="file" ref={(ref) => this.fileUpload = ref}
                   onChange={this.handleFileInput} style={{display: 'none'}}/>
+              </Col>
+            </FormGroup>
+            <br />
+            <hr />
+            <br />
+            <FormGroup row className="container">
+              <Label for="steamAPIkey">Steam API Key:</Label>
+              <Col>
+                <Input name="steamAPIkey" onChange={this.onChangeSteamKey} id="steamAPIkey"
+                  value={this.state.steamKey}></Input>
               </Col>
             </FormGroup>
             <br />

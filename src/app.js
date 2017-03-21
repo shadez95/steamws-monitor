@@ -8,6 +8,9 @@ import {enableLiveReload} from 'electron-compile';
 const Config = require('electron-config')
 // Settings config
 const cSettings = new Config({name: 'settings'})
+if (cSettings.get('steamAPIkey') === undefined) {
+  cSettings.set('steamAPIkey', '')
+}
 // Workshop config
 const steamwsStore = new Config({name: 'workshopStore'})
 let array = []
@@ -23,14 +26,16 @@ const lib = {
 // ----------------------------------------------
 
 let mainWindow = null
+let settingsWindow
 let tray = null
+
 const image_icon = nativeImage.createFromPath(`file://${__dirname}/assets/images/favicon-32x32.png`)
 const image_icon_path = `${__dirname}/assets/images/logos/favicon-32x32.png`
 
 const openSettingsWindow = () => {
-  var settingsWindow = new BrowserWindow({
-    width: 400,
-    height: 400,
+  settingsWindow = new BrowserWindow({
+    width: 500,
+    height: 500,
     backgroundColor: '#1b2028',
     autoHideMenuBar: true,
     icon: image_icon_path
@@ -41,11 +46,7 @@ const openSettingsWindow = () => {
   settingsWindow.mainLib = lib
 }
 
-app.on('window-all-closed', () => {
-  app.quit();
-});
-
-app.on('ready', () => {
+const openSteamWSWindow = () => {
   mainWindow = new BrowserWindow({
     width: 700,
     height: 760,
@@ -60,7 +61,7 @@ app.on('ready', () => {
     {
       label: 'File',
       submenu: [
-        {role: 'quit'}
+        {role: 'close'}
       ]
     },
     {
@@ -121,19 +122,25 @@ app.on('ready', () => {
   Menu.setApplicationMenu(menu)
   mainWindow.webContents.openDevTools()
   mainWindow.loadURL(`file://${__dirname}/renderer/main/index.html`)
-
-  tray = new Tray(`${__dirname}/assets/images/logos/favicon-32x32.png`)
-  const contextMenu = Menu.buildFromTemplate([
-    {label: 'Item1', type: 'radio'},
-    {label: 'Item2', type: 'radio'},
-    {label: 'Item3', type: 'radio', checked: true},
-    {label: 'Item4', type: 'radio'}
-  ])
-  tray.setToolTip('This is my application.')
-  tray.setContextMenu(contextMenu)
-
   // main window library
   mainWindow.mainLib = lib
+}
+
+app.on('window-all-closed', () => {
+  // Overriding so it can run in the background
+  // To shutdown application right-click on tray icon
+  // and click quit
+});
+
+app.on('ready', () => {
+  tray = new Tray(`${__dirname}/assets/images/logos/favicon-32x32.png`)
+  const contextMenu = Menu.buildFromTemplate([
+    {label: 'Open SteamWS Monitor', click: () => {openSteamWSWindow()}},
+    {label: 'Settings', click: function() {openSettingsWindow()}},
+    {label: 'Quit', click: () => {app.quit()}}
+  ])
+  tray.setToolTip('Steam Workshop Monitor')
+  tray.setContextMenu(contextMenu)
 });
 
 enableLiveReload({strategy: 'react-hmr'});

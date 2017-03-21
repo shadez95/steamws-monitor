@@ -29,7 +29,7 @@ export default class AddGame extends Component {
     let temp_appInput = this.state.appInput
     this.clearInputAppID(e)
     var SteamApi = require('steam-api');
-    var app = new SteamApi.App('0691601DDFE7900A2E2DA7D770D55F0F');
+    var app = new SteamApi.App(STEAM_API_KEY);
     const props = this.props
     var mainList = props.list
     console.log('[addGame.jsx] handleSaveAppID - mainList: ', mainList)
