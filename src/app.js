@@ -133,6 +133,8 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
+  // Trays only work in Windows so this will be used in the future
+  // maybe when workshop items are updating
   tray = new Tray(`${__dirname}/assets/images/logos/favicon-32x32.png`)
   const contextMenu = Menu.buildFromTemplate([
     {label: 'Open SteamWS Monitor', click: () => {openSteamWSWindow()}},
@@ -141,14 +143,6 @@ app.on('ready', () => {
   ])
   tray.setToolTip('Steam Workshop Monitor')
   tray.setContextMenu(contextMenu)
-
-  // Below will be removed after done testing in windows
-  tray.displayBalloon({
-    icon: `${__dirname}/assets/images/logos/favicon-32x32.png`,
-    title: 'Test Title Balloon',
-    content: 'This is content in balloon. It works!!!'
-  })
-
   // const startMonitoring = require('./steamWSmonitor.js')
   // startMonitoring()
 });
