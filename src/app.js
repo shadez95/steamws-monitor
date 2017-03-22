@@ -83,11 +83,11 @@ const openSteamWSWindow = () => {
         {role: 'reload'},
         {role: 'forcereload'},
         // {role: 'toggledevtools'},
-        {role: 'separator'},
+        {type: 'separator'},
         {role: 'resetzoom'},
         {role: 'zoomin'},
         {role: 'zoomout'},
-        {role: 'separator'},
+        {type: 'separator'},
         {role: 'togglefullscreen'}
       ]
     },
@@ -138,7 +138,8 @@ app.on('ready', () => {
   tray = new Tray(`${__dirname}/assets/images/logos/favicon-32x32.png`)
   const contextMenu = Menu.buildFromTemplate([
     {label: 'Open SteamWS Monitor', click: () => {openSteamWSWindow()}},
-    {label: 'Settings', click: function() {openSettingsWindow()}},
+    {label: 'Settings', click: () => {openSettingsWindow()}},
+    {type: 'separator'},
     {label: 'Quit', click: () => {app.quit()}}
   ])
   tray.setToolTip('Steam Workshop Monitor')
