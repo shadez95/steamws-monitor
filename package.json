@@ -14,6 +14,7 @@
   ],
   "main": "src/app.js",
   "dependencies": {
+    "@doctormckay/steam-webapi": "^1.1.0",
     "bootstrap": "^4.0.0-alpha.6",
     "electron-config": "^0.2.1",
     "react": "^15.4.2",

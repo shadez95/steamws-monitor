@@ -3,7 +3,7 @@ import { FormGroup, Label, Col, Input, Button } from 'reactstrap'
 import classnames from 'classnames'
 
 import Add from './add'
-import List from './list'
+import GameList from './game-list'
 import PlusMinus from './plus-minus'
 
 // {
@@ -51,6 +51,9 @@ class AddWorkshopItem extends Component {
   handleInputWSID(e) {
     this.setState({workshopInput: e.target.value})
   }
+  handleSubmit(e) {
+
+  }
   render() {
     return(
       <div>
@@ -64,8 +67,6 @@ class AddWorkshopItem extends Component {
           </Col>
         </FormGroup>
         <Button color="success" type="submit" onClick={this.handleSubmit} value="Submit">Add</Button>
-        <br /><br />
-      {this.props.children}
       </div>
     )
   }
@@ -78,7 +79,9 @@ class WorkshopItemDetail extends Component {
   }
   render() {
     return(
-      <div>Workshop Item Detail</div>
+      <div>
+        {this.state.workshopItems}
+      </div>
     )
   }
 }
@@ -100,7 +103,6 @@ class GameData extends Component {
   getWorkshopItems() {
     const remote = require('electron').remote
     const workshopStore = remote.getCurrentWindow().mainLib.workshopStore
-    temp_workshopInput
   }
   render() {
     return(
@@ -109,9 +111,8 @@ class GameData extends Component {
           {this.props.GameName} &nbsp;<PlusMinus sign={this.state.plus_minus} />
         </Button>
         <div className={this.state.slider}>
-          <AddWorkshopItem>
-            {this.state.workshopItems}
-          </AddWorkshopItem>
+          <AddWorkshopItem updateWorkshopList={}/>
+          {this.state.workshopItems}
           <hr />
         </div>
       </div>
@@ -176,7 +177,7 @@ export default class Main extends Component {
         <br />
         <Add list={this.state.mainList} update={this.updateList} />
         <br />
-        <List arrayComponents={this.state.listArrayComponents} />
+        <GameList arrayComponents={this.state.listArrayComponents} />
       </div>
     )
   }
