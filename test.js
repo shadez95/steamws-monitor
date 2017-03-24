@@ -5,19 +5,27 @@ const steamRemoteStorage = getInterface('ISteamRemoteStorage');
 
 var param_1 = 1;
 var param_2 = 450814997;
-var returned = ''
 
-steamRemoteStorage.post('GetPublishedFileDetails', 1, {
-  itemcount: 1,
-  publishedfileids: ['450814997']
-}, function(statusCode, response) {
+const callBack = (statusCode, response) => {
   if (statusCode == 200) {
-    // console.log(response);
-    console.log(response['response']['publishedfiledetails'][0].time_updated);
-    // var obj = JSON.parse(response);
-    // console.log(obj);
+    //console.log(response['response']['publishedfiledetails'][0]);
+    returned = response['response']['publishedfiledetails'][0];
   }
-});
+}
+
+const getWorkshopData = (workshopID) => {
+  var returned = ''
+  steamRemoteStorage.post('GetPublishedFileDetails', 1, {
+    itemcount: 1,
+    publishedfileids: ['450814997']
+  }, function(statusCode, response) {
+    if (statusCode == 200) {
+      //console.log(response['response']['publishedfiledetails'][0]);
+      returned = response['response']['publishedfiledetails'][0];
+    }
+  });
+  return returned;
+}
 
 console.log("returned: ", returned);
 // var obj = JSON.parse(JSON.stringify(response));
