@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { FormGroup, Label, Col, Input, Button } from 'reactstrap'
+import {
+  FormGroup, Label, Col, Input, Button,
+  NavDropdown, DropdownToggle, DropdownMenu,
+  DropdownItem, Nav } from 'reactstrap'
 import classnames from 'classnames'
 
 import Add from './add'
@@ -119,7 +122,18 @@ class GameData extends Component {
     )
   }
 }
+class NavComponent extends Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return(
+      <Nav vertical>
 
+      </Nav>
+    )
+  }
+}
 export default class Main extends Component {
   constructor(props) {
     super(props)
@@ -175,7 +189,9 @@ export default class Main extends Component {
         <br />
         <h1 style={{"textAlign": "center"}}>Steam Workshop Monitor</h1>
         <br />
+        <NavComponent />
         <Add list={this.state.mainList} update={this.updateList} />
+        <DropdownMenuWrapper list={this.state.mainList}/>
         <br />
         <GameList arrayComponents={this.state.listArrayComponents} />
       </div>
