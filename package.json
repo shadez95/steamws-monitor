@@ -33,7 +33,7 @@
     "build-all": "electron-packager . SteamwsMonitor --all --out ./dist --overwrite"
   },
   "devDependencies": {
-    "babel-preset-es2016-node5": "^1.1.2",
+    "babel-preset-es2017-node7": "^0.5.2",
     "babel-preset-react": "^6.5.0",
     "electron-prebuilt-compile": "^1.1.3"
   }

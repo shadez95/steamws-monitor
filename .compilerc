@@ -3,14 +3,14 @@
     "development": {
       "application/javascript": {
         "presets": ["react", "es2017-node7"],
-        "plugins": ['react-hot-loader/babel', 'transform-async-to-generator'],
+        "plugins": ["react-hot-loader/babel", "transform-async-to-generator"],
         "sourceMaps": "inline"
       }
     },
     "production": {
       "application/javascript": {
         "presets": ["react", "es2017-node7"],
-        "plugins": ['react-hot-loader/babel', 'transform-async-to-generator'],
+        "plugins": ["react-hot-loader/babel", "transform-async-to-generator"],
         "sourceMaps": false
       }
     }
