@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Button, Form, FormGroup, Label, Input, FormText, Col } from 'reactstrap'
+import {
+  Button, Form, FormGroup, Label, Input,
+  FormText, Col, NavItem } from 'reactstrap'
 
 import AddGame from './addGame'
 import PlusMinus from './plus-minus'
@@ -43,14 +45,14 @@ export default class Add extends Component {
   }
   render() {
     return (
-      <div id="AddContent">
+      <NavItem id="AddContent">
         <FormGroup row className="container">
           <Button color="primary" type="submit"
             onClick={this.addGameSliderHandler}>Add Steam Game &nbsp;
             <PlusMinus sign={this.state.plus_minus} /></Button>
         </FormGroup>
         <AddGame update={this.props.update} list={this.props.list} slider={this.state.slider} />
-      </div>
+      </NavItem>
     )
   }
 }
