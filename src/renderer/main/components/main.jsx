@@ -111,7 +111,7 @@ class GameData extends Component {
           {this.props.GameName} &nbsp;<PlusMinus sign={this.state.plus_minus} />
         </Button>
         <div className={this.state.slider}>
-          <AddWorkshopItem updateWorkshopList={}/>
+          <AddWorkshopItem />
           {this.state.workshopItems}
           <hr />
         </div>
