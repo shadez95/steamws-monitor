@@ -1,6 +1,4 @@
-const electron = require('electron')
-const dialog = electron.dialog
-const nativeImage = electron.nativeImage
+const electron = require('electron');
 import {app, BrowserWindow, Menu, Tray} from 'electron';
 import {enableLiveReload} from 'electron-compile';
 
@@ -29,7 +27,6 @@ let mainWindow = null
 let settingsWindow
 let tray = null
 
-const image_icon = nativeImage.createFromPath(`file://${__dirname}/assets/images/favicon-32x32.png`)
 const image_icon_path = `${__dirname}/assets/images/logos/favicon-32x32.png`
 
 const openSettingsWindow = () => {
