@@ -28,7 +28,7 @@ const openSteamWSWindow = () => {
     width: 700,
     height: 760,
     backgroundColor: '#1b2028',
-    autoHideMenuBar: false,
+    autoHideMenuBar: true,
     icon: image_icon_path
     // devTools: false // Will uncomment for production
   });
@@ -95,8 +95,8 @@ const openSteamWSWindow = () => {
     }
   ]
 
-  const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+  // const menu = Menu.buildFromTemplate(template)
+  // Menu.setApplicationMenu(menu)
   mainWindow.webContents.openDevTools()
   mainWindow.loadURL(`file://${__dirname}/renderer/main/index.html`)
   // main window library
