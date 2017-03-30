@@ -1,6 +1,6 @@
-const electron = require('electron');
-import {app, BrowserWindow, Menu, Tray} from 'electron';
-import {enableLiveReload} from 'electron-compile';
+const electron = require('electron')
+import {app, BrowserWindow, Menu, Tray} from 'electron'
+import {enableLiveReload} from 'electron-compile'
 
 // ----------------------------------------------
 
