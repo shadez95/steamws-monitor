@@ -23,15 +23,16 @@ class Main extends Component {
         <Navbar color="inverse" inverse >
           <NavbarToggler onClick={this.toggleNavbar} />
           <Collapse className="navbar-toggleable-md" isOpen={!this.state.collapsed}>
-            <NavbarBrand href="/">reactstrap</NavbarBrand>
-            <Nav vertical>
-              <NavItem>
-                <NavLink href="/components/">Components</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
-              </NavItem>
-            </Nav>
+          <Nav vertical>
+            <NavbarBrand>Components</NavbarBrand>
+            <NavItem>
+              <NavLink href="/components/">Components</NavLink>
+            </NavItem>
+            <NavbarBrand>reactstrap</NavbarBrand>
+            <NavItem>
+              <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+            </NavItem>
+          </Nav>
           </Collapse>
         </Navbar>
       </div>
