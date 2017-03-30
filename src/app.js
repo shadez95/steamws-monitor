@@ -14,7 +14,7 @@ const openSettingsWindow = () => {
   settingsWindow = new BrowserWindow({
     width: 500,
     height: 500,
-    backgroundColor: '#1b2028',
+    backgroundColor: '#252526',
     autoHideMenuBar: true,
     icon: image_icon_path
     // devTools: false // Will uncomment for production
@@ -27,9 +27,9 @@ const openSteamWSWindow = () => {
   mainWindow = new BrowserWindow({
     width: 700,
     height: 760,
-    backgroundColor: '#1b2028',
+    backgroundColor: '#252526',
     // autoHideMenuBar: false,
-    frame: false,
+    // frame: false,
     icon: image_icon_path
     // devTools: false // Will uncomment for production
   });
