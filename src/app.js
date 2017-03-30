@@ -28,7 +28,8 @@ const openSteamWSWindow = () => {
     width: 700,
     height: 760,
     backgroundColor: '#1b2028',
-    autoHideMenuBar: true,
+    // autoHideMenuBar: false,
+    frame: false,
     icon: image_icon_path
     // devTools: false // Will uncomment for production
   });
