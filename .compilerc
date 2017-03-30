@@ -2,15 +2,15 @@
   "env": {
     "development": {
       "application/javascript": {
-        "presets": ["react", "es2017-node7"],
-        "plugins": ["react-hot-loader/babel", "transform-async-to-generator"],
+        "presets": ["react", "es2016-node5"],
+        "plugins": ["transform-async-to-generator"],
         "sourceMaps": "inline"
       }
     },
     "production": {
       "application/javascript": {
-        "presets": ["react", "es2017-node7"],
-        "plugins": ["react-hot-loader/babel", "transform-async-to-generator"],
+        "presets": ["react", "es2016-node5"],
+        "plugins": ["transform-async-to-generator"],
         "sourceMaps": false
       }
     }

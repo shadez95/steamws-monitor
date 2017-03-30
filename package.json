@@ -1,40 +1,46 @@
 {
   "name": "steamws-monitor",
-  "author": "Dixon Begay aka dixon13",
-  "description": "An application that monitors a steam workshop item for updates",
   "version": "0.0.1",
-  "license": "MIT",
-  "repository": "https://github.com/dixon13/steamws-monitor",
-  "keywords": [
-    "steam",
-    "workshop",
-    "monitor",
-    "files",
-    "item"
-  ],
+  "description": "An application that monitors steam workshop files for updates",
   "main": "src/app.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development electron .",
+    "build-local": "electron-packager . SteamwsMonitor --out ./dist --overwrite --ignore=./node_modules --ignore=./dist --ignore=./renderer-bundle.js",
+    "build-all": "electron-packager . SteamwsMonitor --all --out ./dist --overwrite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dixon13/steamws-monitor.git"
+  },
+  "keywords": [
+    "reactjs",
+    "electron",
+    "reactstrap",
+    "steam",
+    "steamworkshop",
+    "workshop",
+    "monitor"
+  ],
+  "author": "dixon13 aka Dixon Begay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dixon13/steamws-monitor/issues"
+  },
+  "homepage": "https://github.com/dixon13/steamws-monitor#readme",
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.22.0",
+    "babel-preset-es2016-node5": "^1.1.2",
+    "babel-preset-react": "^6.23.0",
+    "electron-prebuilt-compile": "^1.6.2"
+  },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
-    "electron-config": "^0.2.1",
+    "cross-env": "^3.2.4",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
     "react-addons-transition-group": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-hot-loader": "^3.0.0-beta.6",
-    "reactstrap": "^4.3.0",
-    "steam-api": "^1.1.3",
-    "steam-web-api": "0.0.1",
-    "steam-webapi": "^0.6.5"
-  },
-  "private": true,
-  "scripts": {
-    "start": "electron .",
-    "build-local": "electron-packager . SteamwsMonitor --out ./dist --overwrite --ignore=./node_modules --ignore=./dist --ignore=./renderer-bundle.js",
-    "build-all": "electron-packager . SteamwsMonitor --all --out ./dist --overwrite"
-  },
-  "devDependencies": {
-    "babel-preset-es2017-node7": "^0.5.2",
-    "babel-preset-react": "^6.5.0",
-    "electron-prebuilt-compile": "^1.1.3"
+    "reactstrap": "^4.3.0"
   }
 }

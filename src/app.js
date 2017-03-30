@@ -2,32 +2,15 @@ const electron = require('electron');
 import {app, BrowserWindow, Menu, Tray} from 'electron';
 import {enableLiveReload} from 'electron-compile';
 
-// need to setup config information
-const Config = require('electron-config')
-// Settings config
-const cSettings = new Config({name: 'settings'})
-if (cSettings.get('steamAPIkey') === undefined) {
-  cSettings.set('steamAPIkey', '')
-}
-// Workshop config
-const steamwsStore = new Config({name: 'workshopStore'})
-let array = []
-if (steamwsStore.get('list') === undefined) {
-  steamwsStore.set('list', array)
-}
-
-const lib = {
-  configSettings: cSettings,
-  workshopStore: steamwsStore,
-}
-
 // ----------------------------------------------
 
 let mainWindow = null
 let settingsWindow
 let tray = null
 
-const image_icon_path = `${__dirname}/assets/images/logos/favicon-32x32.png`
+const image_icon_path = `${__dirname}/static/images/logos/favicon-32x32.png`
+
+enableLiveReload({strategy: 'react-hmr'});
 
 const openSettingsWindow = () => {
   settingsWindow = new BrowserWindow({
@@ -40,7 +23,6 @@ const openSettingsWindow = () => {
   })
   settingsWindow.loadURL(`file://${__dirname}/renderer/settings/index.html`)
   settingsWindow.webContents.openDevTools()
-  settingsWindow.mainLib = lib
 }
 
 const openSteamWSWindow = () => {
@@ -120,7 +102,6 @@ const openSteamWSWindow = () => {
   mainWindow.webContents.openDevTools()
   mainWindow.loadURL(`file://${__dirname}/renderer/main/index.html`)
   // main window library
-  mainWindow.mainLib = lib
 }
 
 app.on('window-all-closed', () => {
@@ -130,9 +111,9 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
-  // Trays only work in Windows so this will be used in the future
+  // Trays work in Windows and Ubuntu based OS's
   // maybe when workshop items are updating
-  tray = new Tray(`${__dirname}/assets/images/logos/favicon-32x32.png`)
+  tray = new Tray(image_icon_path)
   const contextMenu = Menu.buildFromTemplate([
     {label: 'Open SteamWS Monitor', click: () => {openSteamWSWindow()}},
     {label: 'Settings', click: () => {openSettingsWindow()}},
@@ -145,6 +126,6 @@ app.on('ready', () => {
   // startMonitoring()
 });
 
-enableLiveReload({strategy: 'react-hmr'});
+
 
 console.log("Config Path: ", app.getPath('userData'))
