@@ -10,8 +10,6 @@ let tray = null
 
 const image_icon_path = `${__dirname}/static/images/logos/favicon-32x32.png`
 
-enableLiveReload({strategy: 'react-hmr'});
-
 const openSettingsWindow = () => {
   settingsWindow = new BrowserWindow({
     width: 500,
@@ -124,8 +122,7 @@ app.on('ready', () => {
   tray.setContextMenu(contextMenu)
   // const startMonitoring = require('./steamWSmonitor.js')
   // startMonitoring()
+  enableLiveReload({strategy: 'react-hmr'});
 });
-
-
 
 console.log("Config Path: ", app.getPath('userData'))
