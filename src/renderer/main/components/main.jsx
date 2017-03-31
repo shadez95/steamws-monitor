@@ -9,33 +9,6 @@ class Main extends Component {
     super(props)
 
     this.toggleNavbar = this.toggleNavbar.bind(this)
-    this.handleStart = this.handleStart.bind(this)
-    this.handleDrag = this.handleDrag.bind(this)
-    this.handleStop = this.handleStop.bind(this)
-    this.state = {
-      collapsed: true,
-      navRight: 650,
-      draggable: 645
-    }
-    this.cssProp = {
-      right: this.state.draggable + 'px'
-    }
-  }
-
-  handleStart() {
-    this.cssProp = {right: 'initial'}
-  }
-  handleDrag(e) {
-    console.log("e.x = ", e.x)
-    console.log("this.state.draggable = ", this.state.draggable)
-    console.log("this.state.draggable + e.x = ", this.state.draggable + e.x)
-    this.setState({
-      navRight: e.x,
-      draggable: e.x
-    })
-  }
-  handleStop() {
-    this.cssProp = {right: this.state.navRight - 5 + 'px'}
   }
   toggleNavbar() {
     this.setState({
