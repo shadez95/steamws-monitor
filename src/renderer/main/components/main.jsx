@@ -23,17 +23,17 @@ class Main extends Component {
       <div className="container-fluid">
         <Row>
           <nav className="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-          <Nav vertical pills >
-            <NavbarBrand>Components</NavbarBrand>
-            <NavItem>
-              <NavLink active href="/components/">Components</NavLink>
-            </NavItem>
-            <NavbarBrand>reactstrap</NavbarBrand>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
-            </NavItem>
-            <NavbarBrand>Add a Game</NavbarBrand>
-          </Nav>
+            <Nav vertical pills >
+              <NavbarBrand>Components</NavbarBrand>
+              <NavItem>
+                <NavLink active href="/components/">Components</NavLink>
+              </NavItem>
+              <NavbarBrand>reactstrap</NavbarBrand>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+              <NavbarBrand>Add a Game</NavbarBrand>
+            </Nav>
           </nav>
           <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
             <h2>Test Title</h2>
