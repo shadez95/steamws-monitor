@@ -1,4 +1,3 @@
-const electron = require('electron')
 import {app, BrowserWindow, Menu, Tray} from 'electron'
 import {enableLiveReload} from 'electron-compile'
 
@@ -32,7 +31,7 @@ const openSteamWSWindow = () => {
     // frame: false,
     icon: image_icon_path
     // devTools: false // Will uncomment for production
-  });
+  })
 
   // Create Menu
   const template = [
@@ -96,18 +95,26 @@ const openSteamWSWindow = () => {
     }
   ]
 
-  // const menu = Menu.buildFromTemplate(template)
-  // Menu.setApplicationMenu(menu)
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
   mainWindow.webContents.openDevTools()
   mainWindow.loadURL(`file://${__dirname}/renderer/main/index.html`)
   // main window library
+
+  if (process.env.NODE_ENV === 'development') {
+    const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer')
+
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log('An error occurred: ', err))
+  }
 }
 
 app.on('window-all-closed', () => {
   // Overriding so it can run in the background
   // To shutdown application right-click on tray icon
   // and click quit
-});
+})
 
 app.on('ready', () => {
   // Trays work in Windows and Ubuntu based OS's
@@ -123,7 +130,10 @@ app.on('ready', () => {
   tray.setContextMenu(contextMenu)
   // const startMonitoring = require('./steamWSmonitor.js')
   // startMonitoring()
-  enableLiveReload({strategy: 'react-hmr'});
-});
+  enableLiveReload({strategy: 'react-hmr'})
+  
+})
 
-console.log("Config Path: ", app.getPath('userData'))
+if (process.env.NODE_ENV === 'development') {
+  console.log('Config Path: ', app.getPath('userData'))
+}
