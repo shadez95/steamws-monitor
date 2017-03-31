@@ -7,7 +7,6 @@ import SplitPane from 'react-split-pane'
 export default class CustomNav extends Component {
   constructor(props) {
     super(props)
-    console.log(props.children)
     this.toggleNavbar = this.toggleNavbar.bind(this)
   }
   toggleNavbar() {

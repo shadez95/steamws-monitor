@@ -37,6 +37,7 @@
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "cross-env": "^3.2.4",
+    "immutable": "^3.8.1",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
     "react-addons-transition-group": "^15.4.2",

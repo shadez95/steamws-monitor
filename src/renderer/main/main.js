@@ -5,8 +5,8 @@ import { AppContainer } from 'react-hot-loader'
 const render = () => {
   // NB: We have to re-require MyApp every time or else this won't work
   // We also need to wrap our app in the AppContainer class
-  const Main = require('./components/main')
-  ReactDOM.render(<AppContainer><Main/></AppContainer>, document.getElementById('app'))
+  const Container = require('../../containers/Container')
+  ReactDOM.render(<AppContainer><Container /></AppContainer>, document.getElementById('app'))
 }
 
 render()
