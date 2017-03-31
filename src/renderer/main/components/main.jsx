@@ -1,6 +1,7 @@
 import React, { Component }  from 'react'
 import { Collapse, Navbar, NavbarToggler,
-  NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap'
+  NavbarBrand, Nav, NavItem, NavLink, Row,
+  Col } from 'reactstrap'
 
 class Main extends Component {
   constructor(props) {
@@ -19,22 +20,26 @@ class Main extends Component {
   }
   render() {
     return (
-      <div>
-        <Navbar color="inverse" inverse >
-          <NavbarToggler onClick={this.toggleNavbar} />
-          <Collapse className="navbar-toggleable-md" isOpen={!this.state.collapsed}>
-          <Nav vertical>
+      <div className="container-fluid">
+        <Row>
+          <nav className="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+          <Nav vertical pills >
             <NavbarBrand>Components</NavbarBrand>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
+              <NavLink active href="/components/">Components</NavLink>
             </NavItem>
             <NavbarBrand>reactstrap</NavbarBrand>
             <NavItem>
               <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
             </NavItem>
+            <NavbarBrand>Add a Game</NavbarBrand>
           </Nav>
-          </Collapse>
-        </Navbar>
+          </nav>
+          <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            <h2>Test Title</h2>
+            <p>Test text</p>
+          </main>
+        </Row>
       </div>
     )
   }
