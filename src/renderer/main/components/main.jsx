@@ -2,6 +2,8 @@ import React, { Component }  from 'react'
 import CustomNav from './nav'
 import SplitPane from 'react-split-pane'
 
+import AddGame from './addGame'
+
 // {[
 //   {
 //     'gameName': 'Arma 3',
@@ -30,11 +32,19 @@ class Main extends Component {
     super(props)
     this.displayComponent = this.displayComponent.bind(this)
     this.changeComponent = this.changeComponent.bind(this)
-    // this.state = {
-    //   display:
-    // }
+    this.getInitNavs = this.getInitNavs.bind(this)
+    content = <div></div>
+    this.state = {
+      navs: this.getInitNavs, // array
+      paneContent: content
+    }
   }
-
+  getInitNavs() {
+    
+  }
+  addToNav(element) {
+    this.setState({navs: this.state.navs.push(element)})
+  }
   displayComponent(comp) {
     
   }
@@ -46,11 +56,11 @@ class Main extends Component {
     return (
       <SplitPane split="vertical" primary="first" defaultSize={200}>
         <div>
-          <CustomNav></CustomNav>
+          <CustomNav>{this.state.navs}</CustomNav>
         </div>
         <div>
           <div className="container-fluid">
-            <h1>Test Title</h1>
+            {this.state.paneContent}
           </div>
         </div>
       </SplitPane>
