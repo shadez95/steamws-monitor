@@ -1,5 +1,6 @@
 import React, { Component }  from 'react'
 import CustomNav from './nav'
+import SplitPane from 'react-split-pane'
 
 // {[
 //   {
@@ -27,17 +28,32 @@ import CustomNav from './nav'
 class Main extends Component {
   constructor(props) {
     super(props)
+    this.displayComponent = this.displayComponent.bind(this)
+    this.changeComponent = this.changeComponent.bind(this)
+    // this.state = {
+    //   display:
+    // }
   }
+
+  displayComponent(comp) {
+    
+  }
+  changeComponent(comp) {
+
+  }
+
   render() {
     return (
-      <div>
-        <CustomNav>
-          <div>
-            <h2>Test Title</h2>
-            <p>Test text</p>
+      <SplitPane split="vertical" primary="first" defaultSize={200}>
+        <div>
+          <CustomNav></CustomNav>
+        </div>
+        <div>
+          <div className="container-fluid">
+            <h1>Test Title</h1>
           </div>
-        </CustomNav>
-      </div>
+        </div>
+      </SplitPane>
     )
   }
 }

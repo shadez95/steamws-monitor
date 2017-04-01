@@ -16,31 +16,24 @@ export default class CustomNav extends Component {
   }
   render() {
     return (
-      <SplitPane split="vertical" primary="first" defaultSize={200}>
-        <div>
-          <nav className="hidden-xs-down bg-faded sidebar">
-            <Nav vertical pills >
-              <NavbarBrand>Add a Game</NavbarBrand>
-              <NavbarBrand>Components</NavbarBrand>
-              <NavItem>
-                <NavLink active href="/components/">Components</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#">Testing length in nav</NavLink>
-              </NavItem>
-              <NavbarBrand>reactstrap</NavbarBrand>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
-              </NavItem>
-            </Nav>
-          </nav>
-        </div>
-        <div>
-          <div className="container-fluid">
-            {this.props.children}
-          </div>
-        </div>
-      </SplitPane>
+      <nav className="hidden-xs-down bg-faded sidebar">
+        <Nav vertical pills >
+          <NavItem>
+            <NavLink href="#" onClick={this.props.AddGame} >Add a Game</NavLink>
+          </NavItem>
+          <NavbarBrand>Components</NavbarBrand>
+          <NavItem>
+            <NavLink active href="/components/">Components</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="#">Testing length in nav</NavLink>
+          </NavItem>
+          <NavbarBrand>reactstrap</NavbarBrand>
+          <NavItem>
+            <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+          </NavItem>
+        </Nav>
+      </nav>
     )
   }
 }
