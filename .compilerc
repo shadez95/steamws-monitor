@@ -2,14 +2,14 @@
   "env": {
     "development": {
       "application/javascript": {
-        "presets": ["react", "es2016-node5"],
+        "presets": ["react", "es2016-node5","stage-0"],
         "plugins": ["transform-async-to-generator"],
         "sourceMaps": "inline"
       }
     },
     "production": {
       "application/javascript": {
-        "presets": ["react", "es2016-node5"],
+        "presets": ["react", "es2016-node5","stage-0"],
         "plugins": ["transform-async-to-generator"],
         "sourceMaps": false
       }

@@ -3,6 +3,7 @@ import CustomNav from './nav'
 import SplitPane from 'react-split-pane'
 
 import AddGame from './addGame'
+import Settings from './settings'
 
 // {[
 //   {
@@ -27,13 +28,15 @@ import AddGame from './addGame'
 //   }
 // ]}
 
-class Main extends Component {
+export default class Main extends Component {
   constructor(props) {
     super(props)
     this.displayComponent = this.displayComponent.bind(this)
     this.changeComponent = this.changeComponent.bind(this)
     this.getInitNavs = this.getInitNavs.bind(this)
-    content = <div></div>
+    var content = []
+    const element = (<Settings />)
+    content.push(element)
     this.state = {
       navs: this.getInitNavs, // array
       paneContent: content
@@ -53,6 +56,7 @@ class Main extends Component {
   }
 
   render() {
+    console.log("[main.jsx] render - this.state.paneContent", this.state.paneContent)
     return (
       <SplitPane split="vertical" primary="first" defaultSize={200}>
         <div>
@@ -68,7 +72,4 @@ class Main extends Component {
   }
 }
 
-// Below is wrapper for flux
-const mainCall = () => <Main />
-
-export default mainCall
+// module.exports = Main
