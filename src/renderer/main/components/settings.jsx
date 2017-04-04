@@ -7,8 +7,10 @@ class Settings extends Component {
     super(props);
   }
 
+  static myVar = "String"
+
   static nav = (keyInput) => {
-    <div>
+    <div key={keyInput}>
       <NavbarBrand>Settings</NavbarBrand>
       <NavItem>
         <NavLink tag={Link} to="settings" activeClassName="active">Add a Game</NavLink>

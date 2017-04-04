@@ -12,7 +12,7 @@ export default class CustomNav extends Component {
   toggleNavbar() {
     this.setState({
       collapsed: !this.state.collapsed
-    })
+    });
   }
   render() {
     return (

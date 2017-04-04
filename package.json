@@ -28,16 +28,19 @@
   },
   "homepage": "https://github.com/dixon13/steamws-monitor#readme",
   "devDependencies": {
+    "babel-eslint": "^6.1.2",
     "babel-plugin-transform-async-to-generator": "^6.22.0",
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-preset-es2016-node5": "^1.1.2",
     "babel-preset-react": "^6.23.0",
     "electron-devtools-installer": "^2.1.0",
     "electron-prebuilt-compile": "^1.6.2",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^6.10.3",
     "redux-devtools": "^3.3.2"
   },
   "dependencies": {
-    "babel-preset-stage-0": "^6.22.0",
+    "babel-preset-stage-2": "^6.22.0",
     "bootstrap": "^4.0.0-alpha.6",
     "cross-env": "^3.2.4",
     "electron-settings": "^3.0.10",
