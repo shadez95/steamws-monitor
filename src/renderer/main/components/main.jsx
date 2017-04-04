@@ -1,10 +1,11 @@
 import React, { Component }  from "react";
+import { NavItem, NavLink, NavbarBrand } from "reactstrap";
 import SplitPane from "react-split-pane";
-import { Route } from "react-router";
+import { Link } from "react-router";
 
-import AddGame from './addGame';
-import CustomNav from './nav';
-import Settings from './settings';
+import AddGame from "./addGame";
+import CustomNav from "./nav";
+import Settings from "./settings";
 
 // {[
 //   {
@@ -35,23 +36,62 @@ export default class Main extends Component {
     this.displayComponent = this.displayComponent.bind(this);
     this.changeComponent = this.changeComponent.bind(this);
     this.getInitNavs = this.getInitNavs.bind(this);
-    const content = <h1>Home Page</h1>;
-    const components = [Settings];
+    // const content = <h1>Home Page</h1>;
+    // const components = [Settings];
+    // console.log("[main.jsx] constructor - components: ", components);
+    // const navs = [];
+    // this.state = {
+    //   navs: navs, // array
+    //   paneContent: content
+    // };
+  }
 
+  componentWillMount() {
+    const componentNavs = [this.constructor, AddGame, Settings];
+    let arr = [];
+    for (let i=0; i < componentNavs.length; i++) {
+      console.log("arr: ", arr);
+      console.log(componentNavs[i].nav(i));
+      console.log("components[i].nav(i): ", componentNavs[i].nav(i));
+      arr.push(componentNavs[i].nav(i));
+    }
+
+    console.log("[main.jsx] componentWillMount - arr: ", arr);
+    const content = <h1>Home Page</h1>;
     this.state = {
-      navs: this.getInitNavs(components), // array
+      navs: arr,
       paneContent: content
     };
+  }
 
-    window.DynamicRoutes.push(<Route path="settings" component={Settings}/>);
+  static nav = function(inputKey) {
+    return(
+      <div key={inputKey}>
+        <NavbarBrand>Steam Workshop Monitor</NavbarBrand>
+        <NavItem>
+          <NavLink tag={Link} to="/" activeClassName="active">Home</NavLink>
+        </NavItem>
+      </div>
+    );
   }
+
   getInitNavs(components) {
-    let _return = []
-    components.map((component, idx) => _return.push(component.nav(idx)));
-    return _return;
+    console.log("[main.jsx] getInitNavs - Executed...");
+    console.log("[main.jsx] getInitNavs - components: ", components);
+    var arr = [];
+    console.log("[main.jsx] getInitNavs - components.length: ", components.length);
+    for (let i=0; i < components.length; i++) {
+      console.log("arr: ", arr);
+      console.log(components[i].nav(i));
+      console.log("components[i].nav(i): ", components[i].nav(i));
+      arr.push(components[i].nav(i));
+    }
+
+    return arr;
   }
+
   addToNav(element) {
-    this.setState({navs: this.state.navs.push(element)})
+    this.setState({navs: this.state.navs.push(element)});
   }
   displayComponent(comp) {
     
@@ -61,7 +101,8 @@ export default class Main extends Component {
   }
 
   render() {
-    console.log("[main.jsx] render - this.state.paneContent", this.state.paneContent)
+    console.log("[main.jsx] render - this.state.paneContent: ", this.state.paneContent);
+    console.log("[main.jsx] render - this.state.navs: ", this.state.navs);
     return (
       <SplitPane split="vertical" primary="first" defaultSize={200}>
         <div>
@@ -73,7 +114,7 @@ export default class Main extends Component {
           </div>
         </div>
       </SplitPane>
-    )
+    );
   }
 }
 

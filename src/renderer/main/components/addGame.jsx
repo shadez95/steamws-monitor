@@ -1,8 +1,17 @@
-import { Component } from 'react'
+import { Component } from "react";
+import { NavItem, NavLink } from "reactstrap";
+import { Link } from "react-router";
 
 export default class AddGame extends Component {
-  constructor(props) {
-    super(props)
+  
+  static nav = function(inputKey) {
+    return(
+      <div key={inputKey}>
+        <NavItem>
+          <NavLink tag={Link} to="add-game" activeClassName="active">Add Steam Game</NavLink>
+        </NavItem>
+      </div>
+    );
   }
 
   render() {
@@ -11,6 +20,6 @@ export default class AddGame extends Component {
         <h1>Add Steam Game</h1>
         <input type="text" />
       </div>
-    )
+    );
   }
 }

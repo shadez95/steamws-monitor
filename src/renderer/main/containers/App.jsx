@@ -1,4 +1,4 @@
-import React, { Component, Children } from 'react';
+import React, { Component, Children } from "react";
 
 export default class App extends Component {
   props: {

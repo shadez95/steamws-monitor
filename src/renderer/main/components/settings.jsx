@@ -1,31 +1,42 @@
 import React, { Component }  from "react";
-import { NavItem, NavLink, NavbarBrand } from "reactstrap";
+import { NavItem, NavLink } from "reactstrap";
 import { Link } from "react-router";
+import SplitPane from "react-split-pane";
+import CustomNav from "./nav";
 
-class Settings extends Component {
+export default class Settings extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      navs: []
+    };
   }
 
-  static myVar = "String"
-
-  static nav = (keyInput) => {
-    <div key={keyInput}>
-      <NavbarBrand>Settings</NavbarBrand>
-      <NavItem>
-        <NavLink tag={Link} to="settings" activeClassName="active">Add a Game</NavLink>
-      </NavItem>
-    </div>
+  static nav = function(inputKey) {
+    return(
+      <div key={inputKey}>
+        <NavItem>
+          <NavLink tag={Link} to="settings" activeClassName="active">Settings</NavLink>
+        </NavItem>
+      </div>
+    );
   }
 
   render() {
     return(
       <div>
-        <h1>Settings</h1>
-        <input type="text" />
+        <SplitPane split="vertical" primary="first" defaultSize={200}>
+        <div>
+          <CustomNav>{this.state.navs}</CustomNav>
+        </div>
+        <div>
+          <div className="container-fluid">
+            <h1>Settings</h1>
+            <input type="text" />
+          </div>
+        </div>
+      </SplitPane>
       </div>
     );
   }
 }
-
-export default Settings;
