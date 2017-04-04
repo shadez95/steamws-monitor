@@ -1,20 +1,29 @@
-import React, { Component }  from 'react'
-import { NavItem, NavLink } from 'reactstrap'
+import React, { Component }  from "react";
+import { NavItem, NavLink, NavbarBrand } from "reactstrap";
+import { Link } from "react-router";
 
-export default class Settings extends Component {
+class Settings extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+  }
+
+  static nav = (keyInput) => {
+    <div>
+      <NavbarBrand>Settings</NavbarBrand>
+      <NavItem>
+        <NavLink tag={Link} to="settings" activeClassName="active">Add a Game</NavLink>
+      </NavItem>
+    </div>
   }
 
   render() {
     return(
-      <h1>Settings</h1>
-    )
+      <div>
+        <h1>Settings</h1>
+        <input type="text" />
+      </div>
+    );
   }
 }
 
-Settings.nav = (
-  <NavItem>
-    <NavLink href="" >Add a Game</NavLink>
-  </NavItem>
-)
+export default Settings;

@@ -3,14 +3,14 @@
     "development": {
       "application/javascript": {
         "presets": ["react", "es2016-node5","stage-0"],
-        "plugins": ["transform-async-to-generator"],
+        "plugins": ["transform-async-to-generator", "transform-class-properties"],
         "sourceMaps": "inline"
       }
     },
     "production": {
       "application/javascript": {
         "presets": ["react", "es2016-node5","stage-0"],
-        "plugins": ["transform-async-to-generator"],
+        "plugins": ["transform-async-to-generator", "transform-class-properties"],
         "sourceMaps": false
       }
     }
