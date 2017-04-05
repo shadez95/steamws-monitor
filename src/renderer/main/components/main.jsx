@@ -1,7 +1,6 @@
 import React, { Component }  from "react";
 import { NavItem, NavLink, NavbarBrand } from "reactstrap";
 import SplitPane from "react-split-pane";
-import { Link } from "react-router";
 
 import AddGame from "./addGame";
 import CustomNav from "./nav";
@@ -30,38 +29,52 @@ import Settings from "./settings";
 //   }
 // ]}
 
-export default class Main extends Component {
+class Main extends Component {
   constructor(props) {
     super(props);
     this.displayComponent = this.displayComponent.bind(this);
     this.changeComponent = this.changeComponent.bind(this);
     this.getInitNavs = this.getInitNavs.bind(this);
-    // const content = <h1>Home Page</h1>;
-    // const components = [Settings];
-    // console.log("[main.jsx] constructor - components: ", components);
-    // const navs = [];
-    // this.state = {
-    //   navs: navs, // array
-    //   paneContent: content
-    // };
-  }
-
-  componentWillMount() {
+    const content = <h1>Home Page</h1>;
+    
     const componentNavs = [this.constructor, AddGame, Settings];
     let arr = [];
     for (let i=0; i < componentNavs.length; i++) {
-      console.log("arr: ", arr);
-      console.log(componentNavs[i].nav(i));
-      console.log("components[i].nav(i): ", componentNavs[i].nav(i));
-      arr.push(componentNavs[i].nav(i));
+      // console.log("arr: ", arr);
+      // console.log(componentNavs[i].nav(i));
+      // console.log("components[i].nav(i): ", componentNavs[i].nav(i));
+      arr.push(componentNavs[i].nav(i, (e, component, componentState) => {
+        console.log("[main.jsx] constructor - callback: ", e);
+        this.setState({paneContent: component});
+        componentState.active = true;
+      }));
     }
 
-    console.log("[main.jsx] componentWillMount - arr: ", arr);
-    const content = <h1>Home Page</h1>;
     this.state = {
-      navs: arr,
+      navs: arr, // array
       paneContent: content
     };
+  }
+
+  componentWillMount() {
+    console.log("[main.jsx] - componentWillMount");
+    // const componentNavs = [this.constructor, AddGame, Settings];
+    // let arr = [];
+    // for (let i=0; i < componentNavs.length; i++) {
+    //   // console.log("arr: ", arr);
+    //   // console.log(componentNavs[i].nav(i));
+    //   // console.log("components[i].nav(i): ", componentNavs[i].nav(i));
+    //   arr.push(componentNavs[i].nav(i, (component) => {
+    //     this.setState({paneContent: ()})
+    //   }));
+    // }
+
+    // console.log("[main.jsx] componentWillMount - arr: ", arr);
+    // // const content = <h1>Home Page</h1>;
+    // this.state = {
+    //   navs: arr,
+    //   paneContent: content
+    // };
   }
 
   static nav = function(inputKey) {
@@ -69,7 +82,7 @@ export default class Main extends Component {
       <div key={inputKey}>
         <NavbarBrand>Steam Workshop Monitor</NavbarBrand>
         <NavItem>
-          <NavLink tag={Link} to="/" activeClassName="active">Home</NavLink>
+          <NavLink href="#" active>Home</NavLink>
         </NavItem>
       </div>
     );
@@ -118,4 +131,4 @@ export default class Main extends Component {
   }
 }
 
-// module.exports = Main
+module.exports = Main;

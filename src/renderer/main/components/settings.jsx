@@ -1,22 +1,31 @@
 import React, { Component }  from "react";
 import { NavItem, NavLink } from "reactstrap";
-import { Link } from "react-router";
-import SplitPane from "react-split-pane";
-import CustomNav from "./nav";
 
 export default class Settings extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      navs: []
-    };
+    this.state = { active: false };
+    console.log("[settings.jsx] constructor - this.state", this.state);
   }
 
-  static nav = function(inputKey) {
+  componentWillMount() {
+    console.log("[settings.jsx] componentWillMount - this.state", this.state);
+    this.state = { active: true };
+    console.log("[settings.jsx] componentWillMount - this.state", this.state);
+  }
+
+  componentWillUnmount() {
+    console.log("[settings.jsx] componentWillUnmount - this.state", this.state);
+    this.setState({active: false});
+    console.log("[settings.jsx] componentWillUnmount - this.state", this.state);
+  }
+
+  static nav = function(inputKey, clickHandler) {
+    this.state = { active: false };
     return(
       <div key={inputKey}>
         <NavItem>
-          <NavLink tag={Link} to="settings" activeClassName="active">Settings</NavLink>
+          <NavLink onClick={() => clickHandler(this, <Settings />, this.state)} href="#" active={this.state.active}>Settings</NavLink>
         </NavItem>
       </div>
     );
@@ -25,17 +34,8 @@ export default class Settings extends Component {
   render() {
     return(
       <div>
-        <SplitPane split="vertical" primary="first" defaultSize={200}>
-        <div>
-          <CustomNav>{this.state.navs}</CustomNav>
-        </div>
-        <div>
-          <div className="container-fluid">
-            <h1>Settings</h1>
-            <input type="text" />
-          </div>
-        </div>
-      </SplitPane>
+        <h1>Settings</h1>
+        <input type="text" />
       </div>
     );
   }

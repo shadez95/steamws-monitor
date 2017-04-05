@@ -8,7 +8,7 @@ export default class AddGame extends Component {
     return(
       <div key={inputKey}>
         <NavItem>
-          <NavLink tag={Link} to="add-game" activeClassName="active">Add Steam Game</NavLink>
+          <NavLink href="#">Add Steam Game</NavLink>
         </NavItem>
       </div>
     );
