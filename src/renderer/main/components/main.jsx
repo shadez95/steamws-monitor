@@ -57,7 +57,7 @@ class Main extends Component {
   }
 
   componentWillMount() {
-    console.log("[main.jsx] - componentWillMount");
+    console.log("[main.jsx] componentWillMount");
     // const componentNavs = [this.constructor, AddGame, Settings];
     // let arr = [];
     // for (let i=0; i < componentNavs.length; i++) {
@@ -75,6 +75,10 @@ class Main extends Component {
     //   navs: arr,
     //   paneContent: content
     // };
+  }
+
+  componentWillUpdate() {
+    console.log("[main.jsx] componentWillUpdate");
   }
 
   static nav = function(inputKey) {
@@ -105,12 +109,6 @@ class Main extends Component {
 
   addToNav(element) {
     this.setState({navs: this.state.navs.push(element)});
-  }
-  displayComponent(comp) {
-    
-  }
-  changeComponent(comp) {
-
   }
 
   render() {
