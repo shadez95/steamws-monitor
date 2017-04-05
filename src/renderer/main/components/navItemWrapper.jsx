@@ -16,7 +16,7 @@ export default class NavItemWrapper extends Component {
     return(
       <div key={this.props.customKey}>
         <NavItem>
-          <NavLink onClick={onClickHandler} href="#" active={this.state.active}>{this.props.name}</NavLink>
+          <NavLink onClick={this.onClickHandler} href="#" active={this.state.active}>{this.props.name}</NavLink>
         </NavItem>
       </div>
     );
