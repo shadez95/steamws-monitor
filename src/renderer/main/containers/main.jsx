@@ -3,9 +3,9 @@ import { NavItem, NavLink, NavbarBrand } from "reactstrap";
 import { connect } from "react-redux";
 
 import SplitPane from "react-split-pane";
-import AddGame from "./addGame";
-import CustomNav from "./nav";
-import Settings from "./settings";
+import AddGame from "../components/addGame";
+import CustomNav from "../components/nav";
+import Settings from "../components/settings";
 
 // {[
 //   {
@@ -30,11 +30,11 @@ import Settings from "./settings";
 //   }
 // ]}
 
-@connect((store) => {
-  return{
-    navs: store.navs.navs
-  };
-})
+// @connect((store) => {
+//   return{
+//     navs: store.navs.navs
+//   };
+// })
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -133,6 +133,12 @@ class Main extends Component {
       </SplitPane>
     );
   }
+}
+
+function mapStateToProps(state) {
+  return {
+
+  };
 }
 
 module.exports = Main;

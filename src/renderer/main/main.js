@@ -20,7 +20,7 @@ import store from "../../store/configureStore.js";
 const render = () => {
   // NB: We have to re-require MyApp every time or else this won't work
   // We also need to wrap our app in the AppContainer class
-  const Main = require("./components/main");
+  const Main = require("./containers/main");
   const ele = (
     <AppContainer>
       <Provider store={store}>
@@ -28,7 +28,7 @@ const render = () => {
       </Provider>
     </AppContainer>
   );
-  console.log("[main.js] ele: ", ele);
+  // console.log("[main.js] ele: ", ele);
   ReactDOM.render(
     ele, document.getElementById("app")
   );
