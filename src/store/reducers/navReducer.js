@@ -1,4 +1,4 @@
-import { ADD_NAV, REMOVED_NAV } from "../navActions";
+import { ADD_NAV, REMOVED_NAV } from "../actions/navActions";
 
 export default function reducer(state={
   navs: [],
