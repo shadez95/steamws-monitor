@@ -1,7 +1,8 @@
 import React, { Component }  from "react";
 import { NavItem, NavLink, NavbarBrand } from "reactstrap";
-import SplitPane from "react-split-pane";
+import { connect } from "react-redux";
 
+import SplitPane from "react-split-pane";
 import AddGame from "./addGame";
 import CustomNav from "./nav";
 import Settings from "./settings";
@@ -29,6 +30,11 @@ import Settings from "./settings";
 //   }
 // ]}
 
+@connect((store) => {
+  return{
+    navs: store.navs.navs
+  };
+})
 class Main extends Component {
   constructor(props) {
     super(props);
