@@ -3,8 +3,11 @@ import { NavItem, NavLink, NavbarBrand } from "reactstrap";
 import { connect } from "react-redux";
 
 import SplitPane from "react-split-pane";
+
+import CustomNav from "./nav";
+import PaneContent from "./paneContent";
+
 import AddGame from "../components/addGame";
-import CustomNav from "../components/nav";
 import Settings from "../components/settings";
 
 // {[
@@ -35,31 +38,32 @@ import Settings from "../components/settings";
 //     navs: store.navs.navs
 //   };
 // })
+
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.displayComponent = this.displayComponent.bind(this);
-    this.changeComponent = this.changeComponent.bind(this);
-    this.getInitNavs = this.getInitNavs.bind(this);
-    const content = <h1>Home Page</h1>;
+    // this.displayComponent = this.displayComponent.bind(this);
+    // this.changeComponent = this.changeComponent.bind(this);
+    // this.getInitNavs = this.getInitNavs.bind(this);
+    // const content = <h1>Home Page</h1>;
     
-    const componentNavs = [this.constructor, AddGame, Settings];
-    let arr = [];
-    for (let i=0; i < componentNavs.length; i++) {
-      // console.log("arr: ", arr);
-      // console.log(componentNavs[i].nav(i));
-      // console.log("components[i].nav(i): ", componentNavs[i].nav(i));
-      arr.push(componentNavs[i].nav(i, (e, component, componentState) => {
-        console.log("[main.jsx] constructor - callback: ", e);
-        this.setState({paneContent: component});
-        componentState.active = true;
-      }));
-    }
+    // const componentNavs = [this.constructor, AddGame, Settings];
+    // let arr = [];
+    // for (let i=0; i < componentNavs.length; i++) {
+    //   // console.log("arr: ", arr);
+    //   // console.log(componentNavs[i].nav(i));
+    //   // console.log("components[i].nav(i): ", componentNavs[i].nav(i));
+    //   arr.push(componentNavs[i].nav(i, (e, component, componentState) => {
+    //     console.log("[main.jsx] constructor - callback: ", e);
+    //     this.setState({paneContent: component});
+    //     componentState.active = true;
+    //   }));
+    // }
 
-    this.state = {
-      navs: arr, // array
-      paneContent: content
-    };
+    // this.state = {
+    //   navs: arr, // array
+    //   paneContent: content
+    // };
   }
 
   componentWillMount() {
@@ -118,27 +122,19 @@ class Main extends Component {
   }
 
   render() {
-    console.log("[main.jsx] render - this.state.paneContent: ", this.state.paneContent);
-    console.log("[main.jsx] render - this.state.navs: ", this.state.navs);
     return (
       <SplitPane split="vertical" primary="first" defaultSize={200}>
         <div>
-          <CustomNav>{this.state.navs}</CustomNav>
+          <CustomNav />
         </div>
         <div>
           <div className="container-fluid">
-            {this.state.paneContent}
+            <PaneContent />
           </div>
         </div>
       </SplitPane>
     );
   }
-}
-
-function mapStateToProps(state) {
-  return {
-
-  };
 }
 
 module.exports = Main;
