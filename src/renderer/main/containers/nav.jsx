@@ -1,5 +1,5 @@
 import React, { Component }  from "react";
-import { Nav } from "reactstrap";
+import { Nav, NavbarBrand } from "reactstrap";
 import { connect } from "react-redux";
 
 import NavItemWrapper from "../components/navItemWrapper";
@@ -27,21 +27,30 @@ class CustomNav extends Component {
 
   render() {
     console.log("this.state.navs: ", this.state.navs);
-    var new_navs = this.state.navs.map((navData, index) => {
+    let activeState = false;
+    var navs_array = this.state.navs.map((navData, index) => {
       // navData = {name: '' , id: 0}
-      let activeState = false;
       // if (index === 0) {
       //   activeState = true;
       // }
       return(
-        <NavItemWrapper key={index} keyInput={index} active={activeState}
+        <NavItemWrapper key={index} keyChild={index} active={activeState}
           name={navData.name} handleClick={this.handleClick(index)} />
       );
     });
+    
+    var brandComponent = <NavbarBrand key={-3}>Steam Workshop Monitor</NavbarBrand>;
+    var addGameComponent = <NavItemWrapper key={-1} keyChild={-1} active={activeState}
+            name={"Add a Game"} handleClick={this.handleClick(-1)} />;
+    var settingsComponent = <NavItemWrapper key={-2} keyChild={-2} active={activeState}
+            name={"Settings"} handleClick={this.handleClick(-2)} />;
+
+    navs_array.unshift(brandComponent, addGameComponent, settingsComponent);
+
     return (
       <nav className="hidden-xs-down bg-faded sidebar">
         <Nav vertical pills >
-          {new_navs}
+          {navs_array}
         </Nav>
       </nav>
     );

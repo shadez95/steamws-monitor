@@ -17,7 +17,7 @@ export default class NavItemWrapper extends Component {
 
   render() {
     return(
-      <div key={this.props.keyInput}>
+      <div key={this.props.keyChild}>
         <NavItem>
           <NavLink onClick={this.setSelectedNavItem} href="#"
             active={this.state.active}>{this.props.name}
