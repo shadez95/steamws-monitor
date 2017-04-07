@@ -34,7 +34,7 @@ class CustomNav extends Component {
       //   activeState = true;
       // }
       return(
-        <NavItemWrapper keyInput={index} active={activeState}
+        <NavItemWrapper key={index} keyInput={index} active={activeState}
           name={navData.name} handleClick={this.handleClick(index)} />
       );
     });
