@@ -11,7 +11,7 @@ export default class NavItemWrapper extends Component {
   }
 
   setSelectedNavItem() {
-    this.props.handleClick(this.props.index);
+    this.props.handleClick(this.props.index, this.state.active);
     this.setState({active: true});
   }
 

@@ -5,6 +5,8 @@ import {
 
 const initialState = {
   navs: [
+    {name: "Add a Game", id: -2},
+    {name: "Settings", id: -1},
     {name: "Arma 3", id: 107410},
     {name: "Arma 2", id: 33900}
   ],

@@ -22,30 +22,42 @@ class CustomNav extends Component {
     //Dispatch action here maybe?
     // this.props.selectedSidebarItem(index);
     // this.selectedSidebarItem = index;
-    console.log("[nav.jsx] CustomNav - handleClick this: ", this);  
+    console.log("[nav.jsx] CustomNav - handleClick index: ", index);  
   }
 
   render() {
     console.log("this.state.navs: ", this.state.navs);
+
     let activeState = false;
+    const hrStyle = { borderStyle: "ridge", marginLeft: "0px", marginRight: "0px" };
+
     var navs_array = this.state.navs.map((navData, index) => {
       // navData = {name: '' , id: 0}
-      // if (index === 0) {
-      //   activeState = true;
-      // }
+      if (index === 0) {
+        return (
+          <div key={index}>
+            <NavbarBrand key={-3}>Steam Workshop Monitor</NavbarBrand>
+            <NavItemWrapper key={index} keyChild={index} active={activeState}
+              index={index} name={navData.name} handleClick={this.handleClick} />
+          </div>
+        );
+      }
+
+      if (index === 1) {
+        return(
+          <div key={index}>
+            <NavItemWrapper key={index} keyChild={index} active={activeState}
+              index={index} name={navData.name} handleClick={this.handleClick} />
+              <hr key={-100} style={hrStyle} />
+          </div>
+        );
+      }
+
       return(
         <NavItemWrapper key={index} keyChild={index} active={activeState}
-          name={navData.name} handleClick={this.handleClick(index)} />
+          index={index} name={navData.name} handleClick={this.handleClick} />
       );
     });
-    
-    var brandComponent = <NavbarBrand key={-3}>Steam Workshop Monitor</NavbarBrand>;
-    var addGameComponent = <NavItemWrapper key={-1} keyChild={-1} active={activeState}
-            name={"Add a Game"} handleClick={this.handleClick(-1)} />;
-    var settingsComponent = <NavItemWrapper key={-2} keyChild={-2} active={activeState}
-            name={"Settings"} handleClick={this.handleClick(-2)} />;
-
-    navs_array.unshift(brandComponent, addGameComponent, settingsComponent);
 
     return (
       <nav className="hidden-xs-down bg-faded sidebar">
