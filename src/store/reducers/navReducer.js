@@ -4,20 +4,19 @@ import {
  } from "../actions/navActions";
 
 const initialState = {
-  navs: [
+  navData: [
     {name: "Add a Game", id: -2},
     {name: "Settings", id: -1},
     {name: "Arma 3", id: 107410},
     {name: "Arma 2", id: 33900}
   ],
-  selectedSidebarItem: 0,
+  selectedSidebarItem: null,
   error: null
 };
 
 export default function reducer(state=initialState, action) {
   switch (action.type) {
   case SET_SELECTED_SIDEBAR_ITEM:
-    console.log("clicked sidebar index: " + action.index);
     // var result = Object.assign({}, state, {
     //   selectedSidebarItem: action.index
     // });
@@ -33,7 +32,7 @@ export default function reducer(state=initialState, action) {
 
   case ADD_GAME_TO_NAV:
     return {
-      ...state, navs: [...state.navs, action.payload]
+      ...state, navData: [...state.navData, action.payload]
     };
   default:
     return state;

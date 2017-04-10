@@ -3,10 +3,10 @@ import { combineReducers } from "redux";
 
 import settings from "./settingsReducer";
 import steamGames from "./steamGamesReducer";
-import navs from "./navReducer";
+import navData from "./navReducer";
 
 export default combineReducers({
-  navs,
+  navData,
   settings,
   steamGames
   // routing
