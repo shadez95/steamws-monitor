@@ -1,11 +1,12 @@
 import React, { Component }  from "react";
 import { Nav, NavbarBrand } from "reactstrap";
 import { connect } from "react-redux";
+import { setSelectedSidebarItem } from "../../../store/actions/navActions";
 
 import NavItemWrapper from "../components/navItemWrapper";
 
 const mapStateToProps = (state) => {
-  return {navs: state.navs};
+  return { navs: state.navs };
 };
 
 @connect(mapStateToProps)
@@ -14,15 +15,21 @@ class CustomNav extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }
+
   componentWillMount() {
-    this.state = {navs: this.props.navs.navs};
+    this.state = {navs: this.props.navs.navs, currentIndex: 0};
     // this.state.navs = [{}, {}]
   }
+
   handleClick(index) {
     //Dispatch action here maybe?
     // this.props.selectedSidebarItem(index);
     // this.selectedSidebarItem = index;
-    console.log("[nav.jsx] CustomNav - handleClick index: ", index);  
+    console.log("[nav.jsx] CustomNav - handleClick index: ", index);
+    console.log("[nav.jsx] CustomNav - handleClick this.state.currentIndex: ", this.state.currentIndex);
+    setSelectedSidebarItem(index);
+
+    this.setState({ currentIndex: index });
   }
 
   render() {

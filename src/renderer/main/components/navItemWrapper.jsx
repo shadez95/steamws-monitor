@@ -1,18 +1,45 @@
 import React, { Component } from "react";
 import { NavItem, NavLink } from "reactstrap";
+import { connect } from "react-redux";
 
+const mapStateToProps = (state) => {
+  return { currentIndex: state.currentIndex };
+};
+
+@connect(mapStateToProps)
 export default class NavItemWrapper extends Component {
   constructor(props) {
     super(props);
     this.setSelectedNavItem = this.setSelectedNavItem.bind(this);
-    this.state = {
-      active: this.props.active
-    };
+  }
+
+  componentWillMount() {
+    if (this.props.currentIndex === this.props.index) {
+      this.state = {
+        active: true
+      };
+    } else {
+      this.state = {
+        active: false
+      };
+    }
+  }
+
+  componentWillUpdate() {
+    if (this.props.currentIndex === this.props.index) {
+      this.state = {
+        active: true
+      };
+    } else {
+      this.state = {
+        active: false
+      };
+    }
   }
 
   setSelectedNavItem() {
     this.props.handleClick(this.props.index, this.state.active);
-    this.setState({active: true});
+    this.setState({ active: true });
   }
 
   render() {
