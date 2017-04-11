@@ -29,7 +29,7 @@ class CustomNav extends Component {
         return (
           <div key={index}>
             <NavbarBrand key={-3}>Steam Workshop Monitor</NavbarBrand>
-            <NavItemWrapper key={index} keyChild={index}
+            <NavItemWrapper key={index} keyChild={index} id={navData.id}
               index={index} name={navData.name} handleClick={this.handleClick} />
           </div>
         );
@@ -40,7 +40,7 @@ class CustomNav extends Component {
           <div key={index}>
             <NavItemWrapper key={index} keyChild={index}
               index={index} name={navData.name} handleClick={this.handleClick} />
-              <hr key={-100} style={hrStyle} />
+              <NavbarBrand>Steam Games</NavbarBrand>
           </div>
         );
       }
@@ -53,20 +53,15 @@ class CustomNav extends Component {
     this.state.navs = navsArray;
   }
 
-  handleClick(index) {
-    //Dispatch action here maybe?
-    // this.props.selectedSidebarItem(index);
-    // this.selectedSidebarItem = index;
-    console.log("[nav.jsx] CustomNav - handleClick index: ", index);
-    console.log("props: ", this.props);
-    this.props.actions.setSelectedSidebarItem(index);
+  handleClick(index, id) {
+    // console.log("[nav.jsx] CustomNav - handleClick index: ", index);
+    // console.log("props: ", this.props);
+    // this.props.actions.setSelectedSidebarItem(index);
     this.setState({ currentIndex: index });
-    // console.log(this.state.navs[index]);
-    // this.state.navs[index].props.active = true;
   }
 
   render() {
-
+    console.log("[nav.jsx] render - this.props: ", this.props);
     return (
       <nav className="hidden-xs-down bg-faded sidebar">
         <Nav vertical pills >

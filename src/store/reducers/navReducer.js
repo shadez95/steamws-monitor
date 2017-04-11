@@ -3,6 +3,8 @@ import {
   SET_SELECTED_SIDEBAR_ITEM
  } from "../actions/navActions";
 
+import { changePaneContent } from "../actions/paneContentActions";
+
 const initialState = {
   navData: [
     {name: "Add a Game", id: -2},
@@ -17,12 +19,8 @@ const initialState = {
 export default function reducer(state=initialState, action) {
   switch (action.type) {
   case SET_SELECTED_SIDEBAR_ITEM:
-    // var result = Object.assign({}, state, {
-    //   selectedSidebarItem: action.index
-    // });
-    let result = { ...state, selectedSidebarItem: action.payload };
-    console.log("[navReducer.js] SET_SELECTED_SIDEBAR_ITEM - result: ", result);
-    return result;
+    changePaneContent(action.payload.id);
+    return { ...state, selectedSidebarItem: action.payload.index };
 
   case REMOVE_GAME_FROM_NAV:
     return {
@@ -31,9 +29,7 @@ export default function reducer(state=initialState, action) {
     };
 
   case ADD_GAME_TO_NAV:
-    return {
-      ...state, navData: [...state.navData, action.payload]
-    };
+    return { ...state, navData: [...state.navData, action.payload] };
   default:
     return state;
   }

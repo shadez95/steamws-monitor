@@ -26,8 +26,8 @@ export default class NavItemWrapper extends Component {
   }
 
   setSelectedNavItem() {
-    console.log("[navItemWrapper.jsx] setSelectedNavItem");
-    this.props.handleClick(this.props.index);
+    // Calls parent handleClick method
+    this.props.handleClick(this.props.index, this.props.id);
   }
 
   render() {
