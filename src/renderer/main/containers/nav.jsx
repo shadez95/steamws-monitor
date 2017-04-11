@@ -23,7 +23,7 @@ class CustomNav extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.state = {navData: this.props.navData.navData, currentIndex: 0, navs: null};
 
-    const hrStyle = { borderStyle: "ridge", marginLeft: "0px", marginRight: "0px" };
+    // const hrStyle = { borderStyle: "ridge", marginLeft: "0px", marginRight: "0px" };
 
     var navsArray = this.state.navData.map((navData, index) => {
       // navData = {name: '' , id: 0}
