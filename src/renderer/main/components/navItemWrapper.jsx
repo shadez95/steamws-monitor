@@ -18,7 +18,7 @@ export default class NavItemWrapper extends Component {
   }
 
   isActive() {
-    if (this.props.index === this.props.selectedSidebarItem) {
+    if (this.props.index === this.props.selectedSidebarItem.index) {
       this.state.active = true;
     } else {
       this.state.active = false;
@@ -27,7 +27,7 @@ export default class NavItemWrapper extends Component {
 
   setSelectedNavItem() {
     // Calls parent handleClick method
-    this.props.handleClick(this.props.index, this.props.id);
+    this.props.handleClick(this.props.index, this.props.selectedSidebarItem.id);
   }
 
   render() {

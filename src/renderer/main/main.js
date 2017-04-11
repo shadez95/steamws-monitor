@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 // import App from './containers/App'
 // import Main from './components/main'
 
-import store from "../../store/configureStore.js";
+import store from "../store/configureStore.js";
 
 // console.log('[main.js] store: ', store);
 

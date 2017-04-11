@@ -12,7 +12,7 @@ const initialState = {
     {name: "Arma 3", id: 107410},
     {name: "Arma 2", id: 33900}
   ],
-  selectedSidebarItem: null,
+  selectedSidebarItem: { index: null, id: null },
   error: null
 };
 
@@ -20,7 +20,13 @@ export default function reducer(state=initialState, action) {
   switch (action.type) {
   case SET_SELECTED_SIDEBAR_ITEM:
     changePaneContent(action.payload.id);
-    return { ...state, selectedSidebarItem: action.payload.index };
+    return {
+      ...state,
+      selectedSidebarItem: {
+        index: action.payload.index,
+        id: action.payload.id
+      },
+    };
 
   case REMOVE_GAME_FROM_NAV:
     return {

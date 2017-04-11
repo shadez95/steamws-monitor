@@ -2,7 +2,7 @@ import React, { Component }  from "react";
 import { Nav, NavbarBrand } from "reactstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as navActionCreators from "../../../store/actions/navActions";
+import * as navActionCreators from "../../store/actions/navActions";
 
 import NavItemWrapper from "../components/navItemWrapper";
 
@@ -11,7 +11,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators( navActionCreators, dispatch) };
+  return {
+    navActions: bindActionCreators(navActionCreators, dispatch)
+  };
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -54,9 +56,7 @@ class CustomNav extends Component {
   }
 
   handleClick(index, id) {
-    // console.log("[nav.jsx] CustomNav - handleClick index: ", index);
-    // console.log("props: ", this.props);
-    // this.props.actions.setSelectedSidebarItem(index);
+    this.props.navActions.setSelectedSidebarItem(index, id);
     this.setState({ currentIndex: index });
   }
 
