@@ -44,7 +44,7 @@ export default class AddGame extends Component {
           value={this.state.input} placeholder="123456"/>
         </InputGroup>
         <br />
-        <Button color="success" onClick={this.handleSubmit}>Change Location to steamcmd</Button>
+        <Button color="success" onClick={this.handleSubmit}>Add Steam Game</Button>
       </div>
     );
   }
