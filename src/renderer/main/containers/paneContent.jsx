@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Settings from "../components/settings";
+import AddGame from "../components/addGame";
 
 const mapStateToProps = (state) => {
   console.log("[paneContent.jsx] mapStateToProps - state: ", state.paneContent);
@@ -9,7 +10,7 @@ const mapStateToProps = (state) => {
 };
 
 @connect(mapStateToProps)
-class PaneContent extends Component {
+class PaneContent extends Component { 
   constructor(props) {
     super(props);
 
@@ -26,15 +27,18 @@ class PaneContent extends Component {
   }
 
   render() {
-    if (this.props.paneContent.id === -1) {
+    console.log(this.props);
+    switch(this.props.paneContent.id) {
+    case -1:
       return <Settings />;
-    }
-
-    return(
+    case -2:
+      return <AddGame />;
+    default:
+      return(
       <div>
         {this.state.content}
-      </div>
-    );
+      </div>);
+    }
   }
 }
 
