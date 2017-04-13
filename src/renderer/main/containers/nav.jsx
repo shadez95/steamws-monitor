@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import * as navActionCreators from "../../store/actions/navActions";
 import * as paneContentActions from "../../store/actions/paneContentActions";
 
-import NavItemWrapper from "../components/navItemWrapper";
+import NavItemWrapper from "./navItemWrapper";
 
 const mapStateToProps = (state) => {
   return { navData: state.navData };
@@ -23,7 +23,11 @@ class CustomNav extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    this.state = {navData: this.props.navData.navData, currentIndex: 0, navs: null};
+    this.state = {
+      navData: this.props.navData.navData,
+      currentIndex: 0,
+      navs: null
+    };
 
     // const hrStyle = { borderStyle: "ridge", marginLeft: "0px", marginRight: "0px" };
 
@@ -59,7 +63,6 @@ class CustomNav extends Component {
 
   handleClick(index, id) {
     this.props.navActions.setSelectedSidebarItem(index, id);
-    this.setState({ currentIndex: index });
   }
 
   render() {
