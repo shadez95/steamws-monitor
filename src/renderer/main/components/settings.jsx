@@ -6,6 +6,7 @@ class Settings extends Component {
     super(props);
     this.handleFileInput = this.handleFileInput.bind(this);
     this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       input: ""
     };
@@ -31,6 +32,10 @@ class Settings extends Component {
     }
   }
 
+  handleSubmit() {
+    // will save settings here
+    alert("Settings saved...");
+  }
 
   render() {
     return(
@@ -44,7 +49,11 @@ class Settings extends Component {
         <input id="fileInputID" type="file" ref={(ref) => this.fileUpload = ref}
                 onChange={this.handleFileInput} style={{display: "none"}}/>
         <br />
-        <Button color="secondary" onClick={this.handleButtonClick}>Change Location to steamcmd</Button>
+        <Button color="secondary" onClick={this.handleButtonClick}>Change SteamCMD Location</Button>
+        <br />
+        <br />
+        <br />
+        <Button color="success" type="submit" onClick={this.handleSubmit} value="Submit">Save</Button>
       </div>
     );
   }
