@@ -22,7 +22,7 @@ export default function reducer(state=initialState, action) {
     // TODO: Need to get JSON data from local machine
     // and change pane component to data retrieved from
     // JSON data.
-    changePaneContent(action.payload);
+    changePaneContent(action.payload.id);
     return {
       ...state,
       selectedSidebarItem: {

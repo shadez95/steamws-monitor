@@ -8,6 +8,13 @@ const mapStateToProps = (state) => {
 
 @connect(mapStateToProps)
 class PaneContent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      content: (<div>Test</div>)
+    };
+  }
   componentWillMount() {
     console.log("[paneContent.jsx] componentWillMount: ", this.props.paneContent);
   }
@@ -15,7 +22,7 @@ class PaneContent extends Component {
   render() {
     return(
       <div>
-        {this.props.paneContent}
+        {this.state.content}
       </div>
     );
   }
