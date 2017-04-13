@@ -25,7 +25,6 @@ class CustomNav extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       navData: this.props.navData.navData,
-      currentIndex: 0,
       navs: null
     };
 
