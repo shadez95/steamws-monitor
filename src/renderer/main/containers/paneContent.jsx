@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import Settings from "../components/settings";
+
 const mapStateToProps = (state) => {
-  console.log("[paneContent.jsx] mapStateToProps - state: ", state);
+  console.log("[paneContent.jsx] mapStateToProps - state: ", state.paneContent);
   return { paneContent: state.paneContent };
 };
 
@@ -19,7 +21,15 @@ class PaneContent extends Component {
     console.log("[paneContent.jsx] componentWillMount: ", this.props.paneContent);
   }
 
+  componentWillUpdate() {
+    console.log("[paneContent.jsx] componentWillUpdate: ", this.props.paneContent);
+  }
+
   render() {
+    if (this.props.paneContent.id === -1) {
+      return <Settings />;
+    }
+
     return(
       <div>
         {this.state.content}

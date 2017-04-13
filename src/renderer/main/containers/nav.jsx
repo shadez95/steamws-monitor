@@ -2,6 +2,7 @@ import React, { Component }  from "react";
 import { Nav, NavbarBrand } from "reactstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+
 import * as navActionCreators from "../../store/actions/navActions";
 import * as paneContentActions from "../../store/actions/paneContentActions";
 
@@ -45,7 +46,7 @@ class CustomNav extends Component {
       if (index === 1) {
         return(
           <div key={index}>
-            <NavItemWrapper key={index} keyChild={index}
+            <NavItemWrapper key={index} keyChild={index} id={navData.id}
               index={index} name={navData.name} handleClick={this.handleClick} />
               <NavbarBrand>Steam Games</NavbarBrand>
           </div>
@@ -53,7 +54,7 @@ class CustomNav extends Component {
       }
 
       return(
-        <NavItemWrapper key={index} keyChild={index}
+        <NavItemWrapper key={index} keyChild={index} id={navData.id}
           index={index} name={navData.name} handleClick={this.handleClick} />
       );
     });
@@ -62,6 +63,8 @@ class CustomNav extends Component {
 
   handleClick(index, id) {
     this.props.navActions.setSelectedSidebarItem(index, id);
+    console.log("[nav.jsx] CustomNav - changing pane content id: ", id);
+    this.props.paneContentActions.changePaneContent(id);
   }
 
   render() {

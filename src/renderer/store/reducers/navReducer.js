@@ -3,8 +3,6 @@ import {
   SET_SELECTED_SIDEBAR_ITEM
  } from "../actions/navActions";
 
-import { changePaneContent } from "../actions/paneContentActions";
-
 const initialState = {
   navData: [
     {name: "Add a Game", id: -2},
@@ -22,7 +20,6 @@ export default function reducer(state=initialState, action) {
     // TODO: Need to get JSON data from local machine
     // and change pane component to data retrieved from
     // JSON data.
-    changePaneContent(action.payload.id);
     return {
       ...state,
       selectedSidebarItem: {

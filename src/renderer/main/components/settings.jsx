@@ -1,6 +1,4 @@
 import React, { Component }  from "react";
-import { NavItem, NavLink } from "reactstrap";
-import { connect } from "react-redux";
 
 class Settings extends Component {
   render() {

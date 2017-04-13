@@ -3,7 +3,7 @@ import { NavItem, NavLink } from "reactstrap";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
-  return { selectedSidebarItem: state.navData.selectedSidebarItem };
+  return { navData: state.navData };
 };
 
 @connect(mapStateToProps)
@@ -18,7 +18,7 @@ export default class NavItemWrapper extends Component {
   }
 
   isActive() {
-    if (this.props.index === this.props.selectedSidebarItem.index) {
+    if (this.props.index === this.props.navData.selectedSidebarItem.index) {
       this.state.active = true;
     } else {
       this.state.active = false;
@@ -27,7 +27,7 @@ export default class NavItemWrapper extends Component {
 
   setSelectedNavItem() {
     // Calls parent handleClick method
-    this.props.handleClick(this.props.index, this.props.selectedSidebarItem.id);
+    this.props.handleClick(this.props.index, this.props.id);
   }
 
   render() {
