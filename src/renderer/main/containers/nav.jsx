@@ -3,6 +3,7 @@ import { Nav, NavbarBrand } from "reactstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as navActionCreators from "../../store/actions/navActions";
+import * as paneContentActions from "../../store/actions/paneContentActions";
 
 import NavItemWrapper from "../components/navItemWrapper";
 
@@ -12,7 +13,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    navActions: bindActionCreators(navActionCreators, dispatch)
+    navActions: bindActionCreators(navActionCreators, dispatch),
+    paneContentActions: bindActionCreators(paneContentActions, dispatch)
   };
 };
 

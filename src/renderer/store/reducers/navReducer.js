@@ -19,7 +19,10 @@ const initialState = {
 export default function reducer(state=initialState, action) {
   switch (action.type) {
   case SET_SELECTED_SIDEBAR_ITEM:
-    changePaneContent(action.payload.id);
+    // TODO: Need to get JSON data from local machine
+    // and change pane component to data retrieved from
+    // JSON data.
+    changePaneContent(action.payload);
     return {
       ...state,
       selectedSidebarItem: {
