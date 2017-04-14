@@ -21,13 +21,15 @@ class Settings extends Component {
     const remote = require("electron").remote;
     const fs = remote.require("fs");
     console.log(fileObj);
-
-    if (fs.existsSync(fileObj.path)) {
-      this.setState({input: fileObj.path});
-    } else {
-      this.fileUpload.files = [];
-      alert("steamcmd.exe or steamcmd source cannot be found");
-      console.log("steamcmd.exe or steamcmd source cannot be found");
+    if (fileObj !== undefined) {
+      if (fs.existsSync(fileObj.path)) {
+        this.setState({input: fileObj.path});
+        alert("steamcmd location saved...");
+      } else {
+        this.fileUpload.files = [];
+        alert("steamcmd.exe or steamcmd source cannot be found");
+        console.log("steamcmd.exe or steamcmd source cannot be found");
+      }
     }
   }
 
