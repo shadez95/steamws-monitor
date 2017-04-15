@@ -1,24 +1,26 @@
-import {app, BrowserWindow, Menu, Tray} from 'electron'
-import {enableLiveReload} from 'electron-compile'
-import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
+import {app, BrowserWindow, Menu, Tray} from "electron";
+import {enableLiveReload} from "electron-compile";
+import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from "electron-devtools-installer";
+import appRoot from "app-root-path";
+const notify = require("electron-main-notification");
 
 // ----------------------------------------------
 
 const installExtensions = () => {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === "development") {
 
     const extensions = [
       REACT_DEVELOPER_TOOLS,
       REDUX_DEVTOOLS
-    ]
-    const forceDownload = !!process.env.UPGRADE_EXTENSIONS
-    console.log("UPGRADE_EXTENSIONS: ", process.env.UPGRADE_EXTENSIONS)
+    ];
+    const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+    console.log("UPGRADE_EXTENSIONS: ", process.env.UPGRADE_EXTENSIONS);
 
     extensions.map(((ext) => {
       installExtension(ext, process.env.UPGRADE_EXTENSIONS)
         .then((name) => console.log(`Added Extension:  ${name}`))
-        .catch((err) => console.log('An error occurred: ', err))
-    }))
+        .catch((err) => console.log("An error occurred: ", err));
+    }));
 
     // installExtension(REACT_DEVELOPER_TOOLS, )
     //   .then((name) => console.log(`Added Extension:  ${name}`))
@@ -34,13 +36,13 @@ const installExtensions = () => {
     //   .all(extensions.map(name => installer.default(installer[name], forceDownload)))
     //   .catch(console.log)
   }
-}
+};
 
-let mainWindow = null
-let settingsWindow
-let tray = null
+let mainWindow = null;
+// let settingsWindow;
+let tray = null;
 
-const image_icon_path = `${__dirname}/static/images/logos/favicon-32x32.png`
+const image_icon_path = `${__dirname}/static/images/logos/favicon-32x32.png`;
 
 // const openSettingsWindow = () => {
 //   settingsWindow = new BrowserWindow({
@@ -55,65 +57,68 @@ const image_icon_path = `${__dirname}/static/images/logos/favicon-32x32.png`
 //   settingsWindow.webContents.openDevTools()
 // }
 
+var windowCount = 0;
+
 const openSteamWSWindow = () => {
+  windowCount++;
   mainWindow = new BrowserWindow({
     width: 700,
     height: 760,
-    backgroundColor: '#252526',
+    backgroundColor: "#252526",
     autoHideMenuBar: true,
     // frame: false,
     icon: image_icon_path
     // devTools: false // Will uncomment for production
-  })
+  });
 
   // Create Menu
   const template = [
     {
-      label: 'File',
+      label: "File",
       submenu: [
-        {role: 'close'}
+        {role: "close"}
       ]
     },
     {
-      label: 'Edit',
+      label: "Edit",
       submenu: [
-        {role: 'undo'},
-        {role: 'redo'},
-        {type: 'separator'},
-        {role: 'cut'},
-        {role: 'copy'},
-        {role: 'paste'},
-        {role: 'delete'},
-        {role: 'selectall'}
+        {role: "undo"},
+        {role: "redo"},
+        {type: "separator"},
+        {role: "cut"},
+        {role: "copy"},
+        {role: "paste"},
+        {role: "delete"},
+        {role: "selectall"}
       ]
     },
     {
-      label: 'View',
+      label: "View",
       submenu: [
-        {role: 'reload'},
-        {role: 'forcereload'},
+        {role: "reload"},
+        {role: "forcereload"},
         // {role: 'toggledevtools'},
-        {type: 'separator'},
-        {role: 'resetzoom'},
-        {role: 'zoomin'},
-        {role: 'zoomout'},
-        {type: 'separator'},
-        {role: 'togglefullscreen'}
+        {type: "separator"},
+        {role: "resetzoom"},
+        {role: "zoomin"},
+        {role: "zoomout"},
+        {type: "separator"},
+        {role: "togglefullscreen"}
       ]
     },
     {
-      role: 'window',
+      role: "window",
       submenu: [
-        {role: 'minimize'},
-        {role: 'close'},
+        {role: "minimize"},
+        {role: "close"},
       ]
     },
     {
-      role: 'help',
+      role: "help",
       submenu: [
         {
-          label: 'GitHub',
-          click() {require('electron').shell.openExternal('https://github.com/dixon13/steamws-monitor')}
+          label: "GitHub",
+          click() {require("electron").shell.openExternal("https://github.com/dixon13/steamws-monitor");}
         }
       ]
     }
@@ -127,41 +132,50 @@ const openSteamWSWindow = () => {
     //     }
     //   ]
     // }
-  ]
+  ];
 
-  const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
-  mainWindow.webContents.openDevTools()
-  mainWindow.loadURL(`file://${__dirname}/renderer/main/index.html`)
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+  mainWindow.webContents.openDevTools();
+  mainWindow.loadURL(`file://${__dirname}/renderer/main/index.html`);
   // main window library
 
-  installExtensions()
-}
+  installExtensions();
+};
 
-app.on('window-all-closed', () => {
+app.on("window-all-closed", () => {
   // Overriding so it can run in the background
   // To shutdown application right-click on tray icon
   // and click quit
-})
+});
 
-app.on('ready', () => {
+app.on("ready", () => {
   // Trays work in Windows and Ubuntu based OS's
   // maybe when workshop items are updating
-  tray = new Tray(image_icon_path)
+  tray = new Tray(image_icon_path);
   const contextMenu = Menu.buildFromTemplate([
-    {label: 'Open SteamWS Monitor', click: () => {openSteamWSWindow()}},
+    {label: "Open SteamWS Monitor", click: () => {
+      if (windowCount === 0) {
+        openSteamWSWindow();
+      } else {
+        notify("Steam Workshop Monitor", {
+          body: "Window already opened",
+          icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
+        });
+      }
+    }},
     // {label: 'Settings', click: () => {openSettingsWindow()}},
-    {type: 'separator'},
-    {label: 'Quit', click: () => {app.quit()}}
-  ])
-  tray.setToolTip('Steam Workshop Monitor')
-  tray.setContextMenu(contextMenu)
+    {type: "separator"},
+    {label: "Quit", click: () => {app.quit();}}
+  ]);
+  tray.setToolTip("Steam Workshop Monitor");
+  tray.setContextMenu(contextMenu);
   // const startMonitoring = require('./steamWSmonitor.js')
   // startMonitoring()
-  enableLiveReload({strategy: 'react-hmr'})
+  enableLiveReload({strategy: "react-hmr"});
   
-})
+});
 
-if (process.env.NODE_ENV === 'development') {
-  console.log('Config Path: ', app.getPath('userData'))
+if (process.env.NODE_ENV === "development") {
+  console.log("Config Path: ", app.getPath("userData"));
 }
