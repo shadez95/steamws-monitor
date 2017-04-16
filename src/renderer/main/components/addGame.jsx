@@ -1,6 +1,14 @@
 import { Component } from "react";
 import { InputGroup, InputGroupAddon, Input, Button } from "reactstrap";
+import { connect } from "react-redux";
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    
+  };
+};
+
+@connect(mapDispatchToProps)
 export default class AddGame extends Component {
   constructor(props) {
     super(props);
