@@ -27,21 +27,24 @@ class Settings extends Component {
       if (fs.existsSync(fileObj.path)) {
         this.setState({input: fileObj.path});
         // alert("steamcmd location saved...");
-        new Notification("Steam Workshop Monitor", {
-          body: "steamcmd location saved",
-          icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
-        });
       } else {
         this.fileUpload.files = [];
-        alert("steamcmd.exe or steamcmd source cannot be found");
-        console.log("steamcmd.exe or steamcmd source cannot be found");
+        new Notification("Steam Workshop Monitor", {
+          body: "steamcmd.exe or steamcmd source cannot be found",
+          icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
+        });
       }
     }
   }
 
   handleSubmit() {
     // will save settings here
-    alert("Settings saved...");
+    const remote = require("electron").remote;
+    var appRoot = remote.require("app-root-path");
+    new Notification("Steam Workshop Monitor", {
+      body: "settings saved",
+      icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
+    });
   }
 
   render() {
