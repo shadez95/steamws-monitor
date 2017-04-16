@@ -6,7 +6,7 @@ export default class AddGame extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
-    this.isNumber = this.isNumber.bind(this)
+    this.isNumber = this.isNumber.bind(this);
     this.state = {
       input: ""
     };
@@ -30,6 +30,12 @@ export default class AddGame extends Component {
     e.target.value = "";
     this.setState({
       input: ""
+    });
+    const remote = require("electron").remote;
+    var appRoot = remote.require("app-root-path");
+    new Notification("Steam Workshop Monitor", {
+      body: "Game added",
+      icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
     });
   }
 
