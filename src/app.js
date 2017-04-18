@@ -147,6 +147,7 @@ app.on("window-all-closed", () => {
   // Overriding so it can run in the background
   // To shutdown application right-click on tray icon
   // and click quit
+  windowCount--;
 });
 
 app.on("ready", () => {
