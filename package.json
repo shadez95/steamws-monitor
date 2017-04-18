@@ -46,7 +46,7 @@
     "bootstrap": "^4.0.0-alpha.6",
     "cross-env": "^3.2.4",
     "electron-main-notification": "^1.0.1",
-    "electron-settings": "^3.0.10",
+    "electron-settings": "^3.0.14",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
     "react-addons-transition-group": "^15.4.2",
