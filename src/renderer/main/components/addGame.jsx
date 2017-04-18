@@ -39,12 +39,7 @@ export default class AddGame extends Component {
     this.setState({
       input: ""
     });
-    const remote = require("electron").remote;
-    var appRoot = remote.require("app-root-path");
-    new Notification("Steam Workshop Monitor", {
-      body: "Game added",
-      icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
-    });
+    window.createNotification("Game added");
   }
 
   render() {

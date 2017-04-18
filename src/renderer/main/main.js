@@ -17,6 +17,16 @@ import store from "../store/configureStore.js";
 // Create an enhanced history that syncs navigation events with the store
 // const history = syncHistoryWithStore(hashHistory, store);
 
+const remote = require("electron").remote;
+var appRoot = remote.require("app-root-path");
+
+window.createNotification = (bodyInput) => {
+  new Notification("Steam Workshop Monitor", {
+    body: bodyInput,
+    icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
+  });
+};
+
 const render = () => {
   // NB: We have to re-require MyApp every time or else this won't work
   // We also need to wrap our app in the AppContainer class

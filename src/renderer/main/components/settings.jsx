@@ -21,7 +21,6 @@ class Settings extends Component {
     var fileObj = this.fileUpload.files[0];
     const remote = require("electron").remote;
     const fs = remote.require("fs");
-    var appRoot = remote.require("app-root-path");
     console.log(fileObj);
     if (fileObj !== undefined) {
       if (fs.existsSync(fileObj.path)) {
@@ -29,22 +28,14 @@ class Settings extends Component {
         // alert("steamcmd location saved...");
       } else {
         this.fileUpload.files = [];
-        new Notification("Steam Workshop Monitor", {
-          body: "steamcmd.exe or steamcmd source cannot be found",
-          icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
-        });
+        window.createNotification("steamcmd.exe or steamcmd source cannot be found");
       }
     }
   }
 
   handleSubmit() {
     // will save settings here
-    const remote = require("electron").remote;
-    var appRoot = remote.require("app-root-path");
-    new Notification("Steam Workshop Monitor", {
-      body: "settings saved",
-      icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
-    });
+    window.createNotification("settings saved");
   }
 
   render() {
