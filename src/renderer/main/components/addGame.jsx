@@ -15,9 +15,22 @@ export default class AddGame extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.isNumber = this.isNumber.bind(this);
+    this.getGameInfo = this.getGameInfo.bind(this);
     this.state = {
       input: ""
     };
+  }
+
+  async getGameInfo(appID) {
+    const remote = require("electron").remote;
+    const request = remote.require("request-promise");
+
+    let params = { appids: appID };
+    var options = {
+      url: "http://store.steampowered.com/api/appdetails",
+      qs: params
+    };
+    return await request.get(options);
   }
 
   isNumber(evt) {
@@ -35,6 +48,17 @@ export default class AddGame extends Component {
 
   handleSubmit(e) {
     console.log("[addGame.jsx] handleSubmit - this.state.input: ", this.state.input);
+    var body = this.getGameInfo(this.state.input);
+    let appID = this.state.input;
+    body
+    .then( value => {
+      const obj = JSON.parse(value);
+      console.log(obj[appID].data);
+    })
+    .catch( reason => {
+      console.log(reason);
+    });
+
     e.target.value = "";
     this.setState({
       input: ""
