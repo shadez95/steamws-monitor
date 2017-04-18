@@ -53,17 +53,22 @@ export default class AddGame extends Component {
     body
     .then( value => {
       const obj = JSON.parse(value);
-      console.log(obj[appID].data);
+      if (obj[appID].success === true) {
+        console.log(obj[appID].data);
+        window.createNotification("Game added");
+      } else {
+        window.createNotification("Error occurred while adding a game");
+      }
     })
     .catch( reason => {
       console.log(reason);
+      window.createNotification("Error occurred while adding a game");
     });
 
     e.target.value = "";
     this.setState({
       input: ""
     });
-    window.createNotification("Game added");
   }
 
   render() {
