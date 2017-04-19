@@ -30,6 +30,16 @@ class CustomNav extends Component {
     };
 
     // const hrStyle = { borderStyle: "ridge", marginLeft: "0px", marginRight: "0px" };
+  }
+
+  handleClick(index, id) {
+    this.props.navActions.setSelectedSidebarItem(index, id);
+    console.log("[nav.jsx] CustomNav - changing pane content id: ", id);
+    this.props.paneContentActions.changePaneContent(id);
+  }
+
+  render() {
+    console.log("[nav.jsx] render - this.props: ", this.props);
 
     var navsArray = this.state.navData.map((navData, index) => {
       // navData = {name: '' , id: 0}
@@ -59,16 +69,7 @@ class CustomNav extends Component {
       );
     });
     this.state.navs = navsArray;
-  }
 
-  handleClick(index, id) {
-    this.props.navActions.setSelectedSidebarItem(index, id);
-    console.log("[nav.jsx] CustomNav - changing pane content id: ", id);
-    this.props.paneContentActions.changePaneContent(id);
-  }
-
-  render() {
-    console.log("[nav.jsx] render - this.props: ", this.props);
     return (
       <nav className="hidden-xs-down bg-faded sidebar">
         <Nav vertical pills >

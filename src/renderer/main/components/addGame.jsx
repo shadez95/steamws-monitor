@@ -1,14 +1,21 @@
 import { Component } from "react";
 import { InputGroup, InputGroupAddon, Input, Button } from "reactstrap";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import * as navActionCreators from "../../store/actions/navActions";
+
+const mapStateToProps = (state) => {
+  return {};
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    
+    navActions: bindActionCreators(navActionCreators, dispatch)
   };
 };
 
-@connect(mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 export default class AddGame extends Component {
   constructor(props) {
     super(props);
@@ -55,6 +62,9 @@ export default class AddGame extends Component {
       const obj = JSON.parse(value);
       if (obj[appID].success === true) {
         console.log(obj[appID].data);
+        console.log(this.props.navActions);
+        console.log(obj[appID].data.name, obj[appID].data.steam_appid);
+        this.props.navActions.addGameToNav(obj[appID].data.name, obj[appID].data.steam_appid);
         window.createNotification("Game added");
       } else {
         window.createNotification("Error occurred while adding a game");

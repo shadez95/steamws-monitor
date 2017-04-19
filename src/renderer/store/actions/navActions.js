@@ -12,13 +12,13 @@ export function setSelectedSidebarItem(index, id) {
 export function addGameToNav(gameName, id) {
   return {
     type: ADD_NAV_ITEM,
-    payload: {gameName: gameName, id: id}
+    payload: {name: gameName, id: id}
   };
 }
 
 export function removeGameFromNav(gameName, id) {
   return {
     type: REMOVE_NAV_ITEM,
-    payload: { gameName: gameName, id: id}
+    payload: { name: gameName, id: id}
   };
 }

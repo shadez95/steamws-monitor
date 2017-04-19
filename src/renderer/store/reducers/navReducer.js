@@ -1,5 +1,5 @@
 import {
-  ADD_GAME_TO_NAV, REMOVE_GAME_FROM_NAV,
+  ADD_NAV_ITEM, REMOVE_GAME_FROM_NAV,
   SET_SELECTED_SIDEBAR_ITEM
  } from "../actions/navActions";
 
@@ -7,7 +7,6 @@ const initialState = {
   navData: [
     {name: "Add a Game", id: -2},
     {name: "Settings", id: -1},
-    {name: "Arma 3", id: 107410},
     {name: "Arma 2", id: 33900}
   ],
   selectedSidebarItem: { index: null, id: null },
@@ -34,8 +33,12 @@ export default function reducer(state=initialState, action) {
       navNames: [...state.navNames] // Doesn't remove nav yet
     };
 
-  case ADD_GAME_TO_NAV:
-    return { ...state, navData: [...state.navData, action.payload] };
+  case ADD_NAV_ITEM:
+    console.log("Adding game name and id in ADD_NAV_ITEM");
+    return {
+      ...state,
+      navData: [...state.navData, action.payload]
+    };
   default:
     return state;
   }
