@@ -1,19 +1,12 @@
-export const CHANGE_STEAMCMD_LOCATION = "CHANGE_STEAMCMD_LOCATION";
-export const GET_STEAMCMD_LOCATION = "GET_STEAMCMD_LOCATION";
+import { changeConfig } from "../configManipulators";
 
-export function changeSteamCMDLocation(location) {
-  const config = require("electron-settings");
-  config.set("settings.steamcmdLocation", location);
+export const CHANGE_STEAMCMD_LOC = "CHANGE_STEAMCMD_LOCATION";
+export const REQUEST_CHANGE = "REQUEST_CHANGE";
+
+export function changeSteamCMDLoc(location) {
+  changeConfig("settings.steamCMDLoc", location);
   return {
-    type: CHANGE_STEAMCMD_LOCATION,
+    type: CHANGE_STEAMCMD_LOC,
     payload: location
-  };
-}
-
-export function getSteamCMDLocation() {
-  const config = require("electron-settings");
-  return {
-    type: GET_STEAMCMD_LOCATION,
-    payload: config.get("settings.steamcmdLocation", "")
   };
 }
