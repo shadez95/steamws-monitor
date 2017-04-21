@@ -49,7 +49,7 @@ class Settings extends Component {
     if (window.platform === "win") {
       placeHolder = "C:\path\to\folder\steamcmd.exe";
     } else if (window.platform === "linux") {
-      placeHolder = "/home/steam/steamcmd";
+      placeHolder = "/path/to/folder/steamcmd";
     }
     
     return(

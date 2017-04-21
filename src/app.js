@@ -57,11 +57,9 @@ const image_icon_path = `${__dirname}/static/images/logos/favicon-32x32.png`;
 //   settingsWindow.webContents.openDevTools()
 // }
 
-var windowCount = 0;
-
 const openSteamWSWindow = () => {
-  windowCount++;
   mainWindow = new BrowserWindow({
+    title: "Steam Workshop Monitor",
     width: 700,
     height: 760,
     backgroundColor: "#252526",
@@ -138,8 +136,9 @@ const openSteamWSWindow = () => {
   Menu.setApplicationMenu(menu);
   mainWindow.webContents.openDevTools();
   mainWindow.loadURL(`file://${__dirname}/renderer/main/index.html`);
-  // main window library
-
+  mainWindow.on("closed", () => {
+    mainWindow = null;
+  });
   installExtensions();
 };
 
@@ -147,7 +146,6 @@ app.on("window-all-closed", () => {
   // Overriding so it can run in the background
   // To shutdown application right-click on tray icon
   // and click quit
-  windowCount--;
 });
 
 app.on("ready", () => {
@@ -156,18 +154,19 @@ app.on("ready", () => {
   tray = new Tray(image_icon_path);
   const contextMenu = Menu.buildFromTemplate([
     {label: "Open SteamWS Monitor", click: () => {
-      if (windowCount === 0) {
+      if (mainWindow === null) {
         openSteamWSWindow();
       } else {
         notify("Steam Workshop Monitor", {
           body: "Window already opened",
           icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
         });
+        mainWindow.focus();
       }
     }},
     // {label: 'Settings', click: () => {openSettingsWindow()}},
     {type: "separator"},
-    {label: "Quit", click: () => {app.quit();}}
+    {label: "Quit", click: () => { app.quit(); }}
   ]);
   tray.setToolTip("Steam Workshop Monitor");
   tray.setContextMenu(contextMenu);
