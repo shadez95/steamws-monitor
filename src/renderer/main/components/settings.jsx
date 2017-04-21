@@ -34,18 +34,31 @@ class Settings extends Component {
   }
 
   handleSubmit() {
-    // will save settings here
+    // save settings here
+    var fileObj = this.fileUpload.files[0];
+    const remote = require("electron").remote;
+    const config = remote.require("electron-settings");
+    config.set("settings", {
+      steamCMDpath: fileObj.path
+    });
     window.createNotification("settings saved");
   }
 
   render() {
+    let placeHolder = "not comaptible use at your own risk";
+    if (window.platform === "win") {
+      placeHolder = "C:\path\to\folder\steamcmd.exe";
+    } else if (window.platform === "linux") {
+      placeHolder = "/home/steam/steamcmd";
+    }
+    
     return(
       <div>
         <h1>Settings</h1>
         <br />
         <InputGroup>
           <InputGroupAddon>SteamCMD Location:</InputGroupAddon>
-          <Input type="text" placeholder="C:\path\to\folder\steamcmd.exe" value={this.state.input} readOnly/>
+          <Input type="text" placeholder={placeHolder} value={this.state.input} readOnly/>
         </InputGroup>
         <input id="fileInputID" type="file" ref={(ref) => this.fileUpload = ref}
                 onChange={this.handleFileInput} style={{display: "none"}}/>

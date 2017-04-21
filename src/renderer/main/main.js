@@ -27,6 +27,17 @@ window.createNotification = (bodyInput) => {
   });
 };
 
+var isWin = /^win/.test(process.platform);
+var isLinux = /^linux/.test(process.platform);
+
+if (isWin) {
+  window.platform = "win";
+} else if (isLinux) {
+  window.platform = "linux";
+} else {
+  window.platform = "notCompat";
+}
+
 const render = () => {
   // NB: We have to re-require MyApp every time or else this won't work
   // We also need to wrap our app in the AppContainer class
