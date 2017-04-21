@@ -1,4 +1,5 @@
-# steamws-monitor
+# Steam Workshop Monitor
+
 An application that monitors steam workshop files for updates
 
 This application is not compatible with MacOS and does not intend on working with MacOS, as most server administrators will be using this on their servers running debian/ubuntu based distributions and Windows 7 and above, and Windows Server 2012 and above
