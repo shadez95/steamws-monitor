@@ -34,7 +34,6 @@ export default function reducer(state=initialState, action) {
     };
 
   case ADD_NAV_ITEM:
-    console.log("Adding game name and id in ADD_NAV_ITEM");
     return {
       ...state,
       navData: [...state.navData, action.payload]
