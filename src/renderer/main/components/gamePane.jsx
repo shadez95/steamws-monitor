@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
-  return { GamePane: state.paneContent };
-};
+// const mapStateToProps = (state) => {
+//   return { GamePane: state.paneContent };
+// };
 
-@connect(mapStateToProps)
+// @connect(mapStateToProps)
 export default class GamePane extends Component {
   render() {
     return(
       <div>
-        {this.props.GamePane}
+        {this.props.id}
       </div>
     );
   }
