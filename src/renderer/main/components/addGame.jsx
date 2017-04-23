@@ -60,12 +60,11 @@ export default class AddGame extends Component {
           this.setState({
             input: ""
           });
-          window.createNotification("Game added");
         } else {
+          window.createNotification("No steam game with that app ID exists");
           this.setState({
             input: ""
           });
-          window.createNotification("Error occurred while adding a game");
         }
       } else {
         console.log(err);
