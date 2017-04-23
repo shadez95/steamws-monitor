@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { InputGroup, InputGroupAddon, Input, Button } from "reactstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -22,22 +22,9 @@ export default class AddGame extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.isNumber = this.isNumber.bind(this);
-    this.getGameInfo = this.getGameInfo.bind(this);
     this.state = {
       input: ""
     };
-  }
-
-  async getGameInfo(appID) {
-    const remote = require("electron").remote;
-    const request = remote.require("request-promise");
-
-    let params = { appids: appID };
-    var options = {
-      url: "http://store.steampowered.com/api/appdetails",
-      qs: params
-    };
-    return await request.get(options);
   }
 
   isNumber(evt) {
@@ -55,29 +42,38 @@ export default class AddGame extends Component {
 
   handleSubmit(e) {
     console.log("[addGame.jsx] handleSubmit - this.state.input: ", this.state.input);
-    var body = this.getGameInfo(this.state.input);
-    let appID = this.state.input;
-    body
-    .then( value => {
-      const obj = JSON.parse(value);
-      if (obj[appID].success === true) {
-        console.log(obj[appID].data);
-        console.log(this.props.navActions);
-        console.log(obj[appID].data.name, obj[appID].data.steam_appid);
-        this.props.navActions.addGameToNav(obj[appID].data.name, obj[appID].data.steam_appid);
-        window.createNotification("Game added");
-      } else {
-        window.createNotification("Error occurred while adding a game");
-      }
-    })
-    .catch( reason => {
-      console.log(reason);
-      window.createNotification("Error occurred while adding a game");
-    });
+    const appID = this.state.input;
 
-    e.target.value = "";
-    this.setState({
-      input: ""
+    const remote = require("electron").remote;
+    const request = remote.require("request");
+
+    const url = "http://store.steampowered.com/api/appdetails" + "?appids=" + appID;
+    console.log(url);
+
+    request.get(url, (err, response, body) => {
+      if (response.statusCode === 200) {
+        const obj = JSON.parse(body);
+        if (obj[appID].success === true) {
+          console.log(obj[appID].data);
+          console.log(obj[appID].data.name, obj[appID].data.steam_appid);
+          this.props.navActions.addGameToNav(obj[appID].data.name, obj[appID].data.steam_appid);
+          this.setState({
+            input: ""
+          });
+          window.createNotification("Game added");
+        } else {
+          this.setState({
+            input: ""
+          });
+          window.createNotification("Error occurred while adding a game");
+        }
+      } else {
+        console.log(err);
+        window.createNotification("Error occurred while adding a game");
+        this.setState({
+          input: ""
+        });
+      }
     });
   }
 

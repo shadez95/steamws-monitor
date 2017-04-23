@@ -78,7 +78,7 @@ class Settings extends Component {
   render() {
     let placeHolder = "not comaptible use at your own risk";
     if (window.platform === "win") {
-      placeHolder = "C:\path\to\folder\steamcmd.exe";
+      placeHolder = "C:\\path\\to\\folder\\steamcmd.exe";
     } else if (window.platform === "linux") {
       placeHolder = "/path/to/folder/steamcmd";
     }

@@ -32,7 +32,7 @@ class PaneContent extends Component {
     case -1:
       return <Settings />;
     case -2:
-      return <AddGame />;
+      return <AddGame/>;
     default:
       return(
       <div>

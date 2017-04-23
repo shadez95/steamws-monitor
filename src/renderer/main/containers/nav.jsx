@@ -24,16 +24,29 @@ class CustomNav extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    this.state = {
-      navData: this.props.navData.navData,
-      navs: null
-    };
+    this.generateNav = this.generateNav.bind(this);
 
+    const navs = this.generateNav(this.props.navData.navData);
+    this.state = {
+      navs: navs,
+    };
     // const hrStyle = { borderStyle: "ridge", marginLeft: "0px", marginRight: "0px" };
   }
 
-  componentDidUpdate() {
-    console.log("[nav.jsx] component did udpate");
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.navData.navData.length > this.props.navData.navData.length) {
+      const navs = this.generateNav(nextProps.navData.navData);
+      this.setState({ navs: navs });
+    }
+  }
+
+  generateNav(data) {
+    return data.map((navData, index) => {
+      return(
+        <NavItemWrapper key={index} keyChild={index} id={navData.id}
+          index={index} name={navData.name} handleClick={this.handleClick} />
+      );
+    });
   }
 
   handleClick(index, id) {
@@ -43,40 +56,19 @@ class CustomNav extends Component {
   }
 
   render() {
-    console.log("[nav.jsx] render - this.state.navData: ", this.state.navData);
-    var navsArray = this.state.navData.map((navData, index) => {
-      // navData = {name: '' , id: 0}
-      if (index === 0) {
-        return (
-          <div key={index}>
-            <NavbarBrand key={-3}>Steam Workshop Monitor</NavbarBrand>
-            <NavItemWrapper key={index} keyChild={index} id={navData.id}
-              index={index} name={navData.name} handleClick={this.handleClick} />
-          </div>
-        );
-      }
-
-      if (index === 1) {
-        return(
-          <div key={index}>
-            <NavItemWrapper key={index} keyChild={index} id={navData.id}
-              index={index} name={navData.name} handleClick={this.handleClick} />
-              <NavbarBrand>Steam Games</NavbarBrand>
-          </div>
-        );
-      }
-
-      return(
-        <NavItemWrapper key={index} keyChild={index} id={navData.id}
-          index={index} name={navData.name} handleClick={this.handleClick} />
-      );
-    });
-    console.log("navsArray: ", navsArray);
-    this.state.navs = navsArray;
-    console.log("this.state.navs: ", this.state.navs);
     return (
       <nav className="hidden-xs-down bg-faded sidebar">
         <Nav vertical pills >
+          <div key={-3}>
+            <NavbarBrand>Steam Workshop Monitor</NavbarBrand>
+            <NavItemWrapper keyChild={-3} id={-2}
+              index={-3} name="Add a Game" handleClick={this.handleClick} />
+          </div>
+          <div key={-1}>
+            <NavItemWrapper keyChild={-1} id={-1}
+              index={-1} name="Settings" handleClick={this.handleClick} />
+              <NavbarBrand>Steam Games</NavbarBrand>
+          </div>
           {this.state.navs}
         </Nav>
       </nav>

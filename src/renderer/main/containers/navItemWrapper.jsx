@@ -17,10 +17,6 @@ export default class NavItemWrapper extends Component {
     };
   }
 
-  componentDidUpdate() {
-    console.log("[navItemWrapper.jsx] componentDidUpdate");
-  }
-
   isActive() {
     if (this.props.index === this.props.navData.selectedSidebarItem.index) {
       this.state.active = true;

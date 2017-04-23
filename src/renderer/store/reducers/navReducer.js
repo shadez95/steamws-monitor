@@ -5,8 +5,8 @@ import {
 
 const initialState = {
   navData: [
-    {name: "Add a Game", id: -2},
-    {name: "Settings", id: -1},
+    // {name: "Add a Game", id: -2},
+    // {name: "Settings", id: -1},
     {name: "Arma 2", id: 33900}
   ],
   selectedSidebarItem: { index: null, id: null },
