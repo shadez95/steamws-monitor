@@ -8,11 +8,11 @@ import * as paneContentActions from "../../store/actions/paneContentActions";
 
 import NavItemWrapper from "./navItemWrapper";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return { navData: state.navData };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     navActions: bindActionCreators(navActionCreators, dispatch),
     paneContentActions: bindActionCreators(paneContentActions, dispatch)
