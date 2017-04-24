@@ -42,7 +42,7 @@ export default class AddGame extends Component {
     });
   }
 
-  handleSubmit(e) {
+  handleSubmit() {
     this.props.loadingActions.setLoading(true);
     const appID = this.state.input;
 
@@ -50,14 +50,11 @@ export default class AddGame extends Component {
     const request = remote.require("request");
 
     const url = "http://store.steampowered.com/api/appdetails" + "?appids=" + appID;
-    console.log(url);
 
     request.get(url, (err, response, body) => {
       if (response.statusCode === 200) {
         const obj = JSON.parse(body);
         if (obj[appID].success === true) {
-          console.log(obj[appID].data);
-          console.log(obj[appID].data.name, obj[appID].data.steam_appid);
           this.props.navActions.addGameToNav(obj[appID].data.name, obj[appID].data.steam_appid);
           this.setState({
             input: ""
