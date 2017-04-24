@@ -10,7 +10,6 @@ import * as navActionCreators from "../../store/actions/navActions";
 import * as paneContentActions from "../../store/actions/paneContentActions";
 
 const mapStateToProps = (state) => {
-  console.log("[navItemWrapper.jsx] state.navData: ", state.navData);
   return { navData: state.navData };
 };
 
