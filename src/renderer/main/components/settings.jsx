@@ -29,7 +29,6 @@ class Settings extends Component {
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getSteamCMDpath = this.getSteamCMDpath.bind(this);
-    console.log("[settings] constructor - props: ", this.props);
     this.state = {
       steamCMDLocState: this.props.steamCMDLoc
     };
