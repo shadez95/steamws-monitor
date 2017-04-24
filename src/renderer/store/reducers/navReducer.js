@@ -1,5 +1,5 @@
 import {
-  ADD_NAV_ITEM, REMOVE_GAME_FROM_NAV,
+  ADD_NAV_ITEM, REMOVE_NAV_ITEM,
   SET_SELECTED_SIDEBAR_ITEM
  } from "../actions/navActions";
 
@@ -27,10 +27,10 @@ export default function reducer(state=initialState, action) {
       },
     };
 
-  case REMOVE_GAME_FROM_NAV:
+  case REMOVE_NAV_ITEM:
     return {
       ...state,
-      navNames: [...state.navNames] // Doesn't remove nav yet
+      navData: state.navData.filter(navDataObj => navDataObj.id !== action.payload)
     };
 
   case ADD_NAV_ITEM:

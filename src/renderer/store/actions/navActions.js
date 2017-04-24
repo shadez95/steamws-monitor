@@ -16,9 +16,9 @@ export function addGameToNav(gameName, id) {
   };
 }
 
-export function removeGameFromNav(gameName, id) {
+export function removeGameFromNav(id) {
   return {
     type: REMOVE_NAV_ITEM,
-    payload: { name: gameName, id: id}
+    payload: id
   };
 }

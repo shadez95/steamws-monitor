@@ -34,7 +34,7 @@ class CustomNav extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.navData.navData.length > this.props.navData.navData.length) {
+    if (nextProps.navData.navData.length !== this.props.navData.navData.length) {
       const navs = this.generateNav(nextProps.navData.navData);
       this.setState({ navs: navs });
     }
