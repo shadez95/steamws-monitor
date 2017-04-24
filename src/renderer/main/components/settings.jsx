@@ -4,8 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import * as settingsActionCreators from "../../store/actions/settingsActions";
-
-import { getConfig } from "../../store/configManipulators";
+import * as loadingActionCreators from "../../store/actions/loadingActions";
 
 const mapStateToProps = (state) => {
   return {
@@ -17,7 +16,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    settingsActions: bindActionCreators(settingsActionCreators, dispatch)
+    settingsActions: bindActionCreators(settingsActionCreators, dispatch),
+    loadingActions: bindActionCreators(loadingActionCreators, dispatch)
   };
 };
 
@@ -64,15 +64,12 @@ class Settings extends Component {
 
   handleSubmit() {
     // save settings here
+    this.props.loadingActions.setLoading(true);
     var fileObj = this.fileUpload.files[0];
-    // const remote = require("electron").remote;
-    // const config = remote.require("electron-settings");
-    // config.set("settings", {
-    //   steamCMDpath: fileObj.path
-    // });
 
     this.props.settingsActions.changeSteamCMDLoc(fileObj.path);
     window.createNotification("settings saved");
+    this.props.loadingActions.setLoading(false);
   }
 
   render() {

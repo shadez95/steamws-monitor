@@ -5,11 +5,13 @@ import settings from "./settingsReducer";
 import steamGames from "./steamGamesReducer";
 import navData from "./navReducer";
 import paneContent from "./paneContentReducer";
+import loading from "./loadingReducer";
 
 export default combineReducers({
   navData,
   paneContent,
   settings,
-  steamGames
+  steamGames,
+  loading
   // routing
 });

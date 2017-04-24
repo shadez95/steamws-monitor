@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import * as navActionCreators from "../../store/actions/navActions";
+import * as loadingActionCreators from "../../store/actions/loadingActions";
 
 const mapStateToProps = (state) => {
   return {};
@@ -11,7 +12,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    navActions: bindActionCreators(navActionCreators, dispatch)
+    navActions: bindActionCreators(navActionCreators, dispatch),
+    loadingActions: bindActionCreators(loadingActionCreators, dispatch)
   };
 };
 
@@ -41,7 +43,7 @@ export default class AddGame extends Component {
   }
 
   handleSubmit(e) {
-    console.log("[addGame.jsx] handleSubmit - this.state.input: ", this.state.input);
+    this.props.loadingActions.setLoading(true);
     const appID = this.state.input;
 
     const remote = require("electron").remote;
@@ -60,11 +62,13 @@ export default class AddGame extends Component {
           this.setState({
             input: ""
           });
+          this.props.loadingActions.setLoading(false);
         } else {
           window.createNotification("No steam game with that app ID exists");
           this.setState({
             input: ""
           });
+          this.props.loadingActions.setLoading(false);
         }
       } else {
         console.log(err);
@@ -72,6 +76,7 @@ export default class AddGame extends Component {
         this.setState({
           input: ""
         });
+        this.props.loadingActions.setLoading(false);
       }
     });
   }
