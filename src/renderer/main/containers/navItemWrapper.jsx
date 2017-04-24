@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import * as navActionCreators from "../../store/actions/navActions";
+import * as paneContentActions from "../../store/actions/paneContentActions";
 
 const mapStateToProps = (state) => {
   console.log("[navItemWrapper.jsx] state.navData: ", state.navData);
@@ -15,7 +16,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    navActions: bindActionCreators(navActionCreators, dispatch)
+    navActions: bindActionCreators(navActionCreators, dispatch),
+    paneContentActions: bindActionCreators(paneContentActions, dispatch)
   };
 };
 
@@ -52,6 +54,9 @@ export default class NavItemWrapper extends Component {
   }
 
   deleteNavItem() {
+    if (this.props.index === this.props.navData.selectedSidebarItem.index) {
+      this.props.paneContentActions.changePaneContent(null);
+    }
     this.props.navActions.removeGameFromNav(this.props.id);
     window.createNotification("Game deleted");
   }
