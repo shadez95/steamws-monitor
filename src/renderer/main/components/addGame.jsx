@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 
 import * as navActionCreators from "../../store/actions/navActions";
 import * as loadingActionCreators from "../../store/actions/loadingActions";
+import { saveGameData } from "../../store/configManipulators";
 
 const mapStateToProps = () => {
   return {};
@@ -55,7 +56,9 @@ export default class AddGame extends Component {
       if (response.statusCode === 200) {
         const obj = JSON.parse(body);
         if (obj[appID].success === true) {
+          console.log(obj);
           this.props.navActions.addGameToNav(obj[appID].data.name, obj[appID].data.steam_appid);
+          saveGameData(obj[appID].data);
           this.setState({
             input: ""
           });

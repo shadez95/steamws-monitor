@@ -1,5 +1,5 @@
 import { CHANGE_STEAMCMD_LOC, REQUEST_CHANGE } from "../actions/settingsActions";
-import { getConfig } from "../configManipulators";
+import { getConfig, changeConfig } from "../configManipulators";
 
 const initialState = {
   steamCMDLoc: getConfig("settings.steamCMDLoc", ""),
@@ -12,6 +12,7 @@ export default function settings(state=initialState, action) {
   case REQUEST_CHANGE:
     return {...state, fetching: true};
   case CHANGE_STEAMCMD_LOC:
+    changeConfig("settings.steamCMDLoc", action.payload);
     return {
       ...state,
       steamCMDLoc: action.payload,

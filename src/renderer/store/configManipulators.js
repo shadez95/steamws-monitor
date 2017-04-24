@@ -19,3 +19,14 @@ export function getConfig(obj, defaultValue="") {
 export function deleteConfig(keyPath) {
   config.delete(keyPath, options);
 }
+
+export function saveGameData(data) {
+  const appID = data.steam_appid;
+  const appIDstr = String(appID);
+  config.set("games." + appIDstr, {
+    image: data.header_image,
+    name: data.name,
+    website: data.website,
+    workshopItems: []
+  }, options);
+}

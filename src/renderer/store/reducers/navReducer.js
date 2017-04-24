@@ -1,14 +1,15 @@
 import {
-  ADD_NAV_ITEM, REMOVE_NAV_ITEM,
-  SET_SELECTED_SIDEBAR_ITEM
+  ADD_NAV_ITEM, REMOVE_NAV_ITEM, SET_SELECTED_SIDEBAR_ITEM
  } from "../actions/navActions";
+import { getConfig, changeConfig } from "../configManipulators";
 
 const initialState = {
-  navData: [
-    // {name: "Add a Game", id: -2},
-    // {name: "Settings", id: -1},
-    // {name: "Arma 2", id: 33900}
-  ],
+  // navData: [
+  //   // {name: "Add a Game", id: -2},
+  //   // {name: "Settings", id: -1},
+  //   // {name: "Arma 2", id: 33900}
+  // ],
+  navData: getConfig("navData", []),
   selectedSidebarItem: { index: null, id: null },
   error: null
 };
@@ -28,12 +29,15 @@ export default function reducer(state=initialState, action) {
     };
 
   case REMOVE_NAV_ITEM:
+    var newNavData = state.navData.filter(navDataObj => navDataObj.id !== action.payload);
+    changeConfig("navData", newNavData);
     return {
       ...state,
-      navData: state.navData.filter(navDataObj => navDataObj.id !== action.payload)
+      navData: newNavData
     };
 
   case ADD_NAV_ITEM:
+    changeConfig("navData", [...state.navData, action.payload]);
     return {
       ...state,
       navData: [...state.navData, action.payload]
