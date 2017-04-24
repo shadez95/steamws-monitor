@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import * as navActionCreators from "../../store/actions/navActions";
 import * as loadingActionCreators from "../../store/actions/loadingActions";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = () => {
   return {};
 };
 
