@@ -11,7 +11,7 @@ import { deleteConfig } from "../../store/configManipulators";
 import * as navActionCreators from "../../store/actions/navActions";
 import * as paneContentActions from "../../store/actions/paneContentActions";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return { navData: state.navData };
 };
 
