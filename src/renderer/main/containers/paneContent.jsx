@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Settings from "../components/settings";
-import AddGame from "../components/addGame";
-import GamePane from "../components/gamePane";
+import Settings from "./settings";
+import AddGame from "./addGame";
+import GamePane from "./gamePane";
 
 const mapStateToProps = (state) => {
   console.log("[paneContent.jsx] mapStateToProps - state: ", state.paneContent);
