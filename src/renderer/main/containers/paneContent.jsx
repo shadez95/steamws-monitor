@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import Settings from "./settings";
 import AddGame from "./addGame";
-import GamePane from "./gamePane";
+import GamePane from "../components/gamePane";
 
 const mapStateToProps = (state) => {
   console.log("[paneContent.jsx] mapStateToProps - state: ", state.paneContent);

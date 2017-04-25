@@ -24,7 +24,7 @@ export function saveGameData(data) {
   const appID = data.steam_appid;
   const appIDstr = String(appID);
   config.set("games." + appIDstr, {
-    image: data.header_image,
+    imagePath: data.header_image,
     name: data.name,
     website: data.website,
     workshopItems: []
