@@ -6,10 +6,10 @@ export default class GamePane extends Component {
   constructor(props) {
     super(props);
     this.getData = this.getData.bind(this);
-    this.openUrl = this.openUrl.bind(this);
+    this.openExternalUrl = this.openExternalUrl.bind(this);
   }
 
-  openUrl(url) {
+  openExternalUrl(url) {
     const remote = require("electron").remote;
     const shell = remote.shell;
     const options = { activate: true };
@@ -22,19 +22,20 @@ export default class GamePane extends Component {
 
   render() {
     const data = this.getData();
+    const steamwsUrl = "https://steamcommunity.com/app/" + this.props.id + "/workshop/";
     return(
       <div>
         <Row>
-          <Col>
-            <h1>{data.name}</h1>
-          </Col>
-          <Col>
-            <a onClick={() => this.openUrl(data.website)} href="#">
-              <img src={data.imagePath} width="200px"/>
+          <a onClick={() => this.openExternalUrl(data.website)} href="#">
+            <img src={data.imagePath} height="139px"/>
+          </a>
+          <div style={{ "marginLeft" : "auto" }}>
+            <a onClick={() => this.openExternalUrl(steamwsUrl)} href="#">
+              <img src="../../static/images/workshop_logo.png" height="139px" />
             </a>
-          </Col>
+          </div>
         </Row>
-          {this.props.id}
+        <hr />
       </div>
     );
   }

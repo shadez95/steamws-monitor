@@ -14,7 +14,10 @@ const mapStateToProps = (state) => {
 class PaneContent extends Component { 
   render() {
     console.log(this.props);
+
     switch(this.props.paneContent.id) {
+    case null:
+      return <h1>Welcome</h1>;
     case -1:
       return <Settings />;
     case -2:
