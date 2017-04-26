@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { InputGroup, InputGroupAddon, Input, Button } from "reactstrap";
+import { InputGroup, InputGroupAddon, Input, Button, Col } from "reactstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -86,13 +86,15 @@ export default class AddGame extends Component {
       <div>
         <h1>Add Steam Game</h1>
         <br />
-        <InputGroup>
-          <InputGroupAddon>Steam App ID:</InputGroupAddon>
-          <Input type="text" onChange={this.handleInput} onKeyPress={this.isNumber}
-          value={this.state.input} placeholder="123456"/>
-        </InputGroup>
-        <br />
-        <Button color="success" onClick={this.handleSubmit}>Add Steam Game</Button>
+        <Col xs="6">
+          <InputGroup>
+            <InputGroupAddon>Steam App ID:</InputGroupAddon>
+            <Input type="text" onChange={this.handleInput} onKeyPress={this.isNumber}
+            value={this.state.input} placeholder="123456"/>
+          </InputGroup>
+          <br />
+          <Button color="success" onClick={this.handleSubmit}>Add Steam Game</Button>
+        </Col>
       </div>
     );
   }

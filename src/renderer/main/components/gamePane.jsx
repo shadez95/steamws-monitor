@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getConfig } from "../../store/configManipulators";
-import { Container, Row, Col } from "reactstrap";
+import { Input, Row, Col, FormGroup } from "reactstrap";
 
 export default class GamePane extends Component {
   constructor(props) {
@@ -36,6 +36,11 @@ export default class GamePane extends Component {
           </div>
         </Row>
         <hr />
+        <Col xs="4">
+          <FormGroup>
+            <Input type="text" name="email" id="exampleEmail" placeholder="with a placeholder" />
+          </FormGroup>
+        </Col>
       </div>
     );
   }

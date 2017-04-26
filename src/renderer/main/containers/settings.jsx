@@ -1,5 +1,5 @@
 import React, { Component }  from "react";
-import { InputGroup, InputGroupAddon, Input, Button } from "reactstrap";
+import { InputGroup, InputGroupAddon, Input, Button, Col } from "reactstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -83,18 +83,20 @@ class Settings extends Component {
       <div>
         <h1>Settings</h1>
         <br />
-        <InputGroup>
-          <InputGroupAddon>SteamCMD Location:</InputGroupAddon>
-          <Input type="text" placeholder={placeHolder} value={this.state.steamCMDLocState} readOnly/>
-        </InputGroup>
-        <input id="fileInputID" type="file" ref={(ref) => this.fileUpload = ref}
-                onChange={this.handleFileInput} style={{display: "none"}}/>
-        <br />
-        <Button color="secondary" onClick={this.handleButtonClick}>Change SteamCMD Location</Button>
-        <br />
-        <br />
-        <br />
-        <Button color="success" type="submit" onClick={this.handleSubmit} value="Submit">Save</Button>
+        <Col xs="10">
+          <InputGroup>
+            <InputGroupAddon>SteamCMD Location:</InputGroupAddon>
+            <Input type="text" placeholder={placeHolder} value={this.state.steamCMDLocState} readOnly/>
+          </InputGroup>
+          <input id="fileInputID" type="file" ref={(ref) => this.fileUpload = ref}
+                  onChange={this.handleFileInput} style={{display: "none"}}/>
+          <br />
+          <Button color="secondary" onClick={this.handleButtonClick}>Change SteamCMD Location</Button>
+          <br />
+          <br />
+          <br />
+          <Button color="success" type="submit" onClick={this.handleSubmit} value="Submit">Save</Button>
+        </Col>
       </div>
     );
   }
