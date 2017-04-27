@@ -4,7 +4,7 @@
   "description": "An application that monitors steam workshop files for updates",
   "main": "src/app.js",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "cross-env NODE_ENV=development electron-forge start",
     "build-local": "electron-packager . SteamwsMonitor --out ./dist --overwrite --ignore=./node_modules --ignore=./dist --ignore=./renderer-bundle.js",
     "build-all": "electron-packager . SteamwsMonitor --all --out ./dist --overwrite",
     "package": "electron-forge package",

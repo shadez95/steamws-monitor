@@ -1,41 +1,44 @@
 import {app, BrowserWindow, Menu, Tray} from "electron";
 import {enableLiveReload} from "electron-compile";
-import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from "electron-devtools-installer";
 import appRoot from "app-root-path";
 const notify = require("electron-main-notification");
 
 // ----------------------------------------------
 
+// const isProd = process.execPath.search("electron-prebuilt-compile") === -1;
+// if (isProd !== -1) {
+//   process.env.NODE_ENV = "production";
+// }
+
 const installExtensions = () => {
-  if (process.env.NODE_ENV === "development") {
+  const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require("electron-devtools-installer");
 
-    const extensions = [
-      REACT_DEVELOPER_TOOLS,
-      REDUX_DEVTOOLS
-    ];
-    const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-    console.log("UPGRADE_EXTENSIONS: ", process.env.UPGRADE_EXTENSIONS);
+  const extensions = [
+    REACT_DEVELOPER_TOOLS,
+    REDUX_DEVTOOLS
+  ];
+  const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+  console.log("UPGRADE_EXTENSIONS: ", process.env.UPGRADE_EXTENSIONS);
 
-    extensions.map(((ext) => {
-      installExtension(ext, process.env.UPGRADE_EXTENSIONS)
-        .then((name) => console.log(`Added Extension:  ${name}`))
-        .catch((err) => console.log("An error occurred: ", err));
-    }));
+  extensions.map(((ext) => {
+    installExtension(ext, process.env.UPGRADE_EXTENSIONS)
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log("An error occurred: ", err));
+  }));
 
-    // installExtension(REACT_DEVELOPER_TOOLS, )
-    //   .then((name) => console.log(`Added Extension:  ${name}`))
-    //   .catch((err) => console.log('An error occurred: ', err))
-    // installExtension(REDUX_DEVTOOLS)
-    //   .then((name) => console.log(`Added Extension:  ${name}`))
-    //   .catch((err) => console.log('An error occurred: ', err))
+  // installExtension(REACT_DEVELOPER_TOOLS, )
+  //   .then((name) => console.log(`Added Extension:  ${name}`))
+  //   .catch((err) => console.log('An error occurred: ', err))
+  // installExtension(REDUX_DEVTOOLS)
+  //   .then((name) => console.log(`Added Extension:  ${name}`))
+  //   .catch((err) => console.log('An error occurred: ', err))
 
-    // TODO: Use async interation statement.
-    //       Waiting on https://github.com/tc39/proposal-async-iteration
-    //       Promises will fail silently, which isn't what we want in development
-    // return Promise
-    //   .all(extensions.map(name => installer.default(installer[name], forceDownload)))
-    //   .catch(console.log)
-  }
+  // TODO: Use async interation statement.
+  //       Waiting on https://github.com/tc39/proposal-async-iteration
+  //       Promises will fail silently, which isn't what we want in development
+  // return Promise
+  //   .all(extensions.map(name => installer.default(installer[name], forceDownload)))
+  //   .catch(console.log)
 };
 
 let mainWindow = null;
@@ -45,7 +48,8 @@ let tray = null;
 const image_icon_path = `${__dirname}/static/images/logos/favicon-32x32.png`;
 
 // const openSettingsWindow = () => {
-//   settingsWindow = new BrowserWindow({
+//   settingsWindow = new BrowserWindo
+// mainWindow.webContents.openDevTools();({
 //     width: 500,
 //     height: 500,
 //     backgroundColor: '#252526',
@@ -134,12 +138,14 @@ const openSteamWSWindow = () => {
 
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
-  mainWindow.webContents.openDevTools();
   mainWindow.loadURL(`file://${__dirname}/renderer/main/index.html`);
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
-  installExtensions();
+  if (process.env.NODE_ENV === "development") {
+    mainWindow.webContents.openDevTools();
+    installExtensions();
+  }
 };
 
 app.on("window-all-closed", () => {
