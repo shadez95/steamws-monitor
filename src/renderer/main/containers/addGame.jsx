@@ -86,7 +86,7 @@ export default class AddGame extends Component {
       <div>
         <h1>Add Steam Game</h1>
         <br />
-        <Col xs="6">
+        <Col xs="8">
           <InputGroup>
             <InputGroupAddon>Steam App ID:</InputGroupAddon>
             <Input type="text" onChange={this.handleInput} onKeyPress={this.isNumber}

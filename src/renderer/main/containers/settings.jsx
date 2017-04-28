@@ -83,7 +83,7 @@ class Settings extends Component {
       <div>
         <h1>Settings</h1>
         <br />
-        <Col xs="10">
+        <Col xs="12">
           <InputGroup>
             <InputGroupAddon>SteamCMD Location:</InputGroupAddon>
             <Input type="text" placeholder={placeHolder} value={this.state.steamCMDLocState} readOnly/>
