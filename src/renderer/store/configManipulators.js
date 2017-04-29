@@ -37,7 +37,7 @@ export function saveWorkshopData(gameID, workshopData) {
   const workshopDataToAppend = {
     name: workshopData.title,
     publishedFileID: workshopData.publishedfileid,
-    image: workshopData.preview_url,
+    imagePath: workshopData.preview_url,
     fileSize: workshopData.file_size,
     timeCreated: workshopData.time_created,
     timeUpdated: workshopData.time_updated

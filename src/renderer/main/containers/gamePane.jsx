@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import WorkshopItem from "../components/workshopData";
+
 import { Input, Row, Col, Button } from "reactstrap";
 import { saveWorkshopData } from "../../store/configManipulators";
 
@@ -17,11 +19,19 @@ export default class GamePane extends Component {
     this.isNumber = this.isNumber.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = { input: "", workshopItems: String(this.props.gameData.workshopItems) };
+    this.createWorkshopComponents = this.createWorkshopComponents.bind(this);
+    const componentList = this.createWorkshopComponents(this.props.gameData.workshopItems);
+    this.state = { input: "", workshopItems: componentList };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ workshopItems: String(nextProps.gameData.workshopItems) });
+    this.setState({
+      workshopItems: this.createWorkshopComponents(nextProps.gameData.workshopItems)
+    });
+  }
+
+  createWorkshopComponents(workshopItems) {
+    return workshopItems.map((obj, idx) => <WorkshopItem key={idx} data={obj} />);
   }
 
   isNumber(evt) {
