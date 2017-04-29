@@ -1,16 +1,27 @@
 import React, { Component } from "react";
-import { getConfig } from "../../store/configManipulators";
-import { Input, Row, Col, Button } from "reactstrap";
+import { connect } from "react-redux";
 
+import { Input, Row, Col, Button } from "reactstrap";
+import { saveWorkshopData } from "../../store/configManipulators";
+
+const mapStateToProps = state => {
+  console.log("[gamePane.jsx] mapStateToProps - state: ", state.gameData.gameData);
+  return { gameData: state.gameData.gameData };
+};
+
+@connect(mapStateToProps)
 export default class GamePane extends Component {
   constructor(props) {
-    super(props);
-    this.getData = this.getData.bind(this);
+    super(props); 
     this.openExternalUrl = this.openExternalUrl.bind(this);
     this.isNumber = this.isNumber.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = { input: "" };
+    this.state = { input: "", workshopItems: String(this.props.gameData.workshopItems) };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ workshopItems: String(nextProps.gameData.workshopItems) });
   }
 
   isNumber(evt) {
@@ -54,6 +65,8 @@ export default class GamePane extends Component {
             window.createNotification("The workshop item you requested is not for the game you have selected");
           }
           console.log(data.response.publishedfiledetails[0]);
+          saveWorkshopData(this.props.id, data.response.publishedfiledetails[0]);
+
         }
       } else {
         // if get response other than 200 log error and notify user
@@ -70,18 +83,13 @@ export default class GamePane extends Component {
     shell.openExternal(url, options);
   }
 
-  getData() {
-    return getConfig("games." + String(this.props.id));
-  }
-
   render() {
-    const data = this.getData();
     const steamwsUrl = "https://steamcommunity.com/app/" + this.props.id + "/workshop/";
     return(
       <div>
         <Row>
-          <a onClick={() => this.openExternalUrl(data.website)} href="#">
-            <img src={data.imagePath} height="139px"/>
+          <a onClick={() => this.openExternalUrl(this.props.gameData.website)} href="#">
+            <img src={this.props.gameData.imagePath} height="139px"/>
           </a>
           <div style={{ "marginLeft" : "auto" }}>
             <a onClick={() => this.openExternalUrl(steamwsUrl)} href="#">
@@ -100,6 +108,7 @@ export default class GamePane extends Component {
           </Col>
         </Row>
         <hr />
+        {this.state.workshopItems}
       </div>
     );
   }

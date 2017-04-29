@@ -11,7 +11,7 @@ export async function changeConfig(obj, value) {
 
 export function getConfig(obj, defaultValue="") {
   // emit loading event here to display loading icon
-  const val = config.get(obj, defaultValue);
+  const val = config.get(obj, defaultValue, options);
   // emit not loading event here to remove loading icon
   return val;
 }
@@ -29,4 +29,19 @@ export function saveGameData(data) {
     website: data.website,
     workshopItems: []
   }, options);
+}
+
+export function saveWorkshopData(gameID, workshopData) {
+  const objLoc = "games." + gameID + ".workshopItems";
+  const workshopItems = getConfig(objLoc);
+  const workshopDataToAppend = {
+    name: workshopData.title,
+    publishedFileID: workshopData.publishedfileid,
+    image: workshopData.preview_url,
+    fileSize: workshopData.file_size,
+    timeCreated: workshopData.time_created,
+    timeUpdated: workshopData.time_updated
+  };
+  workshopItems.push(workshopDataToAppend);
+  config.set(objLoc, workshopItems, options);
 }

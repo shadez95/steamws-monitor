@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 
 import * as navActionCreators from "../../store/actions/navActions";
 import * as paneContentActions from "../../store/actions/paneContentActions";
+import * as gameActionCreators from "../../store/actions/gameActions";
 
 import NavItemWrapper from "./navItemWrapper";
 
@@ -15,7 +16,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     navActions: bindActionCreators(navActionCreators, dispatch),
-    paneContentActions: bindActionCreators(paneContentActions, dispatch)
+    paneContentActions: bindActionCreators(paneContentActions, dispatch),
+    gameActions: bindActionCreators(gameActionCreators, dispatch)
   };
 };
 
@@ -53,6 +55,7 @@ class CustomNav extends Component {
     this.props.navActions.setSelectedSidebarItem(index, id);
     console.log("[nav.jsx] CustomNav - changing pane content id: ", id);
     this.props.paneContentActions.changePaneContent(id);
+    this.props.gameActions.changeGamePane(id);
   }
 
   render() {
