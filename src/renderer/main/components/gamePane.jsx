@@ -97,7 +97,7 @@ export default class GamePane extends Component {
   render() {
     const steamwsUrl = "https://steamcommunity.com/app/" + this.props.id + "/workshop/";
     return(
-      <div>
+      <div style={{ "height": "100vh" }}>
         <Row>
           <a onClick={() => this.openExternalUrl(this.props.gameData.website)} href="#">
             <img src={this.props.gameData.imagePath} height="139px"/>
@@ -119,7 +119,9 @@ export default class GamePane extends Component {
           </Col>
         </Row>
         <hr />
-        {this.state.workshopItems}
+        <div className="scroll-wrapper">
+          {this.state.workshopItems}
+        </div>
       </div>
     );
   }
