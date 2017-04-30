@@ -1,24 +1,24 @@
 import React, { Component } from "react";
 import { InputGroup, InputGroupAddon, Input, Button, Col } from "reactstrap";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+// import { connect } from "react-redux";
+// import { bindActionCreators } from "redux";
 
-import * as navActionCreators from "../../store/actions/navActions";
-import * as loadingActionCreators from "../../store/actions/loadingActions";
+// import * as navActionCreators from "../../store/actions/navActions";
+// import * as loadingActionCreators from "../../store/actions/loadingActions";
 import { saveGameData } from "../../store/configManipulators";
 
-const mapStateToProps = () => {
-  return {};
-};
+// const mapStateToProps = () => {
+//   return {};
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    navActions: bindActionCreators(navActionCreators, dispatch),
-    loadingActions: bindActionCreators(loadingActionCreators, dispatch)
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     navActions: bindActionCreators(navActionCreators, dispatch),
+//     loadingActions: bindActionCreators(loadingActionCreators, dispatch)
+//   };
+// };
 
-@connect(mapStateToProps, mapDispatchToProps)
+// @connect(mapStateToProps, mapDispatchToProps)
 export default class AddGame extends Component {
   constructor(props) {
     super(props);

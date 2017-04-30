@@ -19,6 +19,8 @@ Clone this repository
 ```bash
 # Install dependencies
 npm install
+# Install electron-forge
+npm install -g electron-forge
 # Start app
 npm start
 ```

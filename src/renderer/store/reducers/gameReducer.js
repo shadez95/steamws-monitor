@@ -1,4 +1,4 @@
-import { CHANGE_GAME_PANE } from "../actions/gameActions";
+import { CHANGE_GAME_PANE, ADD_WORKSHOP_ITEM } from "../actions/gameActions";
 import { getConfig } from "../configManipulators";
 
 const initialState = {
@@ -11,6 +11,17 @@ export default function reducer(state=initialState, action) {
     return {
       ...state,
       gameData: getConfig("games." + action.payload)
+    };
+  case ADD_WORKSHOP_ITEM:
+    // for (let [key, value] of Object.entries(myObject)){
+    //   console.log(key, value);
+    // }
+    return {
+      ...state,
+      gameData: {
+        ...state.gameData,
+        workshopItems: [...state.gameData.workshopItems, action.payload]
+      }
     };
   default:
     return state;

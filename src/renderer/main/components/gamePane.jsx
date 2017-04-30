@@ -1,17 +1,16 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
 import WorkshopItem from "../components/workshopData";
 
 import { Input, Row, Col, Button } from "reactstrap";
 import { saveWorkshopData } from "../../store/configManipulators";
 
-const mapStateToProps = state => {
-  console.log("[gamePane.jsx] mapStateToProps - state: ", state.gameData.gameData);
-  return { gameData: state.gameData.gameData };
-};
+// const mapStateToProps = state => {
+//   return { gameData: state.gameData.gameData };
+// };
 
-@connect(mapStateToProps)
+// @connect(mapStateToProps)
 export default class GamePane extends Component {
   constructor(props) {
     super(props); 
@@ -25,6 +24,7 @@ export default class GamePane extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log("[gamePane.jsx] componentWillReceiveProps - nextProps: ", nextProps);
     this.setState({
       workshopItems: this.createWorkshopComponents(nextProps.gameData.workshopItems)
     });
@@ -49,7 +49,6 @@ export default class GamePane extends Component {
 
   handleSubmit() {
     const workshopID = this.state.input;
-    this.setState({ input: "" });
     const remote = require("electron").remote;
     const request = remote.require("request");
     
@@ -71,12 +70,14 @@ export default class GamePane extends Component {
           // notify user about error
           window.createNotification("No workshop item with id: ", workshopID);
         } else {
-          if (data.response.publishedfiledetails[0].consumer_app_id !== this.props.id) {
+          const workshopItemData = data.response.publishedfiledetails[0];
+          if (workshopItemData.consumer_app_id !== this.props.id) {
             window.createNotification("The workshop item you requested is not for the game you have selected");
           }
-          console.log(data.response.publishedfiledetails[0]);
-          saveWorkshopData(this.props.id, data.response.publishedfiledetails[0]);
-
+          console.log(workshopItemData);
+          saveWorkshopData(this.props.id, workshopItemData);
+          this.props.gameActions.updateWorkshopItems(workshopItemData);
+          this.setState({ input: "" });
         }
       } else {
         // if get response other than 200 log error and notify user

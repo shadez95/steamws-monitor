@@ -1,27 +1,27 @@
 import React, { Component }  from "react";
 import { InputGroup, InputGroupAddon, Input, Button, Col } from "reactstrap";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+// import { connect } from "react-redux";
+// import { bindActionCreators } from "redux";
 
-import * as settingsActionCreators from "../../store/actions/settingsActions";
-import * as loadingActionCreators from "../../store/actions/loadingActions";
+// import * as settingsActionCreators from "../../store/actions/settingsActions";
+// import * as loadingActionCreators from "../../store/actions/loadingActions";
 
-const mapStateToProps = (state) => {
-  return {
-    steamCMDLoc: state.settings.steamCMDLoc,
-    fetching: state.settings.fetching,
-    error: state.settings.error
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     steamCMDLoc: state.settings.steamCMDLoc,
+//     fetching: state.settings.fetching,
+//     error: state.settings.error
+//   };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    settingsActions: bindActionCreators(settingsActionCreators, dispatch),
-    loadingActions: bindActionCreators(loadingActionCreators, dispatch)
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     settingsActions: bindActionCreators(settingsActionCreators, dispatch),
+//     loadingActions: bindActionCreators(loadingActionCreators, dispatch)
+//   };
+// };
 
-@connect(mapStateToProps, mapDispatchToProps)
+// @connect(mapStateToProps, mapDispatchToProps)
 class Settings extends Component {
   constructor(props) {
     super(props);

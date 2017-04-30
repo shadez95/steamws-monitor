@@ -1,17 +1,36 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import Settings from "./settings";
-import AddGame from "./addGame";
-import GamePane from "./gamePane";
+import * as navActionCreators from "../../store/actions/navActions";
+import * as settingsActionCreators from "../../store/actions/settingsActions";
+import * as loadingActionCreators from "../../store/actions/loadingActions";
+import * as gameActionCreators from "../../store/actions/gameActions";
 
-const mapStateToProps = (state) => {
-  console.log("[paneContent.jsx] mapStateToProps - state: ", state.paneContent);
-  return { paneContent: state.paneContent };
+import Settings from "../components/settings";
+import AddGame from "../components/addGame";
+import GamePane from "../components/gamePane";
+
+const mapStateToProps = state => {
+  console.log("[paneContent.jsx] mapStateToProps - state: ", state);
+  return {
+    paneContent: state.paneContent,
+    steamCMDLoc: state.settings.steamCMDLoc,
+    gameData: state.gameData.gameData
+  };
 };
 
-@connect(mapStateToProps)
-class PaneContent extends Component { 
+const mapDispatchToProps = dispatch => {
+  return {
+    navActions: bindActionCreators(navActionCreators, dispatch),
+    settingsActions: bindActionCreators(settingsActionCreators, dispatch),
+    loadingActions: bindActionCreators(loadingActionCreators, dispatch),
+    gameActions: bindActionCreators(gameActionCreators, dispatch)
+  };
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
+class PaneContent extends Component {
   render() {
     console.log(this.props);
 
@@ -19,11 +38,11 @@ class PaneContent extends Component {
     case null:
       return <h1>Welcome</h1>;
     case -1:
-      return <Settings />;
+      return <Settings steamCMDLoc={this.props.steamCMDLoc} settingsActions={this.props.settingsActions} loadingActions={this.props.loadingActions}/>;
     case -2:
-      return <AddGame />;
+      return <AddGame loadingActions={this.props.loadingActions} navActions={this.props.navActions}/>;
     default:
-      return <GamePane id={this.props.paneContent.id}/>;
+      return <GamePane gameData={this.props.gameData} gameActions={this.props.gameActions} id={this.props.paneContent.id}/>;
     }
   }
 }
