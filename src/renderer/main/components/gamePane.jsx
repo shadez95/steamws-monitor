@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 // import { connect } from "react-redux";
 
-import WorkshopItem from "../components/workshopData";
+import WorkshopItem from "../components/workshopItem";
 
-import { Input, Row, Col, Button } from "reactstrap";
+import { Input, Row, Col, Button, Table } from "reactstrap";
 import { saveWorkshopData } from "../../store/configManipulators";
 
 // const mapStateToProps = state => {
@@ -97,7 +97,7 @@ export default class GamePane extends Component {
   render() {
     const steamwsUrl = "https://steamcommunity.com/app/" + this.props.id + "/workshop/";
     return(
-      <div style={{ "height": "100vh" }}>
+      <div>
         <Row>
           <a onClick={() => this.openExternalUrl(this.props.gameData.website)} href="#">
             <img src={this.props.gameData.imagePath} height="139px"/>
@@ -120,7 +120,11 @@ export default class GamePane extends Component {
         </Row>
         <hr />
         <div className="scroll-wrapper">
-          {this.state.workshopItems}
+          <Table>
+            <tbody>
+              {this.state.workshopItems}
+            </tbody>
+          </Table>
         </div>
       </div>
     );

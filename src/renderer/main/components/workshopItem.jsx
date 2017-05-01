@@ -4,13 +4,14 @@ import { Row } from "reactstrap";
 export default class WorkshopItem extends Component {
   render() {
     return(
-      <div>
-        <Row>
+      <tr>
+        <td>
           <img src={this.props.data.imagePath} height="75px" />
+        </td>
+        <td>
           {this.props.data.name}
-        </Row>
-        <br />
-      </div>
+        </td>
+      </tr>
     );
   }
 }

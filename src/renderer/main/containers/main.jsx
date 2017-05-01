@@ -53,7 +53,11 @@ class Main extends Component {
     var divStyle = {
       display:this.state.disable ? "block":"none"
     };
-
+    const scrollStyle = {
+      "height": "100vh",
+      "overflow-x": "hidden",
+      "overflow-y": "auto"
+    };
     return (
       <div>
         <div className={this.state.loading}></div>
@@ -63,7 +67,7 @@ class Main extends Component {
             <CustomNav />
           </div>
           <div>
-            <div className="container-fluid">
+            <div className="container-fluid" style={scrollStyle}>
               <PaneContent />
             </div>
           </div>
