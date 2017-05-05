@@ -1,10 +1,20 @@
 import React, { Component } from "react";
-import { Row } from "reactstrap";
+import { ButtonDropdown , DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 
 export default class WorkshopItem extends Component {
   constructor(props) {
     super(props);
     this.convertDateTimeToString = this.convertDateTimeToString.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      dropdownOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
   }
 
   convertDateTimeToString(unixTime) {
@@ -23,6 +33,20 @@ export default class WorkshopItem extends Component {
         </td>
         <td>
           {this.convertDateTimeToString(this.props.data.timeUpdated)}
+        </td>
+        <td>
+          <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+            <DropdownToggle caret>
+              Actions
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem header>Header</DropdownItem>
+              <DropdownItem disabled>Action</DropdownItem>
+              <DropdownItem>Another Action</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem>Another Action</DropdownItem>
+            </DropdownMenu>
+          </ButtonDropdown>
         </td>
       </tr>
     );

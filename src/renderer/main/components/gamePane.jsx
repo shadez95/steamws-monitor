@@ -127,6 +127,7 @@ export default class GamePane extends Component {
                 <th style={noBorderStyle}></th>
                 <th style={noBorderStyle}>Name</th>
                 <th style={noBorderStyle}>Last Updated</th>
+                <th style={noBorderStyle}></th>
               </tr>
             </thead>
             <tbody>
