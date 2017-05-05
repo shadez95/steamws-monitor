@@ -54,9 +54,9 @@ class Main extends Component {
       display:this.state.disable ? "block":"none"
     };
     const scrollStyle = {
-      "height": "100vh",
-      "overflow-x": "hidden",
-      "overflow-y": "auto"
+      height: "100vh",
+      overflowX: "hidden",
+      overflowY: "auto"
     };
     return (
       <div>

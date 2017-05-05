@@ -96,6 +96,7 @@ export default class GamePane extends Component {
 
   render() {
     const steamwsUrl = "https://steamcommunity.com/app/" + this.props.id + "/workshop/";
+    const noBorderStyle = { border: "none" };
     return(
       <div>
         <Row>
@@ -118,9 +119,16 @@ export default class GamePane extends Component {
             <Button onClick={this.handleSubmit} color="success">Add Workshop Item</Button>
           </Col>
         </Row>
-        <hr />
-        <div className="scroll-wrapper">
-          <Table>
+        <br />
+        <div>
+          <Table responsive>
+            <thead>
+              <tr>
+                <th style={noBorderStyle}></th>
+                <th style={noBorderStyle}>Name</th>
+                <th style={noBorderStyle}>Last Updated</th>
+              </tr>
+            </thead>
             <tbody>
               {this.state.workshopItems}
             </tbody>
