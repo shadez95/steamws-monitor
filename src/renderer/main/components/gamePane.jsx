@@ -13,7 +13,7 @@ import { saveWorkshopData } from "../../store/configManipulators";
 // @connect(mapStateToProps)
 export default class GamePane extends Component {
   constructor(props) {
-    super(props); 
+    super(props);
     this.openExternalUrl = this.openExternalUrl.bind(this);
     this.isNumber = this.isNumber.bind(this);
     this.handleInput = this.handleInput.bind(this);
