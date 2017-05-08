@@ -1,5 +1,6 @@
 import {app, BrowserWindow, Menu, Tray} from "electron";
 import {enableLiveReload} from "electron-compile";
+import request from "request";
 import appRoot from "app-root-path";
 const notify = require("electron-main-notification");
 
@@ -44,6 +45,7 @@ const installExtensions = () => {
 let mainWindow = null;
 // let settingsWindow;
 let tray = null;
+let requestLoop = null;
 
 const image_icon_path = `${__dirname}/static/images/logos/favicon-32x32.png`;
 
@@ -172,7 +174,10 @@ app.on("ready", () => {
     }},
     // {label: 'Settings', click: () => {openSettingsWindow()}},
     {type: "separator"},
-    {label: "Quit", click: () => { app.quit(); }}
+    {label: "Quit", click: () => {
+      clearInterval(requestLoop);
+      app.quit();
+    }}
   ]);
   tray.setToolTip("Steam Workshop Monitor");
   tray.setContextMenu(contextMenu);
@@ -180,6 +185,38 @@ app.on("ready", () => {
   // startMonitoring()
   enableLiveReload({strategy: "react-hmr"});
   
+  // Do initial request and get data ASAP
+  request({
+    url: "https://jsonplaceholder.typicode.com/posts/1",
+    method: "GET",
+    timeout: 10000,
+    followRedirect: true,
+    maxRedirects: 10
+  },function(error, response, body){
+    if(!error && response.statusCode === 200){
+      console.log("sucess!");
+      console.log(body);
+    }else{
+      console.log("error" + response.statusCode);
+    }
+  });
+
+  requestLoop = setInterval(() => {
+    request({
+      url: "https://jsonplaceholder.typicode.com/posts/1",
+      method: "GET",
+      timeout: 10000,
+      followRedirect: true,
+      maxRedirects: 10
+    },function(error, response, body){
+      if(!error && response.statusCode === 200){
+        console.log("sucess!");
+        console.log(body);
+      }else{
+        console.log("error" + response.statusCode);
+      }
+    });
+  }, 300000);
 });
 
 if (process.env.NODE_ENV === "development") {

@@ -6,6 +6,7 @@ export default class WorkshopItem extends Component {
     super(props);
     this.convertDateTimeToString = this.convertDateTimeToString.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.openFileBrowser = this.openFileBrowser.bind(this);
     this.state = {
       dropdownOpen: false
     };
@@ -20,6 +21,10 @@ export default class WorkshopItem extends Component {
   convertDateTimeToString(unixTime) {
     const t = new Date(unixTime*1000);
     return t.toString();
+  }
+
+  openFileBrowser() {
+    console.log("will open file browser soon");
   }
 
   render() {
@@ -39,12 +44,10 @@ export default class WorkshopItem extends Component {
             <DropdownToggle caret>
               Actions
             </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem header>Header</DropdownItem>
-              <DropdownItem disabled>Action</DropdownItem>
-              <DropdownItem>Another Action</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>Another Action</DropdownItem>
+            <DropdownMenu right>
+              <DropdownItem onClick={this.openFileBrowser}>Open Folder</DropdownItem>
+              <DropdownItem divider/>
+              <DropdownItem style={{"backgroundColor": "rgb(217, 83, 79)"}}>Delete</DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>
         </td>
