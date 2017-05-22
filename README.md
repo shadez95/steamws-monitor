@@ -16,14 +16,17 @@ This application is not compatible with MacOS and does not intend on working wit
 ## Contribute
 Clone this repository
 
-```bash
+```
 # Install dependencies
 npm install
-# Install electron-forge
+# Install electron-forge globally
 npm install -g electron-forge
+# Install electron-forge locally
+npm install electron-forge
 # Start app
 npm start
 ```
+We install electron-forge globally and locally so that the binary and cmd files get installed into .bin files in the workspace directory for VS Code's debugger as it will make it easier to share the launch.json file easier.
 
 ## Important Development Info
 **There is hot reloading**

@@ -42,16 +42,18 @@ const requestFunc = () => {
   console.log("games: ", games);
   let i = 0;
   while (i < appIDs.length) {
-    let wsItems = games.appIDs[i].workshopItems;
+    console.log(appIDs[i]);
+    let wsItems = games[appIDs[i]].workshopItems;
     console.log("wsItems: ", wsItems);
-    for (let wsItem in wsItems) {
-      workshopItemIDs.push(wsItem.publishedFileID);
+    let c = 0;
+    for (c; c < wsItems.length; c++) {
+      workshopItemIDs.push(wsItems[c].publishedFileID);
     }
     i++;
   }
-
+  console.log("workshopItemIDs: ", workshopItemIDs);
   var form = {
-    "itemcount": workshopItemIDs.length,
+    "itemcount": 1,
     "publishedfileids[0]": workshopItemIDs
   };
 
