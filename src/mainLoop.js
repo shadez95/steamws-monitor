@@ -34,51 +34,51 @@ const getAllGameIDs = () => {
 
 // main request function that is called in the loop
 const requestFunc = () => {
-  let workshopItemIDs = [];
-
   const appIDs = getAllGameIDs();
   console.log("mainLoop - appIDs: ", appIDs);
   const games = getConfig("games");
   console.log("games: ", games);
   let i = 0;
   while (i < appIDs.length) {
+    // Looping through all appIDs
     console.log(appIDs[i]);
     let wsItems = games[appIDs[i]].workshopItems;
     console.log("wsItems: ", wsItems);
     let c = 0;
     for (c; c < wsItems.length; c++) {
-      workshopItemIDs.push(wsItems[c].publishedFileID);
+      // loop through all workshop ID's for the current appID
+      let workshopItemID = wsItems[c].publishedFileID;
+      console.log("workshopItemID: ", workshopItemID);
+      var form = {
+        "itemcount": 1,
+        "publishedfileids[0]": workshopItemID
+      };
+
+      const formData = querystring.stringify(form);
+      const contentLength = formData.length;
+
+      request({
+        url: "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/",
+        headers: {
+          "Content-Length": contentLength,
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        method: "POST",
+        body: formData,
+        timeout: 10000,
+        followRedirect: true,
+        maxRedirects: 10
+      }, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+          console.log("sucess!");
+          console.log(body);
+        } else {
+          console.log("error" + response.statusCode);
+        }
+      });
     }
     i++;
   }
-  console.log("workshopItemIDs: ", workshopItemIDs);
-  var form = {
-    "itemcount": 1,
-    "publishedfileids[0]": workshopItemIDs
-  };
-
-  const formData = querystring.stringify(form);
-  const contentLength = formData.length;
-
-  request({
-    url: "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/",
-    headers: {
-      "Content-Length": contentLength,
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    method: "POST",
-    body: formData,
-    timeout: 10000,
-    followRedirect: true,
-    maxRedirects: 10
-  }, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      console.log("sucess!");
-      console.log(body);
-    } else {
-      console.log("error" + response.statusCode);
-    }
-  });
 };
 
 export default requestFunc;
