@@ -75,7 +75,7 @@ const requestFunc = () => {
           if (obj.response.result === 1) {
             const workshopItemResponse = obj.response.publishedfiledetails[0];
             console.log(workshopItemResponse.title);
-            console.log("Last updated Unix: ", workshopItemResponse.time_updated);
+            console.log("Last updated Unix: ", workshopItemResponse.time_updated * 1000);
             const t = new Date(workshopItemResponse.time_updated * 1000);
             console.log("Time: ", t.toString());
             console.log("----------------------------");
