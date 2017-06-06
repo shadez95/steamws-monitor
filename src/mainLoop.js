@@ -80,7 +80,7 @@ const requestFunc = () => {
             console.log("Time: ", t.toString());
             console.log("----------------------------");
           } else {
-            console.log("Error occurred. Workshop item doesn't exist or there is no connection to the internet");
+            console.log("Error occurred. Workshop item doesn't exist or there is no internet connection");
           }
         } else {
           console.log("error" + response.statusCode);
