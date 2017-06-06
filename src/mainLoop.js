@@ -1,6 +1,7 @@
 import request from "request";
 import querystring from "querystring";
 const config = require("electron-settings");
+const notify = require("electron-main-notification");
 
 const options = { prettify: true };
 const getConfig = (obj, defaultValue="") => {
@@ -70,8 +71,17 @@ const requestFunc = () => {
         maxRedirects: 10
       }, function(error, response, body) {
         if (!error && response.statusCode === 200) {
-          console.log("sucess!");
-          console.log(body);
+          const obj = JSON.parse(body);
+          if (obj.response.result === 1) {
+            const workshopItemResponse = obj.response.publishedfiledetails[0];
+            console.log(workshopItemResponse.title);
+            console.log("Last updated Unix: ", workshopItemResponse.time_updated);
+            const t = new Date(workshopItemResponse.time_updated * 1000);
+            console.log("Time: ", t.toString());
+            console.log("----------------------------");
+          } else {
+            console.log("Error occurred. Workshop item doesn't exist or there is no connection to the internet");
+          }
         } else {
           console.log("error" + response.statusCode);
         }
