@@ -23,6 +23,13 @@ const callSteamCMD = () => {
   });
 };
 
+const downloadWorkshopItem = (workshopItemID) => {
+  console.log("Downloading workshop item ID:", workshopItemID);
+  const steamCMDLoc = getConfig("settings.steamCMDLoc");
+  console.log(steamCMDLoc);
+  // ./steamcmd +login xon2013 tachiinii33 +workshop_download_item 107410 450814997 validate +quit
+};
+
 const getAllGameIDs = () => {
   const gameData = getConfig("navData");
   let appIDs = [];
@@ -36,20 +43,30 @@ const getAllGameIDs = () => {
 // main request function that is called in the loop
 const requestFunc = () => {
   const appIDs = getAllGameIDs();
-  console.log("mainLoop - appIDs: ", appIDs);
+  if (process.env.NODE_ENV === "development") {
+    console.log("mainLoop - appIDs: ", appIDs);
+  }
   const games = getConfig("games");
-  console.log("games: ", games);
+  if (process.env.NODE_ENV === "development") {
+    console.log("games: ", games);
+  }
   let i = 0;
   while (i < appIDs.length) {
     // Looping through all appIDs
-    console.log(appIDs[i]);
+    if (process.env.NODE_ENV === "development") {
+      console.log(appIDs[i]);
+    }
     let wsItems = games[appIDs[i]].workshopItems;
-    console.log("wsItems: ", wsItems);
+    if (process.env.NODE_ENV === "development") {
+      console.log("wsItems: ", wsItems);
+    }
     let c = 0;
     for (c; c < wsItems.length; c++) {
       // loop through all workshop ID's for the current appID
       let workshopItemID = wsItems[c].publishedFileID;
-      console.log("workshopItemID: ", workshopItemID);
+      if (process.env.NODE_ENV === "development") {
+        console.log("workshopItemID: ", workshopItemID);
+      }
       var form = {
         "itemcount": 1,
         "publishedfileids[0]": workshopItemID
@@ -74,10 +91,34 @@ const requestFunc = () => {
           const obj = JSON.parse(body);
           if (obj.response.result === 1) {
             const workshopItemResponse = obj.response.publishedfiledetails[0];
-            console.log(workshopItemResponse.title);
-            console.log("Last updated Unix: ", workshopItemResponse.time_updated * 1000);
-            const t = new Date(workshopItemResponse.time_updated * 1000);
-            console.log("Time: ", t.toString());
+            // console.log(workshopItemResponse);
+            const unixTime = workshopItemResponse.time_updated * 1000;
+            console.log("->", workshopItemResponse.title);
+            console.log("WorkshopID:", workshopItemResponse.publishedfileid);
+            if (process.env.NODE_ENV === "development") {
+              console.log("Last updated Unix:", unixTime);
+            }
+            const t = new Date(unixTime);
+            console.log("Last updated:", t.toString());
+            // get local workshop data again since this is async
+            const workshopData = games[workshopItemResponse.consumer_app_id].workshopItems;
+            let index = 0;
+            let workshopLocalObj;
+            while (index < workshopData.length) {
+              if (workshopData[index].publishedFileID === workshopItemResponse.publishedfileid) {
+                workshopLocalObj = workshopData[index];
+                break;
+              }
+              index++;
+            }
+            const timeDownloaded = new Date(workshopLocalObj.timeUpdated * 1000);
+            console.log("Last time downloaded:", timeDownloaded.toString());
+            if (t > timeDownloaded) {
+              console.log("You do not have latest udpate");
+              downloadWorkshopItem(workshopLocalObj.publishedFileID);
+            } else {
+              console.log("Up to date");
+            }
             console.log("----------------------------");
           } else {
             console.log("Error occurred. Workshop item doesn't exist or there is no internet connection");

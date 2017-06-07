@@ -10,10 +10,10 @@
         "runtimeExecutable": "${workspaceRoot}\\node_modules\\.bin\\electron-forge-vscode-win.cmd"
       },
       // runtimeArgs will be passed directly to your Electron application
-      "runtimeArgs": [
-        "cross-env",
-        "NODE_ENV=development"
-      ],
+      "runtimeArgs": [],
+      "env": {
+        "NODE_ENV": "development"
+      },
       "cwd": "${workspaceRoot}"
     }
   ]
