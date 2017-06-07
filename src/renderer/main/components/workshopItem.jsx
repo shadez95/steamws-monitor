@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { ButtonDropdown , DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 
+import { deleteConfig, getConfig } from "../../store/configManipulators";
+
 export default class WorkshopItem extends Component {
   constructor(props) {
     super(props);
     this.convertDateTimeToString = this.convertDateTimeToString.bind(this);
     this.toggle = this.toggle.bind(this);
     this.openFileBrowser = this.openFileBrowser.bind(this);
+    this.deleteWorkshopItem = this.deleteWorkshopItem.bind(this);
     this.state = {
       dropdownOpen: false
     };
@@ -21,6 +24,10 @@ export default class WorkshopItem extends Component {
   convertDateTimeToString(unixTime) {
     const t = new Date(unixTime*1000);
     return t.toString();
+  }
+
+  deleteWorkshopItem() {
+    console.log(this.props.data);
   }
 
   openFileBrowser() {
@@ -47,7 +54,7 @@ export default class WorkshopItem extends Component {
             <DropdownMenu right>
               <DropdownItem onClick={this.openFileBrowser}>Open Folder</DropdownItem>
               <DropdownItem divider/>
-              <DropdownItem style={{"backgroundColor": "rgb(217, 83, 79)"}}>Delete</DropdownItem>
+              <DropdownItem onClick={this.deleteWorkshopItem} style={{"backgroundColor": "rgb(217, 83, 79)"}}>Delete</DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>
         </td>

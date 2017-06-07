@@ -8,16 +8,9 @@ export function changeGamePane(id) {
   };
 }
 
-export function updateWorkshopItems(workshopObj) {
+export function updateWorkshopItems(workshopItemID) {
   return {
     type: ADD_WORKSHOP_ITEM,
-    payload: {
-      name: workshopObj.title,
-      publishedFileID: workshopObj.publishedfileid,
-      imagePath: workshopObj.preview_url,
-      fileSize: workshopObj.file_size,
-      timeCreated: workshopObj.time_created,
-      timeUpdated: workshopObj.time_updated
-    }
+    payload: workshopItemID
   };
 }

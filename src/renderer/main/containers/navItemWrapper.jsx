@@ -6,7 +6,7 @@ import {
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { deleteConfig } from "../../store/configManipulators";
+import { deleteConfig, getConfig } from "../../store/configManipulators";
 
 import * as navActionCreators from "../../store/actions/navActions";
 import * as paneContentActions from "../../store/actions/paneContentActions";
@@ -59,7 +59,11 @@ export default class NavItemWrapper extends Component {
       this.props.paneContentActions.changePaneContent(null);
     }
     this.props.navActions.removeGameFromNav(this.props.id);
-    deleteConfig("games." + String(this.props.id));
+    const workshopItems = getConfig(`games.${this.props.id}.workshopItems`);
+    for (let i=0; i < workshopItems.length; i++) {
+      deleteConfig(`allWorkshopData.${workshopItems[i]}`);
+    }
+    deleteConfig(`games.${this.props.id}`);
     window.createNotification("Game deleted");
   }
 

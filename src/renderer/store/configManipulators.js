@@ -21,9 +21,7 @@ export function deleteConfig(keyPath) {
 }
 
 export function saveGameData(data) {
-  const appID = data.steam_appid;
-  const appIDstr = String(appID);
-  config.set("games." + appIDstr, {
+  config.set(`games.${data.steam_appid}`, {
     imagePath: data.header_image,
     name: data.name,
     website: data.website,
@@ -32,16 +30,22 @@ export function saveGameData(data) {
 }
 
 export function saveWorkshopData(gameID, workshopData) {
-  const objLoc = "games." + gameID + ".workshopItems";
-  const workshopItems = getConfig(objLoc);
-  const workshopDataToAppend = {
+  const objLoc = `games.${gameID}.workshopItems`;
+  const gameWorkshopItems = getConfig(objLoc);
+  gameWorkshopItems.push(workshopData.publishedfileid);
+  config.set(objLoc, gameWorkshopItems, options);
+  const workshopDataToSave = {
     name: workshopData.title,
+    appid: gameID,
     publishedFileID: workshopData.publishedfileid,
     imagePath: workshopData.preview_url,
     fileSize: workshopData.file_size,
     timeCreated: workshopData.time_created,
     timeUpdated: workshopData.time_updated
   };
-  workshopItems.push(workshopDataToAppend);
-  config.set(objLoc, workshopItems, options);
+  config.set(`allWorkshopData.${workshopData.publishedfiledid}`, workshopDataToSave, options);
+}
+
+export function getWorkshopData(workshopID) {
+  return getConfig(`allWorkshopData.${workshopID}`);
 }

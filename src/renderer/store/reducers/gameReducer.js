@@ -10,7 +10,7 @@ export default function reducer(state=initialState, action) {
   case CHANGE_GAME_PANE:
     return {
       ...state,
-      gameData: getConfig("games." + action.payload)
+      gameData: getConfig(`games.${action.payload}`)
     };
   case ADD_WORKSHOP_ITEM:
     // for (let [key, value] of Object.entries(myObject)){

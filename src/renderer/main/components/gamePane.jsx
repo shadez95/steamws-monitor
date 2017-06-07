@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import WorkshopItem from "../components/workshopItem";
 
 import { Input, Row, Col, Button, Table } from "reactstrap";
-import { saveWorkshopData } from "../../store/configManipulators";
+import { saveWorkshopData, getWorkshopData } from "../../store/configManipulators";
 
 // const mapStateToProps = state => {
 //   return { gameData: state.gameData.gameData };
@@ -25,13 +25,17 @@ export default class GamePane extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log("[gamePane.jsx] componentWillReceiveProps - nextProps: ", nextProps);
+    console.log("nextProps.gameData: ", nextProps.gameData);
     this.setState({
       workshopItems: this.createWorkshopComponents(nextProps.gameData.workshopItems)
     });
   }
 
   createWorkshopComponents(workshopItems) {
-    return workshopItems.map((obj, idx) => <WorkshopItem key={idx} data={obj} />);
+    return workshopItems.map((workshopID, idx) => {
+      const workshopData = getWorkshopData(workshopID);
+      return <WorkshopItem key={idx} data={workshopData} />;
+    });
   }
 
   isNumber(evt) {
@@ -76,7 +80,7 @@ export default class GamePane extends Component {
           }
           console.log(workshopItemData);
           saveWorkshopData(this.props.id, workshopItemData);
-          this.props.gameActions.updateWorkshopItems(workshopItemData);
+          this.props.gameActions.updateWorkshopItems(workshopItemData.publishedfileid);
           this.setState({ input: "" });
         }
       } else {
