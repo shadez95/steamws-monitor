@@ -35,6 +35,31 @@ export default class WorkshopItem extends Component {
     const index = workshopItemIDs.indexOf(this.props.data.publishedFileID);
     const newWorkshopItemIDs = workshopItemIDs.splice(index);
     changeConfig(`games.${this.props.data.appid}.workshopItems`, newWorkshopItemIDs);
+
+    // Delete the folder containing the workshop data
+    const steamCMDLoc = getConfig("settings.steamCMDLoc");
+    const idx = steamCMDLoc.indexOf("steamcmd");
+    const steamCMDPath = steamCMDLoc.substring(0, idx - 1);
+    
+    // Check if windows or linux
+    let path;
+    if (window.platform === "win") {
+      path = `${steamCMDPath}\\steamapps\\workshop\\content\\${this.props.data.appid}\\${this.props.data.publishedFileID}`;
+    } else {
+      path = `${steamCMDPath}/steamapps/workshop/content/${this.props.data.appid}/${this.props.data.publishedFileID}`;
+    }
+    const rimraf = require("rimraf");
+    // Make sure we don't accidentally delete some random folder/file if there is undefined in path
+    if (path.indexOf("undefined") !== -1) {
+      rimraf(path, () => {
+        console.log("Successfully deleted workshop item");
+        window.createNotification("Workshop item successfully deleted");
+      });
+    } else {
+      console.log("Workshop item was not successfully deleted");
+      console.log(`Path: ${path}`);
+      window.createNotification("Workshop item was not successfully deleted");
+    }
   }
 
   openFileBrowser() {
