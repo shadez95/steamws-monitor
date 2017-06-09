@@ -12,42 +12,10 @@ const getConfig = (obj, defaultValue="") => {
   return val;
 };  
 
-// calls the steamcmd binary
-const callSteamCMD = () => {
-  const spawn = require("child_process").spawn;
-
-  var child = spawn("prince", ["-v", "builds/pdf/book.html"]);
-
-  child.stdout.on("data", function(chunk) {
-    // output will be here in chunks
-    console.log(chunk);
-  });
-};
-
 const downloadWorkshopItem = (appID, workshopItemID) => {
   console.log("Downloading workshop item ID:", workshopItemID);
   const steamCMDLoc = getConfig("settings.steamCMDLoc");
-
-  // const process = child_process.spawn(steamCMDLoc, ["+login", "xon2013", "tachiinii33", "+workshop_download_item", appID, workshopItemID, "validate", "+quit"]);
-  // // ./steamcmd +login xon2013 tachiinii33 +workshop_download_item 107410 450814997 validate +quit
-
-  // process.stdout.on("data", (data) => {
-  //   console.log(data);
-  // });
-
-  // process.stderr.on("data", (data) => {
-  //   console.log(data);
-  // });
-
-  // process.on("close", (code) => {
-  //   if (code === 0) {
-  //     console.log("Done");
-  //   } else {
-  //     console.log("Something went wrong");      
-  //   }
-  // });
-
-  const steamCMD = child_process.spawnSync(steamCMDLoc, ["+login", "xon2013", "tachiinii33", "+workshop_download_item", appID, workshopItemID, "validate", "+quit"]);
+  const steamCMD = child_process.spawnSync(steamCMDLoc, ["+login", getConfig("settings.steamUsername"), getConfig("settings.steamPassword"), "+workshop_download_item", appID, workshopItemID, "validate", "+quit"]);
   console.log("stdout: ", steamCMD.stdout.toString());
   console.log("stderr: ", steamCMD.stderr.toString());
   console.log ("status code: ", steamCMD.status);

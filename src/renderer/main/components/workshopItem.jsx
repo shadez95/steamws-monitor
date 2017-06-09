@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { ButtonDropdown , DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 
-import { deleteConfig, getConfig } from "../../store/configManipulators";
+import { deleteConfig, getConfig, changeConfig } from "../../store/configManipulators";
 
 export default class WorkshopItem extends Component {
   constructor(props) {
@@ -28,10 +28,25 @@ export default class WorkshopItem extends Component {
 
   deleteWorkshopItem() {
     console.log(this.props.data);
+    deleteConfig(`allWorkshopData.${this.props.data.publishedFileID}`);
+    console.log(`games.${this.props.data.appid}.workshopItems`);
+    const workshopItemIDs = getConfig(`games.${this.props.data.appid}.workshopItems`);
+    console.log(workshopItemIDs);
+    const index = workshopItemIDs.indexOf(this.props.data.publishedFileID);
+    const newWorkshopItemIDs = workshopItemIDs.splice(index);
+    changeConfig(`games.${this.props.data.appid}.workshopItems`, newWorkshopItemIDs);
   }
 
   openFileBrowser() {
-    console.log("will open file browser soon");
+    const steamCMDLoc = getConfig("settings.steamCMDLoc");
+    const idx = steamCMDLoc.indexOf("steamcmd");
+    const steamCMDPath = steamCMDLoc.substring(0, idx - 1);
+    const { shell } = require("electron").remote;
+    if (window.platform === "win") {
+      shell.openItem(`${steamCMDPath}\\steamapps\\workshop\\content\\${this.props.data.appid}\\${this.props.data.publishedFileID}`);
+    } else {
+      shell.openItem(`${steamCMDPath}/steamapps/workshop/content/${this.props.data.appid}/${this.props.data.publishedFileID}`);
+    }
   }
 
   render() {

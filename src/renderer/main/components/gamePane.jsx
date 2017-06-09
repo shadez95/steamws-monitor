@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 // import { connect } from "react-redux";
-
 import WorkshopItem from "../components/workshopItem";
-
+import child_process from "child_process";
 import { Input, Row, Col, Button, Table } from "reactstrap";
 import { saveWorkshopData, getWorkshopData } from "../../store/configManipulators";
+import { getConfig } from "../../store/configManipulators";
 
 // const mapStateToProps = state => {
 //   return { gameData: state.gameData.gameData };
 // };
 
 // @connect(mapStateToProps)
+
 export default class GamePane extends Component {
   constructor(props) {
     super(props);
@@ -19,13 +20,12 @@ export default class GamePane extends Component {
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.createWorkshopComponents = this.createWorkshopComponents.bind(this);
+    this.downloadWorkshopItem = this.downloadWorkshopItem.bind(this);
     const componentList = this.createWorkshopComponents(this.props.gameData.workshopItems);
     this.state = { input: "", workshopItems: componentList };
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("[gamePane.jsx] componentWillReceiveProps - nextProps: ", nextProps);
-    console.log("nextProps.gameData: ", nextProps.gameData);
     this.setState({
       workshopItems: this.createWorkshopComponents(nextProps.gameData.workshopItems)
     });
@@ -35,6 +35,31 @@ export default class GamePane extends Component {
     return workshopItems.map((workshopID, idx) => {
       const workshopData = getWorkshopData(workshopID);
       return <WorkshopItem key={idx} data={workshopData} />;
+    });
+  }
+
+  downloadWorkshopItem(appID, workshopItemID) {
+    console.log("Downloading workshop item ID:", workshopItemID);
+    const steamCMDLoc = getConfig("settings.steamCMDLoc");
+
+    const process = child_process.spawn(steamCMDLoc, ["+login", getConfig("settings.steamUsername"), getConfig("settings.steamPassword"), "+workshop_download_item", appID, workshopItemID, "validate", "+quit"]);
+    window.createNotification("Downloading workshop item...");
+    process.stdout.on("data", (data) => {
+      console.log(data);
+    });
+
+    process.stderr.on("data", (data) => {
+      console.log(data);
+    });
+
+    process.on("close", (code) => {
+      if (code === 0) {
+        window.createNotification("Workshop item downloaded");
+        console.log("Done");
+      } else {
+        window.createNotification("Something went wrong downloading the workshop item");
+        console.log("Something went wrong");      
+      }
     });
   }
 
@@ -68,7 +93,6 @@ export default class GamePane extends Component {
       if (response.statusCode === 200) {
         // response good and return data
         const data = JSON.parse(body);
-        console.log(data);
         if (data.response.result !== 1) {
           // no workshop items with that id
           // notify user about error
@@ -77,10 +101,11 @@ export default class GamePane extends Component {
           const workshopItemData = data.response.publishedfiledetails[0];
           if (workshopItemData.consumer_app_id !== this.props.id) {
             window.createNotification("The workshop item you requested is not for the game you have selected");
+          } else {
+            saveWorkshopData(this.props.id, workshopItemData);
+            this.downloadWorkshopItem(this.props.id, workshopItemData.publishedfileid);
+            this.props.gameActions.updateWorkshopItems(workshopItemData.publishedfileid);
           }
-          console.log(workshopItemData);
-          saveWorkshopData(this.props.id, workshopItemData);
-          this.props.gameActions.updateWorkshopItems(workshopItemData.publishedfileid);
           this.setState({ input: "" });
         }
       } else {

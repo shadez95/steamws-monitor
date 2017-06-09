@@ -32,7 +32,13 @@ export function saveGameData(data) {
 export function saveWorkshopData(gameID, workshopData) {
   const objLoc = `games.${gameID}.workshopItems`;
   const gameWorkshopItems = getConfig(objLoc);
-  gameWorkshopItems.push(workshopData.publishedfileid);
+  let fileID;
+  if (typeof workshopData.publishedfileid === "string" || workshopData.publishedfileid instanceof String) {
+    fileID = parseInt(workshopData.publishedfileid);
+  } else {
+    fileID = workshopData.publishedfileid;
+  }
+  gameWorkshopItems.push(fileID);
   config.set(objLoc, gameWorkshopItems, options);
   const workshopDataToSave = {
     name: workshopData.title,
@@ -43,7 +49,7 @@ export function saveWorkshopData(gameID, workshopData) {
     timeCreated: workshopData.time_created,
     timeUpdated: workshopData.time_updated
   };
-  config.set(`allWorkshopData.${workshopData.publishedfiledid}`, workshopDataToSave, options);
+  config.set(`allWorkshopData.${fileID}`, workshopDataToSave, options);
 }
 
 export function getWorkshopData(workshopID) {

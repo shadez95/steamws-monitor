@@ -15,7 +15,7 @@ const mapStateToProps = state => {
   console.log("[paneContent.jsx] mapStateToProps - state: ", state);
   return {
     paneContent: state.paneContent,
-    steamCMDLoc: state.settings.steamCMDLoc,
+    settings: state.settings,
     gameData: state.gameData.gameData
   };
 };
@@ -38,7 +38,7 @@ class PaneContent extends Component {
     case null:
       return <h1>Welcome</h1>;
     case -1:
-      return <Settings steamCMDLoc={this.props.steamCMDLoc} settingsActions={this.props.settingsActions} loadingActions={this.props.loadingActions}/>;
+      return <Settings settings={this.props.settings} settingsActions={this.props.settingsActions} loadingActions={this.props.loadingActions}/>;
     case -2:
       return <AddGame loadingActions={this.props.loadingActions} navActions={this.props.navActions}/>;
     default:

@@ -25,13 +25,31 @@ import { InputGroup, InputGroupAddon, Input, Button, Col } from "reactstrap";
 class Settings extends Component {
   constructor(props) {
     super(props);
+    this.handleInputUsername = this.handleInputUsername.bind(this);
+    this.handleInputPassword = this.handleInputPassword.bind(this);
     this.handleFileInput = this.handleFileInput.bind(this);
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getSteamCMDpath = this.getSteamCMDpath.bind(this);
+    this.initialSteamUsername = this.props.settings.steamUsername;
+    this.initialSteamPassword = this.props.settings.steamPassword;
     this.state = {
-      steamCMDLocState: this.props.steamCMDLoc
+      steamCMDLocState: this.props.settings.steamCMDLoc,
+      steamUsername: this.props.settings.steamUsername,
+      steamPassword: this.props.settings.steamPassword
     };
+  }
+
+  handleInputUsername(e) {
+    this.setState({
+      steamUsername: e.target.value
+    });
+  }
+
+  handleInputPassword(e) {
+    this.setState({
+      steamPassword: e.target.value
+    });
   }
 
   getSteamCMDpath() {
@@ -64,9 +82,20 @@ class Settings extends Component {
   handleSubmit() {
     // save settings here
     this.props.loadingActions.setLoading(true);
-    var fileObj = this.fileUpload.files[0];
 
-    this.props.settingsActions.changeSteamCMDLoc(fileObj.path);
+    const fileObj = this.fileUpload.files[0];
+    if (fileObj) {
+      this.props.settingsActions.changeSteamCMDLoc(fileObj.path);
+    }
+
+    if (this.initialSteamUsername !== this.state.steamUsername) {
+      this.props.settingsActions.changeSteamUsername(this.state.steamUsername);
+    }
+
+    if (this.initialSteamPassword !== this.state.steamPassword) {
+      this.props.settingsActions.changeSteamPassword(this.state.steamPassword);
+    }
+
     window.createNotification("settings saved");
     this.props.loadingActions.setLoading(false);
   }
@@ -94,6 +123,17 @@ class Settings extends Component {
           <Button color="secondary" onClick={this.handleButtonClick}>Change SteamCMD Location</Button>
           <br />
           <br />
+          <InputGroup>
+            <InputGroupAddon>Steam Username:</InputGroupAddon>
+            <Input type="text" placeholder={"This is used in case you need to login. If not, type \"Anonymous\" and leave the password blank"}
+              onChange={this.handleInputUsername} value={this.state.steamUsername}/>
+          </InputGroup>
+          <br />
+          <InputGroup>
+            <InputGroupAddon>Steam Password:</InputGroupAddon>
+            <Input type="password" placeholder={"This is used in case you need to login. Make sure Steam Guard is off as this does not support it"}
+              onChange={this.handleInputPassword} value={this.state.steamPassword}/>
+          </InputGroup>
           <br />
           <Button color="success" type="submit" onClick={this.handleSubmit} value="Submit">Save</Button>
         </Col>
