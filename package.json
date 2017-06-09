@@ -76,9 +76,6 @@
         "win32": [
           "squirrel"
         ],
-        // "darwin": [
-        //   "zip"
-        // ],
         "linux": [
           "deb",
           "rpm"
