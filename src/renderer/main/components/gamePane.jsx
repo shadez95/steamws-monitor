@@ -3,8 +3,7 @@ import React, { Component } from "react";
 import WorkshopItem from "../components/workshopItem";
 import child_process from "child_process";
 import { Input, Row, Col, Button, Table } from "reactstrap";
-import { saveWorkshopData, getWorkshopData } from "../../store/configManipulators";
-import { getConfig } from "../../store/configManipulators";
+import { getConfig, getWorkshopData } from "../../store/configManipulators";
 
 // const mapStateToProps = state => {
 //   return { gameData: state.gameData.gameData };
@@ -20,6 +19,7 @@ export default class GamePane extends Component {
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.createWorkshopComponents = this.createWorkshopComponents.bind(this);
+    this.deleteWorkshopItem = this.deleteWorkshopItem.bind(this);
     this.downloadWorkshopItem = this.downloadWorkshopItem.bind(this);
     const componentList = this.createWorkshopComponents(this.props.gameData.workshopItems);
     this.state = { input: "", workshopItems: componentList };
@@ -34,8 +34,49 @@ export default class GamePane extends Component {
   createWorkshopComponents(workshopItems) {
     return workshopItems.map((workshopID, idx) => {
       const workshopData = getWorkshopData(workshopID);
-      return <WorkshopItem key={idx} data={workshopData} />;
+      return <WorkshopItem key={idx} deleteWorkshopItem={this.deleteWorkshopItem} data={workshopData} />;
     });
+  }
+
+  deleteWorkshopItem(data) {
+    const workshopItemIDs = getConfig(`games.${data.appid}.workshopItems`);
+    console.log(workshopItemIDs);
+
+    // Delete the folder containing the workshop data
+    const steamCMDLoc = getConfig("settings.steamCMDLoc");
+    const idx = steamCMDLoc.indexOf("steamcmd");
+    const steamCMDPath = steamCMDLoc.substring(0, idx - 1);
+    
+    // Check if windows or linux
+    let workshopPath;
+    let acfFile;
+    if (window.platform === "win") {
+      workshopPath = `${steamCMDPath}\\steamapps\\workshop\\content\\${data.appid}\\${data.publishedFileID}`;
+      acfFile = `${steamCMDPath}\\steamapps\\workshop\\appworkshop_${data.appid}.acf`;
+    } else {
+      workshopPath = `${steamCMDPath}/steamapps/workshop/content/${data.appid}/${data.publishedFileID}`;
+      acfFile = `${steamCMDPath}/steamapps/workshop/appworkshop_${data.appid}.acf`;
+    }
+    const rimraf = require("rimraf");
+    // Make sure we don't accidentally delete some random folder/file if there is undefined in path
+    if (workshopPath.indexOf("undefined") === -1) {
+      rimraf(workshopPath, () => {
+        rimraf(acfFile, () => {
+          console.log("Successfully deleted workshop item");
+          window.createNotification("Workshop item successfully deleted");
+        });
+      });
+      // const fs = require("fs");
+      // fs.unlink(acfFile, err => {
+      //   if (err) throw err;
+      //   console.log("Successfully deleted acf file");
+      // });
+    } else {
+      console.log("Workshop item was not successfully deleted");
+      console.log(`Path: ${workshopPath}`);
+      window.createNotification("Workshop item was not successfully deleted. Navigate to the folder and manually delete.");
+    }
+    this.props.gameActions.deleteWorkshopItem(data.publishedFileID);
   }
 
   downloadWorkshopItem(appID, workshopItemID) {
@@ -45,11 +86,11 @@ export default class GamePane extends Component {
     const process = child_process.spawn(steamCMDLoc, ["+login", getConfig("settings.steamUsername"), getConfig("settings.steamPassword"), "+workshop_download_item", appID, workshopItemID, "validate", "+quit"]);
     window.createNotification("Downloading workshop item...");
     process.stdout.on("data", (data) => {
-      console.log(data);
+      console.log(data.toString());
     });
 
     process.stderr.on("data", (data) => {
-      console.log(data);
+      console.log(data.toString());
     });
 
     process.on("close", (code) => {
@@ -82,7 +123,7 @@ export default class GamePane extends Component {
     const request = remote.require("request");
     
     const url = "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/";
-
+    const gameID = this.props.id;
     request.post({
       url: url,
       form: {
@@ -99,12 +140,13 @@ export default class GamePane extends Component {
           window.createNotification("No workshop item with id: ", workshopID);
         } else {
           const workshopItemData = data.response.publishedfiledetails[0];
-          if (workshopItemData.consumer_app_id !== this.props.id) {
+          if (workshopItemData.consumer_app_id !== gameID) {
             window.createNotification("The workshop item you requested is not for the game you have selected");
           } else {
-            saveWorkshopData(this.props.id, workshopItemData);
-            this.downloadWorkshopItem(this.props.id, workshopItemData.publishedfileid);
-            this.props.gameActions.updateWorkshopItems(workshopItemData.publishedfileid);
+            console.log("handleSubmit - gameID: ", gameID);
+            console.log("handleSubmit - workshopItemData: ", workshopItemData);
+            this.props.gameActions.addWorkshopItem(workshopItemData);
+            this.downloadWorkshopItem(gameID, parseInt(workshopItemData.publishedfileid));
           }
           this.setState({ input: "" });
         }

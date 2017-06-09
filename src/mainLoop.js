@@ -2,7 +2,6 @@ import request from "request";
 import querystring from "querystring";
 import child_process from "child_process";
 const config = require("electron-settings");
-const notify = require("electron-main-notification");
 
 const options = { prettify: true };
 const getConfig = (obj, defaultValue="") => {
