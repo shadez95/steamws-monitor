@@ -101,7 +101,7 @@ const openSteamWSWindow = () => {
       submenu: [
         {role: "reload"},
         {role: "forcereload"},
-        // {role: 'toggledevtools'},
+        {role: "toggledevtools"},
         {type: "separator"},
         {role: "resetzoom"},
         {role: "zoomin"},
@@ -187,8 +187,8 @@ app.on("ready", () => {
   
   // Main loop that checks for updates
   // Imported from "./mainLoop.js" relative to directory
-  //requestFunc();
-  //requestLoop = setInterval(requestFunc, 300000);
+  requestFunc();
+  requestLoop = setInterval(requestFunc, 300000);
 });
 
 if (process.env.NODE_ENV === "development") {
