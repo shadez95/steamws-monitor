@@ -10,7 +10,7 @@ This application is not compatible with MacOS and does not intend on working wit
 
 **All functionality and API's are subject to change at any time at this point in development**
 
-![alt text](https://github.com/dixon13/steamws-monitor/raw/master/front-pic.png "What it looks like")
+![alt text](https://github.com/dixon13/steamws-monitor/blob/master/front-pic.PNG "What it looks like")
 
 ## Requirements
 [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com))
