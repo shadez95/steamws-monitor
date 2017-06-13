@@ -5,8 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron-forge start",
-    "build-local": "electron-packager . SteamwsMonitor --out ./dist --overwrite --ignore=./node_modules --ignore=./dist --ignore=./renderer-bundle.js",
-    "build-all": "electron-packager . SteamwsMonitor --all --out ./dist --overwrite",
+    "build-local": "electron-forge . SteamwsMonitor --out ./dist --overwrite --ignore=./node_modules --ignore=./dist --ignore=./renderer-bundle.js",
+    "build-all": "electron-forge . SteamwsMonitor --all --out ./dist --overwrite",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
