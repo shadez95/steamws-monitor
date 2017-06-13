@@ -53,7 +53,7 @@ const requestFunc = () => {
     let c = 0;
     for (c; c < wsItems.length; c++) {
       // loop through all workshop ID's for the current appID
-      let workshopItemID = wsItems[c].publishedFileID;
+      let workshopItemID = wsItems[c];
       if (process.env.NODE_ENV === "development") {
         console.log("workshopItemID: ", workshopItemID);
       }
@@ -84,30 +84,42 @@ const requestFunc = () => {
             // console.log(workshopItemResponse);
             const unixTime = workshopItemResponse.time_updated * 1000;
             console.log("->", workshopItemResponse.title);
-            console.log("WorkshopID:", workshopItemResponse.publishedfileid);
+
+            // Make sure we are dealing with int values and not strings for the workshop File ID
+            let workshopResponseFileID = workshopItemResponse.publishedfileid;
+            if (typeof workshopResponseFileID === "string" || workshopResponseFileID instanceof String) {
+              workshopResponseFileID = parseInt(workshopResponseFileID);
+            }
+
+            console.log("WorkshopID:", workshopResponseFileID);
             if (process.env.NODE_ENV === "development") {
               console.log("Last updated Unix:", unixTime);
             }
             const t = new Date(unixTime);
             console.log("Last updated:", t.toString());
+
             // get local workshop data again since this is async
             const workshopData = games[workshopItemResponse.consumer_app_id].workshopItems;
             let index = 0;
-            let workshopLocalObj;
+            let workshopLocalObj = null;
             while (index < workshopData.length) {
-              if (workshopData[index].publishedFileID === workshopItemResponse.publishedfileid) {
-                workshopLocalObj = workshopData[index];
+              if (workshopData[index] === workshopResponseFileID) {
+                workshopLocalObj = getConfig(`allWorkshopData.${workshopData[index]}`);
                 break;
               }
               index++;
             }
-            const timeDownloaded = new Date(workshopLocalObj.timeUpdated * 1000);
-            console.log("Last time downloaded:", timeDownloaded.toString());
-            if (t > timeDownloaded) {
-              console.log("You do not have latest udpate");
-              downloadWorkshopItem(workshopItemResponse.consumer_app_id, workshopLocalObj.publishedFileID);
+            if (workshopLocalObj === null) {
+              console.log("Did not find matching workshop data in local config");
             } else {
-              console.log("Up to date");
+              const timeDownloaded = new Date(workshopLocalObj.timeUpdated * 1000);
+              console.log("Last time downloaded:", timeDownloaded.toString());
+              if (t > timeDownloaded) {
+                console.log("You do not have latest udpate");
+                downloadWorkshopItem(workshopItemResponse.consumer_app_id, workshopLocalObj.publishedFileID);
+              } else {
+                console.log("Up to date");
+              }
             }
             console.log("----------------------------");
           } else {

@@ -43,7 +43,7 @@ export function saveWorkshopData(gameID, workshopData) {
   const workshopDataToSave = {
     name: workshopData.title,
     appid: gameID,
-    publishedFileID: workshopData.publishedfileid,
+    publishedFileID: fileID,
     imagePath: workshopData.preview_url,
     fileSize: workshopData.file_size,
     timeCreated: workshopData.time_created,

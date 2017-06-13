@@ -18,11 +18,11 @@ const installExtensions = () => {
     REACT_DEVELOPER_TOOLS,
     REDUX_DEVTOOLS
   ];
-  const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+  const forceDownload = process.env.UPGRADE_EXTENSIONS !== undefined ? process.env.UPGRADE_EXTENSIONS : false;
   console.log("UPGRADE_EXTENSIONS: ", process.env.UPGRADE_EXTENSIONS);
 
   extensions.map(((ext) => {
-    installExtension(ext, process.env.UPGRADE_EXTENSIONS)
+    installExtension(ext, forceDownload)
       .then((name) => console.log(`Added Extension:  ${name}`))
       .catch((err) => console.log("An error occurred: ", err));
   }));
