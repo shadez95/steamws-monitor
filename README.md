@@ -13,7 +13,7 @@ This application is not compatible with MacOS and does not intend on working wit
 ![alt text](https://github.com/dixon13/steamws-monitor/blob/master/front-pic.PNG "What it looks like")
 
 ## Requirements
-[Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com))
+[Node.js](https://nodejs.org/en/download/) ([npm](http://npmjs.com) is installed with Node.js)
 
 ## Contribute
 Clone this repository
