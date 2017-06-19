@@ -1,15 +1,7 @@
 {
   "name": "steamws-monitor",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "An application that monitors steam workshop files for updates",
-  "main": "src/app.js",
-  "scripts": {
-    "start": "cross-env NODE_ENV=development electron-forge start",
-    "build-local": "electron-forge . SteamwsMonitor --out ./dist --overwrite --ignore=./node_modules --ignore=./dist",
-    "build-all": "electron-forge . SteamwsMonitor --all --out ./dist --overwrite",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/dixon13/steamws-monitor.git"
@@ -23,13 +15,22 @@
     "workshop",
     "monitor"
   ],
-  "author": "dixon13 aka Dixon Begay",
+  "author": "Dixon Begay",
   "license": "GPLv3",
   "bugs": {
     "url": "https://github.com/dixon13/steamws-monitor/issues"
   },
-  "homepage": "https://github.com/dixon13/steamws-monitor#readme",
+  "homepage": "https://github.com/dixon13/steamws-monitor",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development electron-forge start",
+    "build-local": "electron-forge . SteamwsMonitor --overwrite --ignore=./node_modules --ignore=./dist",
+    "build-all": "electron-forge . SteamwsMonitor --all --out ./dist --overwrite",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
   "devDependencies": {
+    "asar": "^0.13.0",
     "babel-eslint": "^6.1.2",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-class-properties": "^6.23.0",
@@ -51,6 +52,8 @@
     "electron-compile": "^6.4.0",
     "electron-main-notification": "^1.0.1",
     "electron-settings": "^3.0.14",
+    "electron-squirrel-startup": "^1.0.0",
+    "rcedit": "^0.9.0",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
     "react-addons-transition-group": "^15.4.2",
@@ -81,15 +84,21 @@
           "rpm"
         ]
       },
-      "electronPackagerConfig": {},
+      "electronPackagerConfig": {
+        "dir": "./src",
+        "appVersion": "0.1.0",
+        "asar": true,
+        "icon": "./src/static/images/logos/favicon.ico"
+      },
       "electronWinstallerConfig": {
-        "name": ""
+        "authors": "Dixon Begay and Contributors",
+        "loadingGif": "./Loading.gif"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
       "github_repository": {
-        "owner": "",
-        "name": ""
+        "owner": "dixon13",
+        "name": "steamws-monitor"
       },
       "windowsStoreConfig": {
         "packageName": ""

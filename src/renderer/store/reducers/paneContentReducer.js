@@ -6,13 +6,13 @@ const initialState = {
 
 export default function reducer(state=initialState, action) {
   switch(action.type) {
-  case CHANGE_PANEL_CONTENT:
-    return {
-      ...state,
-      id: action.payload
-    };
+    case CHANGE_PANEL_CONTENT:
+      return {
+        ...state,
+        id: action.payload
+      };
   
-  default:
-    return state;
+    default:
+      return state;
   }
 }

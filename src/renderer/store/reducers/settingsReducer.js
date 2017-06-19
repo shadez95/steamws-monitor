@@ -14,28 +14,28 @@ const initialState = {
 
 export default function settings(state=initialState, action) {
   switch (action.type) {
-  case REQUEST_CHANGE:
-    return {...state, fetching: true};
-  case CHANGE_STEAMCMD_LOC:
-    changeConfig("settings.steamCMDLoc", action.payload);
-    return {
-      ...state,
-      steamCMDLoc: action.payload,
-      fetching: false
-    };
-  case CHANGE_STEAM_USERNAME:
-    changeConfig("settings.steamUsername", action.payload);
-    return {
-      ...state,
-      steamUsername: action.payload
-    };
-  case CHANGE_STEAM_PASSWORD:
-    changeConfig("settings.steamPassword", action.payload);
-    return {
-      ...state,
-      steamPassword: action.payload
-    };
-  default:
-    return state;
+    case REQUEST_CHANGE:
+      return {...state, fetching: true};
+    case CHANGE_STEAMCMD_LOC:
+      changeConfig("settings.steamCMDLoc", action.payload);
+      return {
+        ...state,
+        steamCMDLoc: action.payload,
+        fetching: false
+      };
+    case CHANGE_STEAM_USERNAME:
+      changeConfig("settings.steamUsername", action.payload);
+      return {
+        ...state,
+        steamUsername: action.payload
+      };
+    case CHANGE_STEAM_PASSWORD:
+      changeConfig("settings.steamPassword", action.payload);
+      return {
+        ...state,
+        steamPassword: action.payload
+      };
+    default:
+      return state;
   }
 }

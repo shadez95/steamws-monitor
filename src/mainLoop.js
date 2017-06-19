@@ -22,6 +22,9 @@ const downloadWorkshopItem = (appID, workshopItemID) => {
 
 const getAllGameIDs = () => {
   const gameData = getConfig("navData");
+  if (gameData === "") {
+    return [];
+  }
   let appIDs = [];
   let i = null;
   for (i=0; i < gameData.length; i++) {
@@ -35,6 +38,10 @@ const requestFunc = () => {
   const appIDs = getAllGameIDs();
   if (process.env.NODE_ENV === "development") {
     console.log("mainLoop - appIDs: ", appIDs);
+  }
+  if (appIDs.length === 0) {
+    console.log("No workshop items to check");
+    return false;
   }
   const games = getConfig("games");
   if (process.env.NODE_ENV === "development") {

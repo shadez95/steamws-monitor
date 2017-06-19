@@ -2,6 +2,103 @@ import {app, BrowserWindow, Menu, Tray} from "electron";
 import {enableLiveReload} from "electron-compile";
 import requestFunc from "./mainLoop";
 import appRoot from "app-root-path";
+
+if(require("electron-squirrel-startup")) app.quit();
+
+// this should be placed at top of main.js to handle setup events quickly
+if (handleSquirrelEvent()) {
+  // squirrel event handled and app will exit in 1000ms, so don't do anything else
+  app.quit();
+}
+
+function handleSquirrelEvent() {
+  if (process.argv.length === 1) {
+    return false;
+  }
+
+  const ChildProcess = require("child_process");
+  const path = require("path");
+
+  const appFolder = path.resolve(process.execPath, "..");
+  const rootFolder = path.resolve(appFolder, "..");
+  const updateDotExe = path.resolve(path.join(rootFolder, "Update.exe"));
+  const exeName = path.basename(process.execPath);
+
+  const spawn = function(command, args) {
+    let spawnedProcess, error;
+
+    try {
+      spawnedProcess = ChildProcess.spawn(command, args, {detached: true});
+    } catch (error) { console.log(error); }
+
+    return spawnedProcess;
+  };
+
+  const spawnUpdate = function(args) {
+    return spawn(updateDotExe, args);
+  };
+
+  const squirrelEvent = process.argv[1];
+  switch (squirrelEvent) {
+    case "--squirrel-install":
+      var args = ["--createShortcut", exeName, "--shortcut-locations", "Desktop,StartMenu"];
+      var spawnedProcessInstall = spawnUpdate(args);
+      
+      spawnedProcessInstall.stdout.on("data", (data) => {
+        let stringData = data.toString();
+        console.log(`${stringData}`);
+      });
+
+      spawnedProcessInstall.stderr.on("data", (data) => {
+        let stringData = data.toString();
+        console.log(`${stringData}`);
+      });
+
+      // Always quit when done
+      app.quit();
+      return true;
+    case "--squirrel-updated":
+      // Optionally do things such as:
+      // - Add your .exe to the PATH
+      // - Write to the registry for things like file associations and
+      //   explorer context menus
+
+      // Install desktop and start menu shortcuts
+      var spawnedProcessUpdate = spawnUpdate(["--createShortcut", exeName, "--shortcut-locations", "Desktop,StartMenu"]);
+
+      spawnedProcessUpdate.stdout.on("data", (data) => {
+        let stringData = data.toString();
+        console.log(`${stringData}`);
+      });
+
+      spawnedProcessUpdate.stderr.on("data", (data) => {
+        let stringData = data.toString();
+        console.log(`${stringData}`);
+      });
+
+      setTimeout(app.quit, 1000);
+      return true;
+
+    case "--squirrel-uninstall":
+      // Undo anything you did in the --squirrel-install and
+      // --squirrel-updated handlers
+
+      // Remove desktop and start menu shortcuts
+      spawnUpdate(["--removeShortcut", exeName, "--shortcut-locations", "Desktop,StartMenu"]);
+
+      setTimeout(app.quit, 1000);
+      return true;
+
+    case "--squirrel-obsolete":
+      // This is called on the outgoing version of your app before
+      // we update to the new version - it's the opposite of
+      // --squirrel-updated
+
+      app.quit();
+      return true;
+  }
+}
+
 const notify = require("electron-main-notification");
 
 // ----------------------------------------------
@@ -165,10 +262,10 @@ app.on("ready", () => {
       if (mainWindow === null) {
         openSteamWSWindow();
       } else {
-        notify("Steam Workshop Monitor", {
-          body: "Window already opened",
-          icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
-        });
+        // notify("Steam Workshop Monitor", {
+        //   body: "Window already opened",
+        //   icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
+        // });
         mainWindow.focus();
       }
     }},
@@ -183,8 +280,17 @@ app.on("ready", () => {
   tray.setContextMenu(contextMenu);
   // const startMonitoring = require('./steamWSmonitor.js')
   // startMonitoring()
-  enableLiveReload({strategy: "react-hmr"});
+
+  // if dev env then enable hot reloading
+  if (process.env.NODE_ENV === "development") {
+    enableLiveReload({strategy: "react-hmr"});
+  }
   
+  // if first startup ---------------------------------
+  if (process.argv[1] === "--squirrel-firstrun") {
+    openSteamWSWindow();
+  }
+
   // Main loop that checks for updates
   // Imported from "./mainLoop.js" relative to directory
   requestFunc();

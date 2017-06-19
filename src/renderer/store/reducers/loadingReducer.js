@@ -7,14 +7,14 @@ const initialState = {
 
 export default function reducer(state=initialState, action) {
   switch(action.type) {
-  case SET_LOADING:
-    return {
-      ...state,
-      loading: action.payload.loading,
-      disable: action.payload.disable
-    };
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload.loading,
+        disable: action.payload.disable
+      };
 
-  default: 
-    return state;
+    default: 
+      return state;
   }
 }
