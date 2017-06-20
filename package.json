@@ -88,7 +88,8 @@
         "dir": "./src",
         "appVersion": "0.1.0",
         "asar": true,
-        "icon": "./src/static/images/logos/favicon.ico"
+        "icon": "./src/static/images/logos/favicon.ico",
+        "out": "./dist"
       },
       "electronWinstallerConfig": {
         "authors": "Dixon Begay and Contributors",
