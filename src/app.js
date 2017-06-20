@@ -4,7 +4,7 @@ import requestFunc from "./mainLoop";
 import appRoot from "app-root-path";
 
 if(require("electron-squirrel-startup")) app.quit();
-
+console.log("Electron Version:", process.versions.electron);
 // this should be placed at top of main.js to handle setup events quickly
 if (handleSquirrelEvent()) {
   // squirrel event handled and app will exit in 1000ms, so don't do anything else
