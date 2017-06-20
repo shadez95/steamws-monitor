@@ -25,7 +25,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "publish:github": "electron-forge publish --target=github"
   },
   "devDependencies": {
     "asar": "^0.13.0",
@@ -102,7 +103,8 @@
         "version": "0.1.0",
         "title": "Steam Workshop Monitor",
         "name": "Steam_Workshop_Monitor",
-        "iconUrl": "https://raw.githubusercontent.com/dixon13/steamws-monitor/master/src/static/images/logos/favicon.ico"
+        "iconUrl": "https://raw.githubusercontent.com/dixon13/steamws-monitor/master/src/static/images/logos/favicon.ico",
+        "setupExe": "SteamWS Monitor Setup.exe"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
