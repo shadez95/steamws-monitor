@@ -4,7 +4,7 @@ import requestFunc from "./mainLoop";
 import appRoot from "app-root-path";
 
 if(require("electron-squirrel-startup")) app.quit();
-console.log(`Electron Version: ${process.versions.electron}`);
+console.log(`Electron Version: ${process.versions.electron}\n`);
 // this should be placed at top of main.js to handle setup events quickly
 if (handleSquirrelEvent()) {
   // squirrel event handled and app will exit in 1000ms, so don't do anything else
@@ -42,17 +42,7 @@ function handleSquirrelEvent() {
   switch (squirrelEvent) {
     case "--squirrel-install":
       var args = ["--createShortcut", exeName, "--shortcut-locations", "StartMenu"];
-      var spawnedProcessInstall = spawnUpdate(args);
-      
-      spawnedProcessInstall.stdout.on("data", (data) => {
-        let stringData = data.toString();
-        console.log(`${stringData}`);
-      });
-
-      spawnedProcessInstall.stderr.on("data", (data) => {
-        let stringData = data.toString();
-        console.log(`${stringData}`);
-      });
+      spawnUpdate(args);
 
       // Always quit when done
       app.quit();
