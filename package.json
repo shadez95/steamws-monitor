@@ -1,6 +1,6 @@
 {
   "name": "steamws-monitor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An application that monitors steam workshop files for updates",
   "repository": {
     "type": "git",
@@ -86,7 +86,7 @@
       "electronPackagerConfig": {
         "dir": "./src",
         "appCopyright": "Copyright (C) 2017 Dixon Begay",
-        "appVersion": "0.1.0",
+        "appVersion": "0.1.1",
         "electronVersion": "1.6.2",
         "asar": true,
         "icon": "./src/static/images/logos/favicon.ico",
@@ -100,7 +100,7 @@
       "electronWinstallerConfig": {
         "loadingGif": "./Loading.gif",
         "exe": "Steam Workshop Monitor.exe",
-        "version": "0.1.0",
+        "version": "0.1.1",
         "title": "Steam Workshop Monitor",
         "name": "Steam_Workshop_Monitor",
         "iconUrl": "https://raw.githubusercontent.com/dixon13/steamws-monitor/master/src/static/images/logos/favicon.ico",
