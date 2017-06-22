@@ -133,7 +133,7 @@ const requestFunc = () => {
             console.log("Error occurred. Workshop item doesn't exist or there is no internet connection");
           }
         } else {
-          console.log("error" + response.statusCode);
+          console.log("error" + error);
         }
       });
     }
