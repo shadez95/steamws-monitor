@@ -1,5 +1,4 @@
-const remote = require("electron").remote;
-const config = remote.require("electron-settings");
+const config = require("electron-settings");
 
 const options = { prettify: true };
 
