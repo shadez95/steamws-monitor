@@ -1,15 +1,8 @@
 import request from "request";
 import querystring from "querystring";
 import child_process from "child_process";
-const config = require("electron-settings");
 
-const options = { prettify: true };
-const getConfig = (obj, defaultValue="") => {
-  // emit loading event here to display loading icon
-  const val = config.get(obj, defaultValue, options);
-  // emit not loading event here to remove loading icon
-  return val;
-};  
+import { getConfig, changeWorkshopData} from "./config";
 
 const downloadWorkshopItem = (appID, workshopItemID) => {
   console.log("Downloading workshop item ID:", workshopItemID);
@@ -121,8 +114,12 @@ const requestFunc = () => {
             } else {
               const timeDownloaded = new Date(workshopLocalObj.timeUpdated * 1000);
               console.log("Last time downloaded:", timeDownloaded.toString());
+              // Check to see if local data is up to date
               if (t > timeDownloaded) {
                 console.log("You do not have latest udpate");
+                // Save updated data config
+                changeWorkshopData(workshopItemResponse.consumer_app_id, workshopItemResponse);
+                // download the update
                 downloadWorkshopItem(workshopItemResponse.consumer_app_id, workshopLocalObj.publishedFileID);
               } else {
                 console.log("Up to date");
@@ -133,7 +130,7 @@ const requestFunc = () => {
             console.log("Error occurred. Workshop item doesn't exist or there is no internet connection");
           }
         } else {
-          console.log("error" + response.statusCode);
+          console.log("error" + error);
         }
       });
     }

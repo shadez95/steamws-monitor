@@ -145,8 +145,8 @@ export default class GamePane extends Component {
           } else {
             console.log("handleSubmit - gameID: ", gameID);
             console.log("handleSubmit - workshopItemData: ", workshopItemData);
-            this.props.gameActions.addWorkshopItem(workshopItemData);
             this.downloadWorkshopItem(gameID, parseInt(workshopItemData.publishedfileid));
+            this.props.gameActions.addWorkshopItem(workshopItemData);
           }
           this.setState({ input: "" });
         }
