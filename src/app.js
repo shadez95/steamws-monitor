@@ -167,7 +167,7 @@ var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) 
 });
 
 if (shouldQuit) {
-  app.quit();
+  app.quit(); 
 }
 
 app.on("window-all-closed", () => {
