@@ -27,7 +27,9 @@ const getAllGameIDs = () => {
 };
 
 // main request function that is called in the loop
-const requestFunc = () => {
+// requestFunc
+// function is asynchronous
+export default async () => {
   const appIDs = getAllGameIDs();
   if (process.env.NODE_ENV === "development") {
     console.log("mainLoop - appIDs: ", appIDs);
@@ -137,5 +139,3 @@ const requestFunc = () => {
     i++;
   }
 };
-
-export default requestFunc;
