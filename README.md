@@ -2,11 +2,7 @@
 
 [![license](https://img.shields.io/badge/license-GPL%20v3-blue.svg)](https://github.com/dixon13/steamws-monitor/blob/master/LICENSE)
 
-An application that monitors steam workshop files for updates
-
-### *********** WARNING ***********
-
-> This project is no longer being actively developed as I am working on a new project that would be far supperior to this and I am personally dropping support for this application. It works now but is not perfect. There is no automatic updates unfortunately so if you are using this then you will have to check manually for updates here in the releases section. There will probably few to no updates so you don't have to worry much about updates. Any are welcome to submit PR's for improvements or optimizations.
+An application that monitors steam workshop files for updates and helps you manage them.
 
 This application is not compatible with MacOS and does not intend on working with MacOS, as most server administrators will be using this on their servers running debian/ubuntu based distributions and Windows 7 and above, and Windows Server 2012 and above
 
