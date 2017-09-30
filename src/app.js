@@ -21,13 +21,7 @@ if (process.env.NODE_ENV === "development") {
 // ----------------------------------------------
 
 // Context menu
-require("electron-context-menu")({
-  prepend: (params, browserWindow) => [{
-    label: "Rainbow",
-		// Only show it when right-clicking images
-    visible: params.mediaType === "image"
-  }]
-});
+require("electron-context-menu")({});
 
 // const isProd = process.execPath.search("electron-prebuilt-compile") === -1;
 // if (isProd !== -1) {
