@@ -1,16 +1,17 @@
 import request from "request";
 import querystring from "querystring";
 import child_process from "child_process";
+import log from "electron-log";
 
 import { getConfig, changeWorkshopData} from "./config";
 
 const downloadWorkshopItem = (appID, workshopItemID) => {
-  console.log("Downloading workshop item ID:", workshopItemID);
+  log.debug("Downloading workshop item ID:", workshopItemID);
   const steamCMDLoc = getConfig("settings.steamCMDLoc");
   const steamCMD = child_process.spawnSync(steamCMDLoc, ["+login", getConfig("settings.steamUsername"), getConfig("settings.steamPassword"), "+workshop_download_item", appID, workshopItemID, "validate", "+quit"]);
-  console.log("stdout: ", steamCMD.stdout.toString());
-  console.log("stderr: ", steamCMD.stderr.toString());
-  console.log ("status code: ", steamCMD.status);
+  log.debug("stdout: ", steamCMD.stdout.toString());
+  log.debug("stderr: ", steamCMD.stderr.toString());
+  log.debug("status code: ", steamCMD.status);
 };
 
 const getAllGameIDs = () => {
@@ -31,34 +32,32 @@ const getAllGameIDs = () => {
 // function is asynchronous
 export default async () => {
   const appIDs = getAllGameIDs();
-  if (process.env.NODE_ENV === "development") {
-    console.log("mainLoop - appIDs: ", appIDs);
-  }
+  log.debug("mainLoop - appIDs: ", appIDs);
   if (appIDs.length === 0) {
-    console.log("No workshop items to check");
+    log.info("No workshop items to check");
     return false;
   }
+
   const games = getConfig("games");
-  if (process.env.NODE_ENV === "development") {
-    console.log("games: ", games);
-  }
+  log.debug("games: ", games);
+
   let i = 0;
   while (i < appIDs.length) {
     // Looping through all appIDs
-    if (process.env.NODE_ENV === "development") {
-      console.log(appIDs[i]);
-    }
+  
+    log.debug(appIDs[i]);
+  
     let wsItems = games[appIDs[i]].workshopItems;
-    if (process.env.NODE_ENV === "development") {
-      console.log("wsItems: ", wsItems);
-    }
+    
+    log.debug("wsItems: ", wsItems);
+    
     let c = 0;
     for (c; c < wsItems.length; c++) {
       // loop through all workshop ID's for the current appID
       let workshopItemID = wsItems[c];
-      if (process.env.NODE_ENV === "development") {
-        console.log("workshopItemID: ", workshopItemID);
-      }
+    
+      log.debug("workshopItemID: ", workshopItemID);
+    
       var form = {
         "itemcount": 1,
         "publishedfileids[0]": workshopItemID
@@ -85,7 +84,7 @@ export default async () => {
             const workshopItemResponse = obj.response.publishedfiledetails[0];
             // console.log(workshopItemResponse);
             const unixTime = workshopItemResponse.time_updated * 1000;
-            console.log("->", workshopItemResponse.title);
+            log.debug("->", workshopItemResponse.title);
 
             // Make sure we are dealing with int values and not strings for the workshop File ID
             let workshopResponseFileID = workshopItemResponse.publishedfileid;
@@ -93,12 +92,12 @@ export default async () => {
               workshopResponseFileID = parseInt(workshopResponseFileID);
             }
 
-            console.log("WorkshopID:", workshopResponseFileID);
-            if (process.env.NODE_ENV === "development") {
-              console.log("Last updated Unix:", unixTime);
-            }
+            log.info("WorkshopID:", workshopResponseFileID);
+            
+            log.info("Last updated Unix:", unixTime);
+            
             const t = new Date(unixTime);
-            console.log("Last updated:", t.toString());
+            log.info("Last updated:", t.toString());
 
             // get local workshop data again since this is async
             const workshopData = games[workshopItemResponse.consumer_app_id].workshopItems;
@@ -112,27 +111,27 @@ export default async () => {
               index++;
             }
             if (workshopLocalObj === null) {
-              console.log("Did not find matching workshop data in local config");
+              log.info("Did not find matching workshop data in local config");
             } else {
               const timeDownloaded = new Date(workshopLocalObj.timeUpdated * 1000);
-              console.log("Last time downloaded:", timeDownloaded.toString());
+              log.info("Last time downloaded:", timeDownloaded.toString());
               // Check to see if local data is up to date
               if (t > timeDownloaded) {
-                console.log("You do not have latest udpate");
+                log.info("You do not have latest udpate");
                 // Save updated data config
                 changeWorkshopData(workshopItemResponse.consumer_app_id, workshopItemResponse);
                 // download the update
                 downloadWorkshopItem(workshopItemResponse.consumer_app_id, workshopLocalObj.publishedFileID);
               } else {
-                console.log("Up to date");
+                log.info("Up to date");
               }
             }
-            console.log("----------------------------");
+            log.info("----------------------------");
           } else {
-            console.log("Error occurred. Workshop item doesn't exist or there is no internet connection");
+            log.error("Error occurred. Workshop item doesn't exist or there is no internet connection");
           }
         } else {
-          console.log("error" + error);
+          log.error("error" + error);
         }
       });
     }

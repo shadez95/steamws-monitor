@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { InputGroup, InputGroupAddon, Input, Button, Col } from "reactstrap";
+import log from "electron-log";
 // import { connect } from "react-redux";
 // import { bindActionCreators } from "redux";
 
@@ -56,7 +57,7 @@ export default class AddGame extends Component {
       if (response.statusCode === 200) {
         const obj = JSON.parse(body);
         if (obj[appID].success === true) {
-          console.log(obj);
+          log.debug(obj);
           this.props.navActions.addGameToNav(obj[appID].data.name, obj[appID].data.steam_appid);
           saveGameData(obj[appID].data);
           this.setState({
@@ -71,7 +72,7 @@ export default class AddGame extends Component {
           this.props.loadingActions.setLoading(false);
         }
       } else {
-        console.log(err);
+        log.debug(err);
         window.createNotification("Error occurred while adding a game");
         this.setState({
           input: ""

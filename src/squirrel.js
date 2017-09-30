@@ -1,3 +1,5 @@
+import log from "electron-log";
+
 export default function handleSquirrelEvent(app) {
   if (process.argv.length === 1) {
     return false;
@@ -16,7 +18,7 @@ export default function handleSquirrelEvent(app) {
 
     try {
       spawnedProcess = ChildProcess.spawn(command, args, {detached: true});
-    } catch (error) { console.log(error); }
+    } catch (error) { log.error(error); }
 
     return spawnedProcess;
   };
@@ -45,12 +47,12 @@ export default function handleSquirrelEvent(app) {
 
       spawnedProcessUpdate.stdout.on("data", (data) => {
         let stringData = data.toString();
-        console.log(`${stringData}`);
+        log.info(`${stringData}`);
       });
 
       spawnedProcessUpdate.stderr.on("data", (data) => {
         let stringData = data.toString();
-        console.log(`${stringData}`);
+        log.info(`${stringData}`);
       });
 
       setTimeout(app.quit, 1000);

@@ -1,13 +1,14 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { hashHistory } from 'react-router';
-import { routerMiddleware, push } from 'react-router-redux';
-import { createLogger } from 'redux-logger';
-import rootReducer from './reducers';
-import * as settingsActions from './actions/settingsActions';
-import { initState } from './reducers';
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import { hashHistory } from "react-router";
+import { routerMiddleware, push } from "react-router-redux";
+import { createLogger } from "redux-logger";
+import rootReducer from "./reducers";
+import * as settingsActions from "./actions/settingsActions";
+import { initState } from "./reducers";
+import log from "electron-log";
 
-console.log('[configureStore.development.js] initState: ', initState)
+log.debug("[configureStore.development.js] initState: ", initState);
 
 export default (initialState={}) => {
   // Redux Configuration
@@ -19,7 +20,7 @@ export default (initialState={}) => {
 
   // Logging Middleware
   const logger = createLogger({
-    level: 'info',
+    level: "info",
     collapsed: true
   });
   middleware.push(logger);
@@ -51,8 +52,8 @@ export default (initialState={}) => {
   const store = createStore(rootReducer, initialState, enhancer);
 
   if (module.hot) {
-    module.hot.accept('./reducers', () =>
-      store.replaceReducer(require('./reducers')) // eslint-disable-line global-require
+    module.hot.accept("./reducers", () =>
+      store.replaceReducer(require("./reducers")) // eslint-disable-line global-require
     );
   }
 

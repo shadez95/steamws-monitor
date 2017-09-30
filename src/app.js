@@ -2,16 +2,32 @@ import {app, BrowserWindow, Menu, Tray} from "electron";
 import {enableLiveReload} from "electron-compile";
 import requestFunc from "./mainLoop";
 import handleSquirrelEvent from "./squirrel";
+import log from "electron-log";
 
 if(require("electron-squirrel-startup")) app.quit();
-console.log(`Electron Version: ${process.versions.electron}\n`);
+log.info(`Electron Version: ${process.versions.electron}\n`);
 // this should be placed at top of main.js to handle setup events quickly
 if (handleSquirrelEvent()) {
   // squirrel event handled and app will exit in 1000ms, so don't do anything else
   app.quit();
 }
 
+if (process.env.NODE_ENV === "development") {
+  log.transports.console.level = "silly";
+} else {
+  log.transports.console.level = "info";
+}
+
 // ----------------------------------------------
+
+// Context menu
+require("electron-context-menu")({
+  prepend: (params, browserWindow) => [{
+    label: "Rainbow",
+		// Only show it when right-clicking images
+    visible: params.mediaType === "image"
+  }]
+});
 
 // const isProd = process.execPath.search("electron-prebuilt-compile") === -1;
 // if (isProd !== -1) {
@@ -26,13 +42,17 @@ const installExtensions = () => {
     REDUX_DEVTOOLS
   ];
   const forceDownload = process.env.UPGRADE_EXTENSIONS !== undefined ? process.env.UPGRADE_EXTENSIONS : false;
-  console.log("UPGRADE_EXTENSIONS: ", process.env.UPGRADE_EXTENSIONS);
+  log.info("UPGRADE_EXTENSIONS: ", process.env.UPGRADE_EXTENSIONS);
 
   extensions.map(((ext) => {
     installExtension(ext, forceDownload)
-      .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((err) => console.log("An error occurred: ", err));
+      .then((name) => log.info(`Added Extension:  ${name}`))
+      .catch((err) => log.info("An error occurred: ", err));
   }));
+
+  // Run the following from the Console tab of your app's DevTools
+  require("devtron").install();
+  // You should now see a Devtron tab added to the DevTools
 
   // installExtension(REACT_DEVELOPER_TOOLS, )
   //   .then((name) => console.log(`Added Extension:  ${name}`))
@@ -220,6 +240,4 @@ app.on("ready", () => {
   requestLoop = setInterval(requestFunc, 300000);
 });
 
-if (process.env.NODE_ENV === "development") {
-  console.log("Config Path: ", app.getPath("userData"));
-}
+log.debug("Config Path: ", app.getPath("userData"));

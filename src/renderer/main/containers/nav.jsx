@@ -2,6 +2,7 @@ import React, { Component }  from "react";
 import { Nav, NavbarBrand } from "reactstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import log from "electron-log";
 
 import * as navActionCreators from "../../store/actions/navActions";
 import * as paneContentActions from "../../store/actions/paneContentActions";
@@ -53,7 +54,7 @@ class CustomNav extends Component {
 
   handleClick(index, id) {
     this.props.navActions.setSelectedSidebarItem(index, id);
-    console.log("[nav.jsx] CustomNav - changing pane content id: ", id);
+    log.debug("[nav.jsx] CustomNav - changing pane content id: ", id);
     this.props.paneContentActions.changePaneContent(id);
     this.props.gameActions.changeGamePane(id);
   }

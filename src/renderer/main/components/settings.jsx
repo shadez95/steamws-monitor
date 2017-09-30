@@ -1,5 +1,6 @@
 import React, { Component }  from "react";
 import { InputGroup, InputGroupAddon, Input, Button, Col } from "reactstrap";
+import log from "electron-log";
 // import { connect } from "react-redux";
 // import { bindActionCreators } from "redux";
 
@@ -67,7 +68,7 @@ class Settings extends Component {
     var fileObj = this.fileUpload.files[0];
     const remote = require("electron").remote;
     const fs = remote.require("fs");
-    console.log(fileObj);
+    log.debug(fileObj);
     if (fileObj !== undefined) {
       if (fs.existsSync(fileObj.path)) {
         this.setState({steamCMDLocState: fileObj.path});

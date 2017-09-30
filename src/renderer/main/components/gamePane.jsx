@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import WorkshopItem from "../components/workshopItem";
 import child_process from "child_process";
 import { Input, Row, Col, Button, Table } from "reactstrap";
+import log from "electron-log";
 import { getConfig, getWorkshopData } from "../../store/configManipulators";
 
 // const mapStateToProps = state => {
@@ -40,7 +41,7 @@ export default class GamePane extends Component {
 
   deleteWorkshopItem(data) {
     const workshopItemIDs = getConfig(`games.${data.appid}.workshopItems`);
-    console.log(workshopItemIDs);
+    log.debug(workshopItemIDs);
 
     // Delete the folder containing the workshop data
     const steamCMDLoc = getConfig("settings.steamCMDLoc");
@@ -62,7 +63,7 @@ export default class GamePane extends Component {
     if (workshopPath.indexOf("undefined") === -1) {
       rimraf(workshopPath, () => {
         rimraf(acfFile, () => {
-          console.log("Successfully deleted workshop item");
+          log.info("Successfully deleted workshop item");
           window.createNotification("Workshop item successfully deleted");
         });
       });
@@ -72,34 +73,34 @@ export default class GamePane extends Component {
       //   console.log("Successfully deleted acf file");
       // });
     } else {
-      console.log("Workshop item was not successfully deleted");
-      console.log(`Path: ${workshopPath}`);
+      log.error("Workshop item was not successfully deleted");
+      log.debug(`Path: ${workshopPath}`);
       window.createNotification("Workshop item was not successfully deleted. Navigate to the folder and manually delete.");
     }
     this.props.gameActions.deleteWorkshopItem(data.publishedFileID);
   }
 
   downloadWorkshopItem(appID, workshopItemID) {
-    console.log("Downloading workshop item ID:", workshopItemID);
+    log.info("Downloading workshop item ID:", workshopItemID);
     const steamCMDLoc = getConfig("settings.steamCMDLoc");
 
     const process = child_process.spawn(steamCMDLoc, ["+login", getConfig("settings.steamUsername"), getConfig("settings.steamPassword"), "+workshop_download_item", appID, workshopItemID, "validate", "+quit"]);
     window.createNotification("Downloading workshop item...");
     process.stdout.on("data", (data) => {
-      console.log(data.toString());
+      log.debug(data.toString());
     });
 
     process.stderr.on("data", (data) => {
-      console.log(data.toString());
+      log.debug(data.toString());
     });
 
     process.on("close", (code) => {
       if (code === 0) {
         window.createNotification("Workshop item downloaded");
-        console.log("Done");
+        log.info("Done");
       } else {
         window.createNotification("Something went wrong downloading the workshop item");
-        console.log("Something went wrong");      
+        log.error("Something went wrong");      
       }
     });
   }
@@ -143,8 +144,8 @@ export default class GamePane extends Component {
           if (workshopItemData.consumer_app_id !== gameID) {
             window.createNotification("The workshop item you requested is not for the game you have selected");
           } else {
-            console.log("handleSubmit - gameID: ", gameID);
-            console.log("handleSubmit - workshopItemData: ", workshopItemData);
+            log.debug("handleSubmit - gameID: ", gameID);
+            log.debug("handleSubmit - workshopItemData: ", workshopItemData);
             this.downloadWorkshopItem(gameID, parseInt(workshopItemData.publishedfileid));
             this.props.gameActions.addWorkshopItem(workshopItemData);
           }
@@ -153,7 +154,7 @@ export default class GamePane extends Component {
       } else {
         // if get response other than 200 log error and notify user
         window.createNotification("Error occurred collecting the workshop item data");
-        console.log("err: ", err);
+        log.error("err: ", err);
       }
     });
   }
