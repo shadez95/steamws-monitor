@@ -3,3 +3,4 @@ renderer-bundle.js
 dist
 *.log
 out/
+package-lock.json
