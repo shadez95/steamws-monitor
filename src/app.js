@@ -157,6 +157,19 @@ const openSteamWSWindow = () => {
   }
 };
 
+var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
+  // Someone tried to run a second instance, we should focus our window
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  }
+  return true;
+});
+
+if (shouldQuit) {
+  app.quit(); 
+}
+
 app.on("window-all-closed", () => {
   // Overriding so it can run in the background
   // To shutdown application right-click on tray icon
