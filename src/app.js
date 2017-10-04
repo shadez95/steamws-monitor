@@ -1,7 +1,7 @@
 import {app, BrowserWindow, Menu, Tray} from "electron";
 import {enableLiveReload} from "electron-compile";
 import requestFunc from "./mainLoop";
-import handleSquirrelEvent from "./squirrel";
+// import handleSquirrelEvent from "./squirrel";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
 
@@ -17,14 +17,93 @@ autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = "info";
 log.info("App starting...");
 
+//-------------------------------------------------------------------
+// Open a window that displays the version
+//
+// THIS SECTION IS NOT REQUIRED
+//
+// This isn't required for auto-updates to work, but it's easier
+// for the app to show a window than to have to click "About" to see
+// that updates are working.
+//-------------------------------------------------------------------
+let updateWindow;
 
-if(require("electron-squirrel-startup")) app.quit();
+function sendStatusToWindow(text) {
+  log.info(text);
+  updateWindow.webContents.send("message", text);
+}
+function createDefaultWindow() {
+  updateWindow = new BrowserWindow();
+  log.info(updateWindow);
+  updateWindow.webContents.openDevTools();
+  updateWindow.on("closed", () => {
+    updateWindow = null;
+  });
+  updateWindow.loadURL(`file://${__dirname}/version.html#v${app.getVersion()}`);
+  return updateWindow;
+}
+autoUpdater.on("checking-for-update", () => {
+  sendStatusToWindow("Checking for update...");
+});
+autoUpdater.on("update-available", (info) => {
+  sendStatusToWindow("Update available.");
+});
+autoUpdater.on("update-not-available", (info) => {
+  sendStatusToWindow("Update not available.");
+});
+autoUpdater.on("error", (err) => {
+  sendStatusToWindow("Error in auto-updater.");
+});
+autoUpdater.on("download-progress", (progressObj) => {
+  let log_message = "Download speed: " + progressObj.bytesPerSecond;
+  log_message = log_message + " - Downloaded " + progressObj.percent + "%";
+  log_message = log_message + " (" + progressObj.transferred + "/" + progressObj.total + ")";
+  sendStatusToWindow(log_message);
+});
+autoUpdater.on("update-downloaded", (info) => {
+  sendStatusToWindow("Update downloaded; will install in 5 seconds");
+});
+
+//-------------------------------------------------------------------
+// Auto updates
+//
+// For details about these events, see the Wiki:
+// https://github.com/electron-userland/electron-builder/wiki/Auto-Update#events
+//
+// The app doesn't need to listen to any events except `update-downloaded`
+//
+// Uncomment any of the below events to listen for them.  Also,
+// look in the previous section to see them being used.
+//-------------------------------------------------------------------
+// autoUpdater.on('checking-for-update', () => {
+// })
+// autoUpdater.on('update-available', (info) => {
+// })
+// autoUpdater.on('update-not-available', (info) => {
+// })
+// autoUpdater.on('error', (err) => {
+// })
+// autoUpdater.on('download-progress', (progressObj) => {
+// })
+autoUpdater.on("update-downloaded", (info) => {
+  // Wait 5 seconds, then quit and install
+  // In your application, you don't need to wait 5 seconds.
+  // You could call autoUpdater.quitAndInstall(); immediately
+  setTimeout(function() {
+    autoUpdater.quitAndInstall();  
+  }, 5000);
+});
+
+
 log.info(`Electron Version: ${process.versions.electron}\n`);
 // this should be placed at top of main.js to handle setup events quickly
-if (handleSquirrelEvent()) {
-  // squirrel event handled and app will exit in 1000ms, so don't do anything else
-  app.quit();
-}
+
+// ---------------- OLD SQUIRREL STUFF ----------------
+// if(require("electron-squirrel-startup")) app.quit();
+// if (handleSquirrelEvent()) {
+//   // squirrel event handled and app will exit in 1000ms, so don't do anything else
+//   app.quit();
+// }
 
 if (process.env.NODE_ENV === "development") {
   log.transports.console.level = "silly";
@@ -210,6 +289,14 @@ app.on("window-all-closed", () => {
 });
 
 app.on("ready", () => {
+  createDefaultWindow();
+  // Check for updates
+  if (process.env.NODE_ENV === "development") {
+    // Skip autoupdate check
+  } else {
+    autoUpdater.checkForUpdates();
+  }
+  
   // Trays work in Windows and Ubuntu based OS's
   // maybe when workshop items are updating
   tray = new Tray(image_icon_path);
