@@ -49,7 +49,7 @@ const render = () => {
       </Provider>
     </AppContainer>
   );
-  // console.log("[main.js] ele: ", ele);
+  
   ReactDOM.render(
     ele, document.getElementById("app")
   );

@@ -106,8 +106,13 @@ const openSteamWSWindow = () => {
     backgroundColor: "#252526",
     autoHideMenuBar: true,
     // frame: false,
-    icon: image_icon_path
+    icon: image_icon_path,
     // devTools: false // Will uncomment for production
+    show: false
+  });
+
+  mainWindow.once("ready-to-show", () => {
+    mainWindow.show();
   });
 
   // Create Menu
