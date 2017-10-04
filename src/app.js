@@ -2,7 +2,21 @@ import {app, BrowserWindow, Menu, Tray} from "electron";
 import {enableLiveReload} from "electron-compile";
 import requestFunc from "./mainLoop";
 import handleSquirrelEvent from "./squirrel";
+import { autoUpdater } from "electron-updater";
 import log from "electron-log";
+
+//-------------------------------------------------------------------
+// Logging
+//
+// THIS SECTION IS NOT REQUIRED
+//
+// This logging setup is not required for auto-updates to work,
+// but it sure makes debugging easier :)
+//-------------------------------------------------------------------
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = "info";
+log.info("App starting...");
+
 
 if(require("electron-squirrel-startup")) app.quit();
 log.info(`Electron Version: ${process.versions.electron}\n`);
