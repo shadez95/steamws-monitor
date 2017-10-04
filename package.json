@@ -1,6 +1,6 @@
 {
   "name": "steamws-monitor",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "An application that monitors steam workshop files for updates",
   "repository": {
     "type": "git",
@@ -79,51 +79,6 @@
     "request-promise": "^4.2.0",
     "rimraf": "^2.6.1"
   },
-  "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "linux": [
-          "deb",
-          "rpm"
-        ]
-      },
-      "electronPackagerConfig": {
-        "dir": "./src",
-        "appCopyright": "Copyright (C) 2017 Dixon Begay",
-        "appVersion": "0.1.2",
-        "electronVersion": "1.6.2",
-        "asar": true,
-        "icon": "./src/static/images/logos/favicon.ico",
-        "name": "Steam Workshop Monitor",
-        "win32metadata": {
-          "CompanyName": "Dixon Begay",
-          "FileDescription": "Application to monitor the Steam Workshop",
-          "ProductName": "Steam Workshop Monitor"
-        }
-      },
-      "electronWinstallerConfig": {
-        "loadingGif": "./Loading.gif",
-        "exe": "Steam Workshop Monitor.exe",
-        "version": "0.1.2",
-        "title": "Steam Workshop Monitor",
-        "name": "Steam_Workshop_Monitor",
-        "iconUrl": "https://raw.githubusercontent.com/dixon13/steamws-monitor/master/src/static/images/logos/favicon.ico",
-        "setupExe": "SteamWS Monitor Setup.exe"
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "dixon13",
-        "name": "steamws-monitor"
-      },
-      "windowsStoreConfig": {
-        "packageName": ""
-      }
-    }
-  },
   "build": {
     "appId": "com.squirrel.steamws.SteamWS",
     "productName": "Steam Workshop Monitor",
@@ -143,6 +98,18 @@
       "publish": [
         "github"
       ]
+    },
+    "linux": {
+      "target": "AppImage",
+      "maintainer": "Dixon Begay",
+      "icon": "./src/static/images/logos/favicon-32x32.png",
+      "synopsis": "An application that monitors steam workshop files for updates",
+      "category": "Network"
+    },
+    "appImage": {
+      "systemIntegration": "ask",
+      "synopsis": "An application that monitors steam workshop files for updates",
+      "category": "Network"
     },
     "publish": [
       {
