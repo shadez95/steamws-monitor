@@ -148,7 +148,8 @@
       {
         "provider": "github",
         "owner": "dixon13",
-        "repo": "steamws-monitor"
+        "repo": "steamws-monitor",
+        "vPrefixedTagName": true
       }
     ]
   }
