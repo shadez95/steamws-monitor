@@ -27,6 +27,9 @@
     "dev": "cross-env NODE_ENV=development electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
+    "dist:all": "npm run dist:linux && npm run dist:win",
+    "dist:linux": "electron-builder --linux --x64",
+    "dist:win": "electron-builder --win --x64",
     "release": "build"
   },
   "devDependencies": {
@@ -87,29 +90,26 @@
     "win": {
       "target": "squirrel",
       "icon": "./src/static/images/logos/favicon.ico",
-      "publish": [
-        "github"
-      ]
+      "publish": ["github"]
     },
     "squirrelWindows": {
       "iconUrl": "https://raw.githubusercontent.com/dixon13/steamws-monitor/master/src/static/images/logos/favicon.ico",
       "loadingGif": "Loading.gif",
       "remoteReleases": true,
-      "publish": [
-        "github"
-      ]
+      "publish": ["github"]
     },
     "linux": {
       "target": "AppImage",
       "maintainer": "Dixon Begay",
-      "icon": "./src/static/images/logos/favicon-32x32.png",
+      "icon": "./src/static/images/logos/linux",
       "synopsis": "An application that monitors steam workshop files for updates",
       "category": "Network"
     },
     "appImage": {
       "systemIntegration": "ask",
       "synopsis": "An application that monitors steam workshop files for updates",
-      "category": "Network"
+      "category": "Network",
+      "publish": ["github"]
     },
     "publish": [
       {
