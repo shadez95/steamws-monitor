@@ -9,8 +9,7 @@
     },
     "production": {
       "application/javascript": {
-        "presets": ["react", ["env", { "targets": { "electron": "1.6.2" } }], "stage-2"],
-        "plugins": ["transform-es2015-classes"],
+        "presets": ["es2016-node5", "react", ["env", { "targets": { "electron": "1.6.2" } }]],
         "sourceMaps": "none"
       }
     }

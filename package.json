@@ -1,6 +1,6 @@
 {
   "name": "steamws-monitor",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "An application that monitors steam workshop files for updates",
   "repository": {
     "type": "git",
@@ -23,10 +23,11 @@
   "homepage": "https://github.com/dixon13/steamws-monitor",
   "main": "src/app.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development electron-forge start",
+    "start": "cross-env NODE_ENV=production electron .",
     "dev": "cross-env NODE_ENV=development electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
+    "compile:prod": "cross-env NODE_ENV=production electron-compile --appDir . ./src",
     "dist:all": "npm run dist:linux && npm run dist:win",
     "dist:linux": "electron-builder --linux --x64",
     "dist:win": "electron-builder --win --x64",
