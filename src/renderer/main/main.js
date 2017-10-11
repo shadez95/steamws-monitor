@@ -29,6 +29,9 @@ window.createNotification = (bodyInput) => {
 var isWin = /^win/.test(process.platform);
 var isLinux = /^linux/.test(process.platform);
 
+let steamws = {};
+steamws.version = process.env.npm_package_version;
+
 if (isWin) {
   window.platform = "win";
 } else if (isLinux) {
@@ -49,7 +52,7 @@ if ( process.env.NODE_ENV !== "development") {
     // NB: We have to re-require MyApp every time or else this won't work
     // We also need to wrap our app in the AppContainer class
     const Main = require("./containers/main");
-    const AppContainer = require("react-hot-loader");
+    const AppContainer = require("react-hot-loader").AppContainer;
     const ele = (
       <AppContainer>
         <Provider store={store}>
