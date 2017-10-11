@@ -1,6 +1,6 @@
 {
   "name": "steamws-monitor",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "An application that monitors steam workshop files for updates",
   "repository": {
     "type": "git",
@@ -109,7 +109,7 @@
         "title": "Steam Workshop Monitor",
         "name": "Steam_Workshop_Monitor",
         "iconUrl": "https://raw.githubusercontent.com/dixon13/steamws-monitor/master/src/static/images/logos/favicon.ico",
-        "setupExe": "app-0.1.4-setup.exe",
+        "setupExe": "steamws-monitor-setup-0.1.5.exe",
         "remoteReleases":"https://github.com/dixon13/steamws-monitor"
       },
       "electronInstallerDebian": {},
