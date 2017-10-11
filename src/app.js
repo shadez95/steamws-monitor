@@ -1,7 +1,7 @@
 import {app, BrowserWindow, Menu, Tray} from "electron";
 import {enableLiveReload} from "electron-compile";
 import requestFunc from "./mainLoop";
-// import handleSquirrelEvent from "./squirrel";
+import handleSquirrelEvent from "./squirrel";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
 
@@ -98,12 +98,12 @@ autoUpdater.on("update-downloaded", (info) => {
 log.info(`Electron Version: ${process.versions.electron}\n`);
 // this should be placed at top of main.js to handle setup events quickly
 
-// ---------------- OLD SQUIRREL STUFF ----------------
-// if(require("electron-squirrel-startup")) app.quit();
-// if (handleSquirrelEvent()) {
-//   // squirrel event handled and app will exit in 1000ms, so don't do anything else
-//   app.quit();
-// }
+// ---------------- SQUIRREL STUFF ----------------
+if(require("electron-squirrel-startup")) app.quit();
+if (handleSquirrelEvent()) {
+  // squirrel event handled and app will exit in 1000ms, so don't do anything else
+  app.quit();
+}
 
 if (process.env.NODE_ENV === "development") {
   log.transports.console.level = "silly";
@@ -289,12 +289,11 @@ app.on("window-all-closed", () => {
 });
 
 app.on("ready", () => {
-  createDefaultWindow();
   // Check for updates
   if (process.env.NODE_ENV === "development") {
     // Skip autoupdate check
   } else {
-    autoUpdater.checkForUpdates();
+    // autoUpdater.checkForUpdates();
   }
   
   // Trays work in Windows and Ubuntu based OS's
@@ -321,8 +320,6 @@ app.on("ready", () => {
   ]);
   tray.setToolTip("Steam Workshop Monitor");
   tray.setContextMenu(contextMenu);
-  // const startMonitoring = require('./steamWSmonitor.js')
-  // startMonitoring()
 
   // if dev env then enable hot reloading
   if (process.env.NODE_ENV === "development") {
