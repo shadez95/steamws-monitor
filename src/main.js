@@ -17,31 +17,28 @@ autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = "info";
 log.info("App starting...");
 
-//-------------------------------------------------------------------
-// Open a window that displays the version
-//
-// THIS SECTION IS NOT REQUIRED
-//
-// This isn't required for auto-updates to work, but it's easier
-// for the app to show a window than to have to click "About" to see
-// that updates are working.
-//-------------------------------------------------------------------
-let updateWindow;
+// These are variables that are used throughout main process and need to be set here
+let mainWindow = null;
+// let settingsWindow;
+let tray = null;
+let requestLoop = null;
 
+//-------------------------------------------------------------------
+// Auto updates
+//
+// For details about these events, see the Wiki:
+// https://github.com/electron-userland/electron-builder/wiki/Auto-Update#events
+//
+// The app doesn't need to listen to any events except `update-downloaded`
+//
+// Uncomment any of the below events to listen for them.  Also,
+// look in the previous section to see them being used.
+//-------------------------------------------------------------------
 function sendStatusToWindow(text) {
   log.info(text);
-  updateWindow.webContents.send("message", text);
+  mainWindow.webContents.send("message", text);
 }
-function createDefaultWindow() {
-  updateWindow = new BrowserWindow();
-  log.info(updateWindow);
-  updateWindow.webContents.openDevTools();
-  updateWindow.on("closed", () => {
-    updateWindow = null;
-  });
-  updateWindow.loadURL(`file://${__dirname}/version.html#v${app.getVersion()}`);
-  return updateWindow;
-}
+
 autoUpdater.on("checking-for-update", () => {
   sendStatusToWindow("Checking for update...");
 });
@@ -61,34 +58,10 @@ autoUpdater.on("download-progress", (progressObj) => {
   sendStatusToWindow(log_message);
 });
 autoUpdater.on("update-downloaded", (info) => {
-  sendStatusToWindow("Update downloaded; will install in 5 seconds");
-});
-
-//-------------------------------------------------------------------
-// Auto updates
-//
-// For details about these events, see the Wiki:
-// https://github.com/electron-userland/electron-builder/wiki/Auto-Update#events
-//
-// The app doesn't need to listen to any events except `update-downloaded`
-//
-// Uncomment any of the below events to listen for them.  Also,
-// look in the previous section to see them being used.
-//-------------------------------------------------------------------
-// autoUpdater.on('checking-for-update', () => {
-// })
-// autoUpdater.on('update-available', (info) => {
-// })
-// autoUpdater.on('update-not-available', (info) => {
-// })
-// autoUpdater.on('error', (err) => {
-// })
-// autoUpdater.on('download-progress', (progressObj) => {
-// })
-autoUpdater.on("update-downloaded", (info) => {
   // Wait 5 seconds, then quit and install
   // In your application, you don't need to wait 5 seconds.
   // You could call autoUpdater.quitAndInstall(); immediately
+  sendStatusToWindow("Update downloaded; will install in 5 seconds");
   setTimeout(function() {
     autoUpdater.quitAndInstall();  
   }, 5000);
@@ -155,11 +128,6 @@ const installExtensions = () => {
   //   .all(extensions.map(name => installer.default(installer[name], forceDownload)))
   //   .catch(console.log)
 };
-
-let mainWindow = null;
-// let settingsWindow;
-let tray = null;
-let requestLoop = null;
 
 const image_icon_path = `${__dirname}/static/images/logos/favicon-32x32.png`;
 
@@ -293,7 +261,7 @@ app.on("ready", () => {
   if (process.env.NODE_ENV === "development") {
     // Skip autoupdate check
   } else {
-    // autoUpdater.checkForUpdates();
+    autoUpdater.checkForUpdates();
   }
   
   // Trays work in Windows and Ubuntu based OS's
@@ -312,6 +280,7 @@ app.on("ready", () => {
       }
     }},
     // {label: 'Settings', click: () => {openSettingsWindow()}},
+    {label: "Check for updates", click: () => {autoUpdater.checkForUpdates();}},
     {type: "separator"},
     {label: "Quit", click: () => {
       clearInterval(requestLoop);
