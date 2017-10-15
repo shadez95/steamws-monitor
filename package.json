@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/dixon13/steamws-monitor/issues"
   },
-  "homepage": "https://github.com/dixon13/steamws-monitor"
+  "homepage": "https://github.com/dixon13/steamws-monitor",
   "main": "es6-init.js",
   "scripts": {
     "start": "rm -rf .cache && cross-env NODE_ENV=development electron .",
