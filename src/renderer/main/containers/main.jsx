@@ -34,7 +34,6 @@ const mapStateToProps = state => {
   };
 };
 
-@connect(mapStateToProps)
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -77,4 +76,4 @@ class Main extends Component {
   }
 }
 
-module.exports = Main;
+module.exports = connect(mapStateToProps)(Main);

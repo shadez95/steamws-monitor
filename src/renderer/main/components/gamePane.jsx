@@ -10,8 +10,6 @@ import { getConfig, getWorkshopData } from "../../store/configManipulators";
 //   return { gameData: state.gameData.gameData };
 // };
 
-// @connect(mapStateToProps)
-
 export default class GamePane extends Component {
   constructor(props) {
     super(props);

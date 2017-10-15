@@ -59,6 +59,7 @@ class CustomNav extends Component {
   }
 
   render() {
+    const versionStyle = {"position": "absolute", "left": "0%", "bottom": "0%"};
     return (
       <nav className="hidden-xs-down bg-faded sidebar">
         <Nav vertical pills >
@@ -74,7 +75,7 @@ class CustomNav extends Component {
           </div>
           {this.state.navs}
         </Nav>
-        <div className="container">
+        <div className="container" style={versionStyle}>
           Version: {steamws.version}
         </div>
       </nav>

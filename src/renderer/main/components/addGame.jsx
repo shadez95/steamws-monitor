@@ -19,7 +19,6 @@ import { saveGameData } from "../../store/configManipulators";
 //   };
 // };
 
-// @connect(mapStateToProps, mapDispatchToProps)
 export default class AddGame extends Component {
   constructor(props) {
     super(props);

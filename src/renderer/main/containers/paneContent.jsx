@@ -30,7 +30,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-@connect(mapStateToProps, mapDispatchToProps)
 class PaneContent extends Component {
   render() {
     log.debug(this.props);
@@ -48,4 +47,4 @@ class PaneContent extends Component {
   }
 }
 
-export default PaneContent;
+export default connect(mapStateToProps, mapDispatchToProps)(PaneContent);

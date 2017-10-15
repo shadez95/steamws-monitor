@@ -22,7 +22,6 @@ import log from "electron-log";
 //   };
 // };
 
-// @connect(mapStateToProps, mapDispatchToProps)
 class Settings extends Component {
   constructor(props) {
     super(props);

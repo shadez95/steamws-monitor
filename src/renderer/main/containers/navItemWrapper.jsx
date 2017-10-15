@@ -22,8 +22,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-@connect(mapStateToProps, mapDispatchToProps)
-export default class NavItemWrapper extends Component {
+class NavItemWrapper extends Component {
   constructor(props) {
     super(props);
     this.setSelectedNavItem = this.setSelectedNavItem.bind(this);
@@ -99,3 +98,5 @@ export default class NavItemWrapper extends Component {
     }
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavItemWrapper);
