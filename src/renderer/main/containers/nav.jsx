@@ -22,7 +22,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-@connect(mapStateToProps, mapDispatchToProps)
 class CustomNav extends Component {
   constructor(props) {
     super(props);
@@ -75,9 +74,12 @@ class CustomNav extends Component {
           </div>
           {this.state.navs}
         </Nav>
+        <div className="container">
+          Version: {steamws.version}
+        </div>
       </nav>
     );
   }
 }
 
-export default CustomNav;
+export default connect(mapStateToProps, mapDispatchToProps)(CustomNav);
