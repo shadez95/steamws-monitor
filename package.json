@@ -21,7 +21,7 @@
     "url": "https://github.com/dixon13/steamws-monitor/issues"
   },
   "homepage": "https://github.com/dixon13/steamws-monitor",
-  "main": "es6-init.js",
+  "main": "./src/es6-init.js",
   "scripts": {
     "start": "rm -rf .cache && cross-env NODE_ENV=development electron .",
     "clean-cache": "rm -rf .cache",
@@ -41,6 +41,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "devtron": "^1.4.0",
     "electron-builder": "^19.28.4",
+    "electron-builder-squirrel-windows": "^19.37.0",
     "electron-compilers": "^5.9.0",
     "electron-devtools-installer": "^2.1.0",
     "electron-prebuilt-compile": "1.6.2",
@@ -96,6 +97,7 @@
     "squirrelWindows": {
       "iconUrl": "https://raw.githubusercontent.com/dixon13/steamws-monitor/master/src/static/images/logos/favicon.ico",
       "loadingGif": "Loading.gif",
+      "remoteReleases": true,
       "publish": [
         "github"
       ]
