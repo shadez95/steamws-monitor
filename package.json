@@ -1,6 +1,6 @@
 {
   "name": "steamws-monitor",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "An application that monitors steam workshop files for updates",
   "repository": {
     "type": "git",
@@ -21,13 +21,14 @@
     "url": "https://github.com/dixon13/steamws-monitor/issues"
   },
   "homepage": "https://github.com/dixon13/steamws-monitor",
-  "main": "src/app.js",
+  "main": "es6-init.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production electron .",
-    "dev": "cross-env NODE_ENV=development electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make --releasify",
-    "publish:github": "electron-forge publish --target=github"
+    "start": "rm -rf .cache && cross-env NODE_ENV=development electron .",
+    "clean-cache": "rm -rf .cache",
+    "compile": "cross-env NODE_ENV=production electron-compile --appDir . ./src",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "release": "build"
   },
   "devDependencies": {
     "asar": "^0.13.0",
@@ -42,11 +43,14 @@
     "devtron": "^1.4.0",
     "electron-builder": "^19.34.1",
     "electron-builder-squirrel-windows": "^19.34.0",
+    "electron-compilers": "^5.9.0",
     "electron-devtools-installer": "^2.1.0",
     "electron-prebuilt-compile": "1.6.2",
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^6.10.3",
+    "npm-run-all": "^4.1.1",
     "react-hot-loader": "^3.0.0-beta.7",
+    "recursive-readdir": "^2.2.1",
     "redux-devtools": "^3.3.2"
   },
   "dependencies": {
@@ -79,48 +83,32 @@
     "request-promise": "^4.2.0",
     "rimraf": "^2.6.1"
   },
-  "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "linux": [
-          "deb",
-          "rpm"
-        ]
-      },
-      "electronPackagerConfig": {
-        "dir": "./src",
-        "appCopyright": "Copyright (C) 2017 Dixon Begay",
-        "electronVersion": "1.6.2",
-        "asar": true,
-        "icon": "./src/static/images/logos/favicon.ico",
-        "name": "Steam Workshop Monitor",
-        "win32metadata": {
-          "CompanyName": "Dixon Begay",
-          "FileDescription": "Application to monitor the Steam Workshop",
-          "ProductName": "Steam Workshop Monitor"
-        }
-      },
-      "electronWinstallerConfig": {
-        "loadingGif": "./Loading.gif",
-        "exe": "Steam Workshop Monitor.exe",
-        "title": "Steam Workshop Monitor",
-        "name": "Steam_Workshop_Monitor",
-        "iconUrl": "https://raw.githubusercontent.com/dixon13/steamws-monitor/master/src/static/images/logos/favicon.ico",
-        "setupExe": "steamws-monitor-setup-0.1.5.exe",
-        "remoteReleases":"https://github.com/dixon13/steamws-monitor"
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
+  "build": {
+    "appId": "com.squirrel.steamws.SteamWS",
+    "productName": "Steam Workshop Monitor",
+    "asar": true,
+    "copyright": "Copyright (C) 2017 Dixon Begay",
+    "win": {
+      "target": "squirrel",
+      "icon": "./src/static/images/logos/favicon.ico",
+      "publish": [
+        "github"
+      ]
+    },
+    "squirrelWindows": {
+      "iconUrl": "https://raw.githubusercontent.com/dixon13/steamws-monitor/master/src/static/images/logos/favicon.ico",
+      "loadingGif": "Loading.gif",
+      "remoteReleases": true,
+      "publish": [
+        "github"
+      ]
+    },
+    "publish": [
+      {
+        "provider": "github",
         "owner": "dixon13",
-        "name": "steamws-monitor"
-      },
-      "windowsStoreConfig": {
-        "packageName": ""
+        "repo": "steamws-monitor"
       }
-    }
+    ]
   }
 }
