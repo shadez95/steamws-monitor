@@ -97,7 +97,6 @@
     "squirrelWindows": {
       "iconUrl": "https://raw.githubusercontent.com/dixon13/steamws-monitor/master/src/static/images/logos/favicon.ico",
       "loadingGif": "Loading.gif",
-      "remoteReleases": true,
       "publish": [
         "github"
       ]
