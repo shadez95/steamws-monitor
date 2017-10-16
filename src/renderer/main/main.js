@@ -29,8 +29,7 @@ window.createNotification = (bodyInput) => {
 var isWin = /^win/.test(process.platform);
 var isLinux = /^linux/.test(process.platform);
 
-let steamws = {};
-steamws.version = process.env.npm_package_version;
+const appVersion = remote.app.getVersion();
 
 if (isWin) {
   window.platform = "win";

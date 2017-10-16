@@ -76,7 +76,7 @@ class CustomNav extends Component {
           {this.state.navs}
         </Nav>
         <div className="container" style={versionStyle}>
-          Version: {steamws.version}
+          Version: {appVersion}
         </div>
       </nav>
     );
