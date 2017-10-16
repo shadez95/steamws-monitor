@@ -87,10 +87,14 @@
     "asar": true,
     "copyright": "Copyright (C) 2017 Dixon Begay",
     "files": [
-      {
-        "from": "./es6-init.js",
-        "to": "./es6-init.js"
-      }
+      "node_modules/",
+      "src/",
+      ".compilerc",
+      "es6-init.js",
+      "front-pic.PNG",
+      "LICENCSE",
+      "Loading.gif",
+      "package.json"
     ],
     "win": {
       "target": "squirrel",
