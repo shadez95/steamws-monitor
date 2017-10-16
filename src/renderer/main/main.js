@@ -27,7 +27,7 @@ window.createNotification = (bodyInput) => {
 };
 
 // Event listener for when checking for updates
-remote.ipcRenderer.on("update-messages",(event, message) => {
+require("electron").ipcRenderer.on("update-messages",(event, message) => {
   window.createNotification(message);
 });
 
