@@ -21,7 +21,7 @@
     "url": "https://github.com/dixon13/steamws-monitor/issues"
   },
   "homepage": "https://github.com/dixon13/steamws-monitor",
-  "main": "./src/es6-init.js",
+  "main": "./es6-init.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron .",
     "compile": "cross-env NODE_ENV=production electron-compile --appDir . .",
@@ -79,32 +79,5 @@
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
     "rimraf": "^2.6.1"
-  },
-  "build": {
-    "appId": "com.nsis.steamws.SteamWS",
-    "productName": "Steam Workshop Monitor",
-    "asar": true,
-    "copyright": "Copyright (C) 2017 Dixon Begay",
-    "directories": {
-      "app": "./src"
-    },
-    "win": {
-      "target": "nsis",
-      "icon": "./src/static/images/logos/favicon.ico",
-      "publish": [
-        "github"
-      ]
-    },
-    "nsis": {
-      "oneClick": true,
-      "installerIcon": "./src/static/images/logos/favicon.ico"
-    },
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "dixon13",
-        "repo": "steamws-monitor"
-      }
-    ]
   }
 }
