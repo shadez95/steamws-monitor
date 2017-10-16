@@ -1,6 +1,6 @@
 {
   "name": "steamws-monitor",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "An application that monitors steam workshop files for updates",
   "repository": {
     "type": "git",
@@ -21,10 +21,9 @@
     "url": "https://github.com/dixon13/steamws-monitor/issues"
   },
   "homepage": "https://github.com/dixon13/steamws-monitor",
-  "main": "./src/es6-init.js",
+  "main": "./es6-init.js",
   "scripts": {
-    "start": "rm -rf .cache && cross-env NODE_ENV=development electron .",
-    "clean-cache": "rm -rf .cache",
+    "start": "cross-env NODE_ENV=development electron .",
     "compile": "cross-env NODE_ENV=production electron-compile --appDir . ./src",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
@@ -87,6 +86,12 @@
     "productName": "Steam Workshop Monitor",
     "asar": true,
     "copyright": "Copyright (C) 2017 Dixon Begay",
+    "files": [
+      {
+        "from": "./es6-init.js",
+        "to": "./es6-init.js"
+      }
+    ],
     "win": {
       "target": "squirrel",
       "icon": "./src/static/images/logos/favicon.ico",
