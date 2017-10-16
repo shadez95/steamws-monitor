@@ -82,34 +82,20 @@
     "rimraf": "^2.6.1"
   },
   "build": {
-    "appId": "com.squirrel.steamws.SteamWS",
+    "appId": "com.nsis.steamws.SteamWS",
     "productName": "Steam Workshop Monitor",
     "asar": true,
     "copyright": "Copyright (C) 2017 Dixon Begay",
-    "files": [
-      "node_modules/",
-      "src/",
-      ".compilerc",
-      "es6-init.js",
-      "front-pic.PNG",
-      "LICENCSE",
-      "Loading.gif",
-      "package.json"
-    ],
     "win": {
-      "target": "squirrel",
+      "target": "nsis",
       "icon": "./src/static/images/logos/favicon.ico",
       "publish": [
         "github"
       ]
     },
-    "squirrelWindows": {
-      "iconUrl": "https://raw.githubusercontent.com/dixon13/steamws-monitor/master/src/static/images/logos/favicon.ico",
-      "loadingGif": "Loading.gif",
-      "remoteReleases": true,
-      "publish": [
-        "github"
-      ]
+    "nsis": {
+      "oneClick": true,
+      "installerIcon": "./src/static/images/logos/favicon.ico",
     },
     "publish": [
       {
