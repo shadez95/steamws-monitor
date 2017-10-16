@@ -1,9 +1,10 @@
 import {app, BrowserWindow, Menu, Tray} from "electron";
 import {enableLiveReload} from "electron-compile";
 import requestFunc from "./mainLoop";
-import handleSquirrelEvent from "./squirrel";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
+import notify from "electron-main-notification";
+import appRoot from "app-root-path";
 
 //-------------------------------------------------------------------
 // Logging
@@ -36,20 +37,45 @@ let requestLoop = null;
 //-------------------------------------------------------------------
 function sendStatusToWindow(text) {
   log.info(text);
-  mainWindow.webContents.send("message", text);
+  mainWindow.webContents.send("update-messages", text);
 }
 
 autoUpdater.on("checking-for-update", () => {
-  sendStatusToWindow("Checking for update...");
+  if (mainWindow === null) {
+    notify("Steam Workshop Monitor", {
+      body: "Checking for update...",
+      icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
+    });
+  } else {
+    sendStatusToWindow("Checking for update...");
+  }
 });
 autoUpdater.on("update-available", (info) => {
-  sendStatusToWindow("Update available.");
+  if (mainWindow === null) {
+    notify("Steam Workshop Monitor", {
+      body: "Update available."
+    });
+  } else {
+    sendStatusToWindow("Update available.");
+  }
 });
 autoUpdater.on("update-not-available", (info) => {
-  sendStatusToWindow("Update not available.");
+  if (mainWindow === null) {
+    notify("Steam Workshop Monitor", {
+      body: "Update not available."
+    });
+  } else {
+    sendStatusToWindow("Update not available.");
+  }
 });
 autoUpdater.on("error", (err) => {
-  sendStatusToWindow("Error in auto-updater.");
+  if (mainWindow === null) {
+    notify("Steam Workshop Monitor", {
+      body: "Error in auto-updater."
+    });
+  } else {
+    sendStatusToWindow("Error in auto-updater.");
+  }
 });
 autoUpdater.on("download-progress", (progressObj) => {
   let log_message = "Download speed: " + progressObj.bytesPerSecond;
@@ -61,7 +87,13 @@ autoUpdater.on("update-downloaded", (info) => {
   // Wait 5 seconds, then quit and install
   // In your application, you don't need to wait 5 seconds.
   // You could call autoUpdater.quitAndInstall(); immediately
-  sendStatusToWindow("Update downloaded; will install in 5 seconds");
+  if (mainWindow === null) {
+    notify("Steam Workshop Monitor", {
+      body: "Update downloaded; will install in 5 seconds"
+    });
+  } else {
+    sendStatusToWindow("Update downloaded; will install in 5 seconds");
+  }
   setTimeout(function() {
     autoUpdater.quitAndInstall();  
   }, 5000);
@@ -70,13 +102,6 @@ autoUpdater.on("update-downloaded", (info) => {
 
 log.info(`Electron Version: ${process.versions.electron}\n`);
 // this should be placed at top of main.js to handle setup events quickly
-
-// ---------------- SQUIRREL STUFF ----------------
-if(require("electron-squirrel-startup")) app.quit();
-if (handleSquirrelEvent()) {
-  // squirrel event handled and app will exit in 1000ms, so don't do anything else
-  app.quit();
-}
 
 if (process.env.NODE_ENV === "development") {
   log.transports.console.level = "silly";

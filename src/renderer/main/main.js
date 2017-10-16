@@ -26,6 +26,11 @@ window.createNotification = (bodyInput) => {
   });
 };
 
+// Event listener for when checking for updates
+remote.ipcRenderer.on("update-messages",(event, message) => {
+  window.createNotification(message);
+});
+
 var isWin = /^win/.test(process.platform);
 var isLinux = /^linux/.test(process.platform);
 
