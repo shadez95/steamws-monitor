@@ -61,13 +61,7 @@ autoUpdater.on("update-available", (info) => {
   }
 });
 autoUpdater.on("update-not-available", (info) => {
-  if (mainWindow === null) {
-    notify("Steam Workshop Monitor", {
-      body: "Update not available."
-    });
-  } else {
-    sendStatusToWindow("Update not available.");
-  }
+  // Not going to notify there are no updates available
 });
 autoUpdater.on("error", (err) => {
   if (mainWindow === null) {
