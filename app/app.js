@@ -283,6 +283,9 @@ app.on("window-all-closed", () => {
 });
 
 app.on("ready", () => {
+  // Log config path
+  log.debug("Config Path: ", app.getPath("userData"));
+
   // Check for updates
   if (process.env.NODE_ENV === "development") {
     // Skip autoupdate check
@@ -321,22 +324,10 @@ app.on("ready", () => {
     enableLiveReload({strategy: "react-hmr"});
   }
 
-  // 
-  const configAppVersion = config.get("appVersion", "");
-  if (configAppVersion !== app.getVersion()) {
-    config.set("appVersion", app.getVersion(), {prettify: true});
-    openSteamWSWindow();
-  }
-
-  // if first startup ---------------------------------
-  // if (process.argv[1] === "--squirrel-firstrun") {
-  //   openSteamWSWindow();
-  // }
+  openSteamWSWindow();
 
   // Main loop that checks for updates
   // Imported from "./mainLoop.js" relative to directory
   requestFunc();
   requestLoop = setInterval(requestFunc, 300000);
 });
-
-log.debug("Config Path: ", app.getPath("userData"));
