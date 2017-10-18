@@ -36,32 +36,30 @@ let requestLoop = null;
 // Uncomment any of the below events to listen for them.  Also,
 // look in the previous section to see them being used.
 //-------------------------------------------------------------------
-function sendStatusToWindow(text) {
+function updateNotifier(text) {
   log.info(text);
-  mainWindow.webContents.send("update-messages", text);
+  notify("Steam Workshop Monitor", {
+    body: text
+  });
 }
 
 autoUpdater.on("checking-for-update", () => {
   // Not going to notify if checking for udpate
 });
 autoUpdater.on("update-available", (info) => {
-  notify("Steam Workshop Monitor", {
-    body: "Update available."
-  });
+  updateNotifier("Update available.");
 });
 autoUpdater.on("update-not-available", (info) => {
   // Not going to notify there are no updates available
 });
 autoUpdater.on("error", (err) => {
-  notify("Steam Workshop Monitor", {
-    body: "Error in auto-updater."
-  });
+  updateNotifier( "Error in auto-updater.");
 });
 autoUpdater.on("download-progress", (progressObj) => {
-  let log_message = "Download speed: " + progressObj.bytesPerSecond;
-  log_message = log_message + " - Downloaded " + progressObj.percent + "%";
-  log_message = log_message + " (" + progressObj.transferred + "/" + progressObj.total + ")";
-  sendStatusToWindow(log_message);
+  // let log_message = "Download speed: " + progressObj.bytesPerSecond;
+  // log_message = log_message + " - Downloaded " + progressObj.percent + "%";
+  // log_message = log_message + " (" + progressObj.transferred + "/" + progressObj.total + ")";
+  // sendStatusToWindow(log_message);
 });
 autoUpdater.on("update-downloaded", (info) => {
   // Wait 5 seconds, then quit and install
