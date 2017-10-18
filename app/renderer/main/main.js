@@ -63,7 +63,7 @@ const render = () => {
     ele = (
       <Provider store={store}>
         <Main />
-      </Provider>, document.getElementById("app")
+      </Provider>
     );
   }
   

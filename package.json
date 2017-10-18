@@ -24,9 +24,8 @@
   "main": "./app/es6-init.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron .",
+    "production": "electron .",
     "compile": "cross-env NODE_ENV=production electron-compile",
-    "compile:babel": "babel app --out-dir out --copy-files",
-    "test:compile:babel": "electron out/app.js",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "release": "build"
