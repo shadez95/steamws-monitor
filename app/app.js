@@ -42,14 +42,7 @@ function sendStatusToWindow(text) {
 }
 
 autoUpdater.on("checking-for-update", () => {
-  if (mainWindow === null) {
-    notify("Steam Workshop Monitor", {
-      body: "Checking for update...",
-      icon: `file://${appRoot}/src/static/images/logos/favicon-96x96.png`
-    });
-  } else {
-    sendStatusToWindow("Checking for update...");
-  }
+  // Not going to notify if checking for udpate
 });
 autoUpdater.on("update-available", (info) => {
   notify("Steam Workshop Monitor", {
