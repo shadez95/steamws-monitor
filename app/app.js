@@ -65,13 +65,7 @@ autoUpdater.on("update-downloaded", (info) => {
   // Wait 5 seconds, then quit and install
   // In your application, you don't need to wait 5 seconds.
   // You could call autoUpdater.quitAndInstall(); immediately
-  if (mainWindow === null) {
-    notify("Steam Workshop Monitor", {
-      body: "Update downloaded; will install in 5 seconds"
-    });
-  } else {
-    sendStatusToWindow("Update downloaded; will install in 5 seconds");
-  }
+  updateNotifier("Update downloaded; will install in 5 seconds");
   setTimeout(function() {
     autoUpdater.quitAndInstall();  
   }, 5000);
