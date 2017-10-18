@@ -53,13 +53,9 @@ autoUpdater.on("update-not-available", (info) => {
   // Not going to notify there are no updates available
 });
 autoUpdater.on("error", (err) => {
-  if (mainWindow === null) {
-    notify("Steam Workshop Monitor", {
-      body: "Error in auto-updater."
-    });
-  } else {
-    sendStatusToWindow("Error in auto-updater.");
-  }
+  notify("Steam Workshop Monitor", {
+    body: "Error in auto-updater."
+  });
 });
 autoUpdater.on("download-progress", (progressObj) => {
   let log_message = "Download speed: " + progressObj.bytesPerSecond;
