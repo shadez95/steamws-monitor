@@ -5,6 +5,7 @@ import { autoUpdater } from "electron-updater";
 import log from "electron-log";
 import notify from "electron-main-notification";
 import appRoot from "app-root-path";
+import config from "electron-settings";
 
 //-------------------------------------------------------------------
 // Logging
@@ -319,7 +320,7 @@ app.on("ready", () => {
   if (process.env.NODE_ENV === "development") {
     enableLiveReload({strategy: "react-hmr"});
   }
-  
+
   // if first startup ---------------------------------
   if (process.argv[1] === "--squirrel-firstrun") {
     openSteamWSWindow();

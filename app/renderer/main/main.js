@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import config from "electron-settings";
 // import { Router, hashHistory } from "react-router";
 // import { syncHistoryWithStore } from "react-router-redux";
 
@@ -35,6 +36,8 @@ var isWin = /^win/.test(process.platform);
 var isLinux = /^linux/.test(process.platform);
 
 const appVersion = remote.app.getVersion();
+config.set("appVersion", appVersion, true);
+
 
 if (isWin) {
   window.platform = "win";
@@ -44,32 +47,32 @@ if (isWin) {
   window.platform = "notCompat";
 }
 
-if ( process.env.NODE_ENV !== "development") {
+const render = () => {
+  // NB: We have to re-require MyApp every time or else this won't work
+  // We also need to wrap our app in the AppContainer class
   const Main = require("./containers/main");
-  ReactDOM.render(
-    <Provider store={store}>
-      <Main />
-    </Provider>, document.getElementById("app")
-  );
-} else {
-  const render = () => {
-    // NB: We have to re-require MyApp every time or else this won't work
-    // We also need to wrap our app in the AppContainer class
-    const Main = require("./containers/main");
-    const AppContainer = require("react-hot-loader").AppContainer;
-    const ele = (
+  const AppContainer = require("react-hot-loader").AppContainer;
+  let ele = null;
+  if (process.env.NODE_ENV === "development") {
+    ele = (
       <AppContainer>
         <Provider store={store}>
           <Main />
         </Provider>
       </AppContainer>
     );
-    
-    ReactDOM.render(
-      ele, document.getElementById("app")
+  } else {
+    ele = (
+      <Provider store={store}>
+        <Main />
+      </Provider>, document.getElementById("app")
     );
-  };
+  }
   
-  render();
-  if (module.hot) { module.hot.accept(render); }
-}
+  ReactDOM.render(
+    ele, document.getElementById("app")
+  );
+};
+
+render();
+if (module.hot) { module.hot.accept(render); }

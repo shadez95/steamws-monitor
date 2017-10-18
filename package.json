@@ -1,6 +1,6 @@
 {
   "name": "steamws-monitor",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "An application that monitors steam workshop files for updates",
   "repository": {
     "type": "git",
@@ -15,47 +15,27 @@
     "workshop",
     "monitor"
   ],
-  "author": "Dixon Begay",
+  "author": "Dixon Begay <dixonbegay@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/dixon13/steamws-monitor/issues"
   },
   "homepage": "https://github.com/dixon13/steamws-monitor",
-  "main": "./src/es6-init.js",
+  "main": "./app/es6-init.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron .",
-    "compile": "cross-env NODE_ENV=production electron-compile --appDir . ./src",
+    "compile": "cross-env NODE_ENV=production electron-compile",
+    "compile:babel": "babel app --out-dir out --copy-files",
+    "test:compile:babel": "electron out/app.js",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "release": "build"
-  },
-  "devDependencies": {
-    "asar": "^0.13.0",
-    "babel-eslint": "^6.1.2",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-plugin-transform-class-properties": "^6.23.0",
-    "babel-preset-env": "^1.4.0",
-    "babel-preset-es2016-node5": "^1.1.2",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "devtron": "^1.4.0",
-    "electron-builder": "^19.28.4",
-    "electron-builder-squirrel-windows": "^19.37.0",
-    "electron-compilers": "^5.9.0",
-    "electron-devtools-installer": "^2.1.0",
-    "electron-prebuilt-compile": "1.6.2",
-    "eslint": "^3.19.0",
-    "eslint-plugin-react": "^6.10.3",
-    "npm-run-all": "^4.1.1",
-    "react-hot-loader": "^3.0.0-beta.7",
-    "recursive-readdir": "^2.2.1",
-    "redux-devtools": "^3.3.2"
   },
   "dependencies": {
     "app-root-path": "^2.0.1",
     "bootstrap": "^4.0.0-alpha.6",
     "cross-env": "^5.0.1",
-    "electron-compile": "^6.4.1",
+    "electron-compile": "^6.4.2",
     "electron-context-menu": "^0.9.1",
     "electron-log": "^2.2.9",
     "electron-main-notification": "^1.0.1",
@@ -80,21 +60,46 @@
     "request-promise": "^4.2.0",
     "rimraf": "^2.6.1"
   },
+  "devDependencies": {
+    "asar": "^0.13.0",
+    "babel-eslint": "^6.1.2",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-es2016-node5": "^1.1.2",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "devtron": "^1.4.0",
+    "electron-builder": "^19.28.4",
+    "electron-builder-squirrel-windows": "^19.37.0",
+    "electron-compilers": "^5.9.0",
+    "electron-devtools-installer": "^2.1.0",
+    "electron-prebuilt-compile": "1.6.2",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^6.10.3",
+    "npm-run-all": "^4.1.1",
+    "react-hot-loader": "^3.0.0-beta.7",
+    "recursive-readdir": "^2.2.1",
+    "redux-devtools": "^3.3.2"
+  },
   "build": {
     "appId": "com.nsis.steamws.SteamWS",
     "productName": "Steam Workshop Monitor",
     "asar": true,
     "copyright": "Copyright (C) 2017 Dixon Begay",
+    "directories": {
+      "app": "./"
+    },
     "win": {
       "target": "nsis",
-      "icon": "./src/static/images/logos/favicon.ico",
+      "icon": "./app/static/images/logos/favicon.ico",
       "publish": [
         "github"
       ]
     },
     "nsis": {
       "oneClick": true,
-      "installerIcon": "./src/static/images/logos/favicon.ico"
+      "installerIcon": "./app/static/images/logos/favicon.ico"
     },
     "publish": [
       {
