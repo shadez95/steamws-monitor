@@ -36,8 +36,6 @@ var isWin = /^win/.test(process.platform);
 var isLinux = /^linux/.test(process.platform);
 
 const appVersion = remote.app.getVersion();
-config.set("appVersion", appVersion, true);
-
 
 if (isWin) {
   window.platform = "win";

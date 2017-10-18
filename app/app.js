@@ -321,7 +321,12 @@ app.on("ready", () => {
     enableLiveReload({strategy: "react-hmr"});
   }
 
-
+  // 
+  const configAppVersion = config.get("appVersion", "");
+  if (configAppVersion !== app.getVersion()) {
+    config.set("appVersion", app.getVersion(), {prettify: true});
+    openSteamWSWindow();
+  }
 
   // if first startup ---------------------------------
   // if (process.argv[1] === "--squirrel-firstrun") {
