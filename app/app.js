@@ -321,10 +321,12 @@ app.on("ready", () => {
     enableLiveReload({strategy: "react-hmr"});
   }
 
+
+
   // if first startup ---------------------------------
-  if (process.argv[1] === "--squirrel-firstrun") {
-    openSteamWSWindow();
-  }
+  // if (process.argv[1] === "--squirrel-firstrun") {
+  //   openSteamWSWindow();
+  // }
 
   // Main loop that checks for updates
   // Imported from "./mainLoop.js" relative to directory
