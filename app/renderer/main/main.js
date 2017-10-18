@@ -49,9 +49,9 @@ const render = () => {
   // NB: We have to re-require MyApp every time or else this won't work
   // We also need to wrap our app in the AppContainer class
   const Main = require("./containers/main");
-  const AppContainer = require("react-hot-loader").AppContainer;
   let ele = null;
   if (process.env.NODE_ENV === "development") {
+    const AppContainer = require("react-hot-loader").AppContainer;
     ele = (
       <AppContainer>
         <Provider store={store}>
