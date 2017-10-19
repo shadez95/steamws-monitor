@@ -14,8 +14,6 @@ Clone this repository
 ### Requirements
 [Node.js](https://nodejs.org/en/download/) ([npm](http://npmjs.com) is installed with Node.js)
 
-Below you will install electron-forge globally and locally so that the binary and cmd files get installed into .bin files in the workspace directory for VS Code's debugger as it will make it easier to share the launch.json file. If you are not going to use Visual Studio Code, then you don't have to install electron-forge locally.
-
 ```
 # Install dependencies
 npm install
