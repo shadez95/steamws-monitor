@@ -19,10 +19,6 @@ Below you will install electron-forge globally and locally so that the binary an
 ```
 # Install dependencies
 npm install
-# Install electron-forge globally
-npm install -g electron-forge
-# Install electron-forge locally
-npm install electron-forge
 # Start app
 npm start
 ```
