@@ -1,6 +1,6 @@
 {
   "name": "steamws-monitor",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "An application that monitors steam workshop files for updates",
   "repository": {
     "type": "git",
