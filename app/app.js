@@ -47,7 +47,7 @@ autoUpdater.on("checking-for-update", () => {
   // Not going to notify if checking for udpate
 });
 autoUpdater.on("update-available", (info) => {
-  updateNotifier("Update available.");
+  updateNotifier("Update available. Downloading...");
 });
 autoUpdater.on("update-not-available", (info) => {
   // Not going to notify there are no updates available
