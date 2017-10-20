@@ -67,7 +67,8 @@ export default class GamePane extends Component {
     if (workshopPath.indexOf("undefined") === -1) {
       fs.remove(workshopPath, err => {
         if (err) return log.info("Workshop item failed to delete");
-        fs.remove(acfFile, () => {
+        fs.remove(acfFile, err => {
+          if (err) return log.info("Workshop acf file failed to delete");
           log.info("Successfully deleted workshop item");
           window.createNotification("Workshop item successfully deleted");
         });
