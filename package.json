@@ -40,6 +40,7 @@
     "electron-main-notification": "^1.0.1",
     "electron-settings": "^3.1.1",
     "electron-updater": "^2.13.0",
+    "fs-extra": "^4.0.2",
     "rcedit": "^0.9.0",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.4.2",
@@ -56,8 +57,7 @@
     "redux-promise-middleware": "^4.3.0",
     "redux-thunk": "^2.2.0",
     "request": "^2.81.0",
-    "request-promise": "^4.2.0",
-    "rimraf": "^2.6.1"
+    "request-promise": "^4.2.0"
   },
   "devDependencies": {
     "asar": "^0.13.0",

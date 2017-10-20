@@ -56,20 +56,22 @@ export default class GamePane extends Component {
       workshopPath = `${steamCMDPath}/steamapps/workshop/content/${data.appid}/${data.publishedFileID}`;
       acfFile = `${steamCMDPath}/steamapps/workshop/appworkshop_${data.appid}.acf`;
     }
-    const rimraf = require("rimraf");
+    const fs = require("fs-extra");
     // Make sure we don't accidentally delete some random folder/file if there is undefined in path
+    // remove file
+    fs.remove("/tmp/myfile", err => {
+      if (err) return console.error(err);
+    
+      console.log("success!");
+    });
     if (workshopPath.indexOf("undefined") === -1) {
-      rimraf(workshopPath, () => {
-        rimraf(acfFile, () => {
+      fs.remove(workshopPath, err => {
+        if (err) return log.info("Workshop item failed to delete");
+        fs.remove(acfFile, () => {
           log.info("Successfully deleted workshop item");
           window.createNotification("Workshop item successfully deleted");
         });
       });
-      // const fs = require("fs");
-      // fs.unlink(acfFile, err => {
-      //   if (err) throw err;
-      //   console.log("Successfully deleted acf file");
-      // });
     } else {
       log.error("Workshop item was not successfully deleted");
       log.debug(`Path: ${workshopPath}`);
