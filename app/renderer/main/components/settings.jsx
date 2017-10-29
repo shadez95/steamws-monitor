@@ -1,26 +1,6 @@
 import React, { Component }  from "react";
 import { InputGroup, InputGroupAddon, Input, Button, Col } from "reactstrap";
 import log from "electron-log";
-// import { connect } from "react-redux";
-// import { bindActionCreators } from "redux";
-
-// import * as settingsActionCreators from "../../store/actions/settingsActions";
-// import * as loadingActionCreators from "../../store/actions/loadingActions";
-
-// const mapStateToProps = (state) => {
-//   return {
-//     steamCMDLoc: state.settings.steamCMDLoc,
-//     fetching: state.settings.fetching,
-//     error: state.settings.error
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     settingsActions: bindActionCreators(settingsActionCreators, dispatch),
-//     loadingActions: bindActionCreators(loadingActionCreators, dispatch)
-//   };
-// };
 
 class Settings extends Component {
   constructor(props) {
