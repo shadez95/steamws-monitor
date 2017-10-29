@@ -5,28 +5,6 @@ import SplitPane from "react-split-pane";
 import CustomNav from "./nav";
 import PaneContent from "./paneContent";
 
-// {[
-//   {
-//     'gameName': 'Arma 3',
-//     'imagePreview': imageObj,
-//     'appID': '107410',
-//     'workshopItemList': [
-//       {
-//         'workshopID': 'workshopid',
-//         'workshopItemName': 'workshopitemname',
-//         'workshopImagePreview': imageOjb,
-//         'workshopItemUpdateStamp': 'timeStamp',
-//         'lastChecked': 'timeStamp'
-//       },
-//       {
-//         // another workshop item and it's data
-//       }
-//     ]
-//   },
-//   {
-//     // another game and it's workshop items
-//   }
-// ]}
 const mapStateToProps = state => {
   return {
     loading: state.loading.loading,
