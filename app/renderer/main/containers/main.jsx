@@ -1,9 +1,11 @@
 import React, { Component }  from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import SplitPane from "react-split-pane";
 
 import CustomNav from "./nav";
 import PaneContent from "./paneContent";
+import Drawer from "./drawer";
 
 const mapStateToProps = state => {
   return {
@@ -39,16 +41,7 @@ class Main extends Component {
       <div>
         <div className={this.state.loading}></div>
         <div id="cover" style={divStyle}></div>
-        <SplitPane split="vertical" primary="first" defaultSize={200}>
-          <div>
-            <CustomNav />
-          </div>
-          <div>
-            <div className="container-fluid" style={scrollStyle}>
-              <PaneContent />
-            </div>
-          </div>
-        </SplitPane>
+        <Drawer />
       </div>
     );
   }
